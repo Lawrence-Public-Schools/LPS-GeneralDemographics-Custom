@@ -13,7 +13,7 @@
     $testURL = $j(document)[0].documentURI;
 
 	if ($testURL.indexOf("admin/students/generaldemographics.html") !== -1) {
-		$j(document).ready(ChangeNameTextGD);
+		$j(document).ready(ChangeNameTextGD());
     }
 
 </script>
