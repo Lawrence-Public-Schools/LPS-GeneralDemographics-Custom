@@ -1,7 +1,7 @@
 <!-- use jQuery to replace text -->
 <script type="text/javascript">
 
-	 function ChangeNameText(){
+	 function ChangeNameTextGD(){
 		var $NameTD;
 		var $NameTDtext;
 		$NameTD = $j("input#lastName").parent().parent().children("td").first();
@@ -13,7 +13,7 @@
     $testURL = $j(document)[0].documentURI;
 
 	if ($testURL.indexOf("admin/students/generaldemographics.html") !== -1) {
-		/*$j(document).ready(ChangeNameText);*/
+		$j(document).ready(ChangeNameTextGD);
     }
 
 </script>
