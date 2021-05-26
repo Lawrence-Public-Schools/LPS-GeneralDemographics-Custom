@@ -3,13 +3,13 @@
 <table>
 <tbody>
 <tr id="trfieldStudent_Mobile">
-    <td class="bold">Student Mobile</td>
+    <td class="bold">Student Mobile &tilde;</td>
                     <td>
                         <input type="text" id="fieldStudent_Mobile" name="[Students.U_Students_Extension]student_mobile" value="" size="17">
                     </td>
 </tr>
 <tr id="trfieldStudent_Personalemail">
-    <td class="bold">Student Personal Email</td>
+    <td class="bold">Student Personal Email &tilde;</td>
                     <td>
                         <input type="text" id="fieldStudent_Personalemail" name="[Students.U_Students_Extension]student_personalemail" value="" size="17">
                     </td>
