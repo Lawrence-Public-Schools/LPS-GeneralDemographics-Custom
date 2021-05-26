@@ -1,0 +1,24 @@
+<!-- use jQuery to replace text -->
+<div id="LPS-GDCustomhiddentable" style="display: none;">
+<table>
+<tbody>
+<tr id="trfieldStudent_Personalemail">
+    <td class="bold">Student Personal Email</td>
+                    <td>
+                        <input type="text" id="fieldStudent_Personalemail" name="[Students.U_Students_Extension]student_personalemail" value="" size="17">
+                    </td>
+</tr>
+</tbody>
+</table>
+</div>
+<script type="text/javascript">
+
+    function AddGDfields(){
+    $j("input#fieldHomePhone").parent().parent().after($j("tr#trfieldStudent_Personalemail"))
+    
+    $j("div#LPS-GDCustomhiddentable").remove();
+    }
+
+        $j(document).ready(AddGDfields);
+
+</script>
