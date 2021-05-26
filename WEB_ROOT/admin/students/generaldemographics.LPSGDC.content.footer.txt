@@ -2,6 +2,12 @@
 <div id="LPS-GDCustomhiddentable" style="display: none;">
 <table>
 <tbody>
+<tr id="trfieldStudent_Mobile">
+    <td class="bold">Student Mobile</td>
+                    <td>
+                        <input type="text" id="fieldStudent_Mobile" name="[Students.U_Students_Extension]student_mobile" value="" size="17">
+                    </td>
+</tr>
 <tr id="trfieldStudent_Personalemail">
     <td class="bold">Student Personal Email</td>
                     <td>
@@ -15,6 +21,7 @@
 
     function AddGDfields(){
     $j("input#fieldHomePhone").parent().parent().after($j("tr#trfieldStudent_Personalemail"))
+    $j("input#fieldHomePhone").parent().parent().after($j("tr#trfieldStudent_Mobile"))
     
     $j("div#LPS-GDCustomhiddentable").remove();
     }
