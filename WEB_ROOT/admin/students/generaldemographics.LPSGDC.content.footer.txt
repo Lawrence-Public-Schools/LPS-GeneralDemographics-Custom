@@ -27,12 +27,13 @@
   }
     
   function LPSGDRestyle(){
+    /*mark up all rows that will be within Name Section*/
+    $j("input#lastName").parent().parent().addClass( "trsectionName" )
+    $j("input#firstName").parent().parent().addClass( "trsectionName" )
+    $j("input#middleName").parent().parent().addClass( "trsectionName" )
+    $j("input#legalFirstName").parent().parent().addClass( "trsectionName" )
+    $j("input#legalSuffixTextInput").parent().parent().addClass( "trsectionName" )
     /*mark up all rows that will be within Address Section*/
-    $j("input#lastName").parent().parent().addClass( "trsectionAddress" )
-    $j("input#firstName").parent().parent().addClass( "trsectionAddress" )
-    $j("input#middleName").parent().parent().addClass( "trsectionAddress" )
-    $j("input#legalFirstName").parent().parent().addClass( "trsectionAddress" )
-    $j("input#legalSuffixTextInput").parent().parent().addClass( "trsectionAddress" )
     $j("td:contains('Home Address')").parent().addClass( "trsectionAddress" )
     $j("td:contains('~[text:psx.html.admin_students.generaldemographics.home_address]')").parent().addClass( "trsectionAddress" )
     $j("input#pstreet").parent().parent().addClass( "trsectionAddress" )
@@ -53,10 +54,16 @@
     $j("span#validateMailingAddress").parent().parent().addClass( "trsectionAddress" )
     
     $VarEverythingElse = $j("form > div.box-round > table.linkDescList > tbody > tr")
+    $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionName")
     $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionAddress")
     $VarEverythingElse.addClass( "trsectionEverythingElse" )
+    
+    $j("tr.trsectionName").wrapAll('<div id="NameSection" class=""><div class="row"></div></div>')
+    $j("div#NameSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Name</h2>')
+    
     $j("tr.trsectionAddress").wrapAll('<div id="AddressSection" class=""><div class="row"></div></div>')
     $j("div#AddressSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Address</h2>')
+    
     $VarEverythingElse.wrapAll('<div id="EverythingelseSection" class=""><div class="row"></div></div>')
     $j("div#EverythingelseSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Everything Else</h2>')
     
