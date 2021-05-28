@@ -19,13 +19,63 @@
 </div>
 <script type="text/javascript">
 
-    function AddGDfields(){
-    $j("input#fieldHomePhone").parent().parent().after($j("tr#trfieldStudent_Personalemail"))
-    $j("input#fieldHomePhone").parent().parent().after($j("tr#trfieldStudent_Mobile"))
+function AddGDfields(){
+  $j("input#fieldHomePhone").parent().parent().after($j("tr#trfieldStudent_Personalemail"))
+  $j("input#fieldHomePhone").parent().parent().after($j("tr#trfieldStudent_Mobile"))
     
-    $j("div#LPS-GDCustomhiddentable").remove();
-    }
+  $j("div#LPS-GDCustomhiddentable").remove();
+}
+    
+function LPSGDRestyle(){
+  /*mark up all rows that will be within Name Section*/
+  $j("input#lastName").parent().parent().addClass( "trsectionName" )
+  $j("input#firstName").parent().parent().addClass( "trsectionName" )
+  $j("input#middleName").parent().parent().addClass( "trsectionName" )
+  $j("input#legalFirstName").parent().parent().addClass( "trsectionName" )
+  $j("input#legalSuffixTextInput").parent().parent().addClass( "trsectionName" )
+  /*mark up all rows that will be within Address Section*/
+  $j("td:contains('Home Address')").parent().addClass( "trsectionAddress" )
+  $j("td:contains('~[text:psx.html.admin_students.generaldemographics.home_address]')").parent().addClass( "trsectionAddress" )
+  $j("input#pstreet").parent().parent().addClass( "trsectionAddress" )
+  $j("input#papt").parent().parent().addClass( "trsectionAddress" )
+  $j("input#pcity").parent().parent().addClass( "trsectionAddress" )
+  $j("select#pstate").parent().parent().addClass( "trsectionAddress" )
+  $j("input#pzip").parent().parent().addClass( "trsectionAddress" )
+  $j("input#pgeocode").parent().parent().addClass( "trsectionAddress" )
+  $j("span#validatePrimaryAddress").parent().parent().addClass( "trsectionAddress" )
+  $j("td:contains('Mailing Address -')").parent().addClass( "trsectionAddress" )
+  $j("td:contains('~[text:psx.html.admin_students.generaldemographics.mailing_address_]')").parent().addClass( "trsectionAddress" )
+  $j("input#mstreet").parent().parent().addClass( "trsectionAddress" )
+  $j("input#mapt").parent().parent().addClass( "trsectionAddress" )
+  $j("input#mstate").parent().parent().addClass( "trsectionAddress" )
+  $j("input#mzip").parent().parent().addClass( "trsectionAddress" )
+  $j("input#mstate").parent().parent().addClass( "trsectionAddress" )
+  $j("input#mgeocode").parent().parent().addClass( "trsectionAddress" )
+  $j("span#validateMailingAddress").parent().parent().addClass( "trsectionAddress" )
+  
+  $VarEverythingElse = $j("form > div.box-round > table.linkDescList > tbody > tr")
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionName")
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionAddress")
+  $VarEverythingElse.addClass( "trsectionEverythingElse" )
+    
+  $j("tr.trsectionName").wrapAll('<div id="NameSection" class=""><div class="row"></div></div>')
+  $j("div#NameSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Name</h2>')
+  
+  $j("tr.trsectionAddress").wrapAll('<div id="AddressSection" class=""><div class="row"></div></div>')
+  $j("div#AddressSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Address</h2>')
+  
+  $VarEverythingElse.wrapAll('<div id="EverythingelseSection" class=""><div class="row"></div></div>')
+  $j("div#EverythingelseSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Everything Else</h2>')
+    
+  $j('form > div.box-round > table.linkDescList > tbody > h2').each(function(){
+    hideCollapseClasses($j(this));
+    hideCollapseText($j(this));
+    hideCollapseTarget($j(this));
+  });
 
-        $j(document).ready(AddGDfields);
+}
+
+$j(document).ready(AddGDfields);
+$j(document).ready(LPSGDRestyle);
 
 </script>
