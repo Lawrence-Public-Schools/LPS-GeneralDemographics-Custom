@@ -4,15 +4,15 @@
 <tbody>
 <tr id="trfieldStudent_Mobile">
     <td class="bold">Student Mobile &tilde;</td>
-                    <td>
-                        <input type="text" id="fieldStudent_Mobile" name="[Students.U_Students_Extension]student_mobile" value="" size="17">
-                    </td>
+    <td>
+      <input type="text" id="fieldStudent_Mobile" name="[Students.U_Students_Extension]student_mobile" value="" size="17">
+    </td>
 </tr>
 <tr id="trfieldStudent_Personalemail">
     <td class="bold">Student Personal Email &tilde;</td>
-                    <td>
-                        <input type="text" id="fieldStudent_Personalemail" name="[Students.U_Students_Extension]student_personalemail" value="" size="17">
-                    </td>
+    <td>
+      <input type="text" id="fieldStudent_Personalemail" name="[Students.U_Students_Extension]student_personalemail" value="" size="17">
+    </td>
 </tr>
 </tbody>
 </table>
@@ -27,43 +27,213 @@ function AddGDfields(){
 }
     
 function LPSGDRestyle(){
-  /*mark up all rows that will be within Name Section*/
-  $j("input#lastName").parent().parent().addClass( "trsectionName" )
-  $j("input#firstName").parent().parent().addClass( "trsectionName" )
-  $j("input#middleName").parent().parent().addClass( "trsectionName" )
-  $j("input#legalFirstName").parent().parent().addClass( "trsectionName" )
-  $j("input#legalSuffixTextInput").parent().parent().addClass( "trsectionName" )
-  /*mark up all rows that will be within Address Section*/
-  $j("td:contains('Home Address')").parent().addClass( "trsectionAddress" )
-  $j("td:contains('~[text:psx.html.admin_students.generaldemographics.home_address]')").parent().addClass( "trsectionAddress" )
-  $j("input#pstreet").parent().parent().addClass( "trsectionAddress" )
-  $j("input#papt").parent().parent().addClass( "trsectionAddress" )
-  $j("input#pcity").parent().parent().addClass( "trsectionAddress" )
-  $j("select#pstate").parent().parent().addClass( "trsectionAddress" )
-  $j("input#pzip").parent().parent().addClass( "trsectionAddress" )
-  $j("input#pgeocode").parent().parent().addClass( "trsectionAddress" )
-  $j("span#validatePrimaryAddress").parent().parent().addClass( "trsectionAddress" )
-  $j("td:contains('Mailing Address -')").parent().addClass( "trsectionAddress" )
-  $j("td:contains('~[text:psx.html.admin_students.generaldemographics.mailing_address_]')").parent().addClass( "trsectionAddress" )
-  $j("input#mstreet").parent().parent().addClass( "trsectionAddress" )
-  $j("input#mapt").parent().parent().addClass( "trsectionAddress" )
-  $j("input#mstate").parent().parent().addClass( "trsectionAddress" )
-  $j("input#mzip").parent().parent().addClass( "trsectionAddress" )
-  $j("input#mstate").parent().parent().addClass( "trsectionAddress" )
-  $j("input#mgeocode").parent().parent().addClass( "trsectionAddress" )
-  $j("span#validateMailingAddress").parent().parent().addClass( "trsectionAddress" )
+
+  /*              
+    Student Information
+  -----------------Name--------------- */
+  $j("input #lastName").parent().parent().addClass( "trsectionStudent student-name" )
+  $j("input #firstName").parent().parent().addClass( "trsectionStudent student-name" )
+  $j("input #middleName").parent().parent().addClass( "trsectionStudent student-name" )
+  /* ----------Home_Address----------- */
+  $j("td:contains('Home Address')").parent().addClass( "trsectionStudent student-address" )
+  $j("td:contains('~[text:psx.html.admin_students.generaldemographics.home_address]')").parent().addClass( "trsectionStudent student-address" )
+  /*st, apt*/
+  $j("input #pstreet").parent().parent().addClass( "trsectionStudent student-address" )
+  $j("input #papt").parent().parent().addClass( "trsectionStudent student-address" )
+  /*city, state, zip*/
+  $j("input #pcity").parent().parent().addClass( "trsectionStudent student-address" )
+  $j("select #pstate").parent().parent().addClass( "trsectionStudent student-address" )
+  $j("input #pzip").parent().parent().addClass( "trsectionStudent student-address" )
+  /*utility*/
+  $j("input #pgeocode").parent().parent().addClass( "trsectionStudent student-address" )
+  $j("span #validatePrimaryAddress").parent().parent().addClass( "trsectionStudent student-address" ) 
+  /* ---------Mailing_Address--------- */
+  $j("td:contains('Mailing Address -')").parent().addClass( "trsectionStudent student-mail" )
+  $j("td:contains('~[text:psx.html.admin_students.generaldemographics.mailing_address_]')").parent().addClass( "trsectionStudent student-mail" )
+  /*mail(st, apt)*/
+  $j("input #mstreet").parent().parent().addClass( "trsectionStudent student-mail" )
+  $j("input #mapt").parent().parent().addClass( "trsectionStudent student-mail" )
+  /*mail(city, mstate, zip)*/
+  $j("input #mcity").parent().parent().addClass( "trsectionStudent student-mail" )
+  $j("select #mstate").parent().parent().addClass( "trsectionStudent student-mail" )
+  $j("input #mzip").parent().parent().addClass( "trsectionStudent student-mail" )
+  /*mail(utility)*/
+  $j("input #mgeocode").parent().parent().addClass( "trsectionStudent student-mail" )
+  $j("span #validateMailingAddress").parent().parent().addClass( "trsectionStudent student-mail" )
+  /* -----------Phone/Email----------- */
+  $( "input #fieldHomePhone" ).parent().parent().addClass( "trsectionStudent student-contactInfo" )
+  $( "input #fieldStudent_Mobile" ).parent().parent().addClass( "trsectionStudent student-contactInfo" )
+  $( "input #fieldStudent_Personalemail" ).parent().parent().addClass( "trsectionStudent student-contactInfo" )
+  /* 
+    TODO: Fields Needed
+      -LPS email 
+  */
   
+  /* Guardian/Contacts Information 
+  -------------------------------- */
+  /*$( "input #" ).parent().parent().addClass( "trsectionContacts" )
+  /*
+    TODO: Fields Needed
+      -Contacts
+      -Emergency Contacts
+      -Original Guardian 1 (old)
+      -Original Guardian 2 (old)
+      -Original Demo Father (old)
+      -Original Demo Mother (old)
+  */
+  
+  /* Ethnicity/Race/Other State Fields
+  -----------Ethnicity_&_Race--------- */
+  /*
+    Notes:
+      -MA Race code is static(no id)?
+      -Two 'type = "hidden"' inputs above race selection box:
+        ids = "hiddenFieldSaveRace", "r_none_storage"
+      -Ethnicity & Race selections are nested in two <div> elements
+        .parent() x2
+        Only applying class to row, only need one element from each row
+  */
+  /*Ethnicity Selection*/
+  $( "input #radioFedEthYes" ).parent().parent().parent().parent().addClass( "trsectionEthRace ethrace-select" )
+  /*Race Selection*/
+  $( "input #race_A" ).parent().parent().parent().parent().addClass( "trsectionEthRace ethrace-select" )
+  /*
+    TODO: Fields Needed
+      -MA Race Code
+  */
+  /* -------Other_State_General------- */
+  /*$( "input #" ).parent().parent().addClass( "trsectionEthRace ethrace-other" )
+  /*
+    TODO: Fields Needed
+      -Exclude from state reporting
+      -Include in SIMS report
+      -Include in SASID report
+      -City/Town of birth
+      -Family Military Status
+  */
+ 
+  
+  /* LPS Office Information
+  --------General_Info----- */
+  /*$( "input #" ).parent().parent().addClass( "trsectionOffice office-general" )
+  /*
+    TODO: Fields Needed
+      -Distric entry date***
+      -Distric entry grade***
+      -School code
+  */ 
+  /* -------EL_Info-------- */
+  /*$( "input #" ).parent().parent().addClass( "trsectionOffice office-el" )
+  $( "input #" ).parent().parent().addClass( "trsectionOffice office-el" )
+  /*
+    TODO: Fields Needed
+      -EL code
+      -FLEP date
+  */
+  /* ------SPED_Info------- */
+  /*$( "input #" ).parent().parent().addClass( "trsectionOffice office-sped" )
+  $( "input #" ).parent().parent().addClass( "trsectionOffice office-sped" )
+  /*
+    TODO: Fields Needed
+      -SPED code
+      -504(?)
+  */
+  
+  /* LPS Graduation
+  --------Info----- */
+  $( "input #fieldGradYear" ).parent().parent().addClass( "trsectionGrad" )
+  /*
+    TODO: Fields Needed
+      -Grad date
+      -DESE cohort
+      -Post-Grad plans (DOE033)***
+      -Graduate, completed Mass Core Curriculum (DOE037)***
+  */
+  
+  /* Legal Information
+  ------Name/Gender------ */
+  /*legal name*/
+  $j("input #legalLastName").parent().parent().addClass( "trsectionLegal" )
+  $j("input #legalFirstName").parent().parent().addClass( "trsectionLegal" )
+  $j("input #legalMiddleName").parent().parent().addClass( "trsectionLegal" )
+  $j("input #legalSuffixTextInput").parent().parent().addClass( "trsectionLegal" )
+  /*legal gender*/
+  $j("input #legalGenderSelect").parent().parent().addClass( "trsectionLegal" )
+  
+  /* Other-Unused(Builtin)
+  -----------Info--------- */
+  $( "input #fieldArea" ).parent().parent().addClass( "trsectionOther other-builtIn" )
+  $( "input #fieldGuardianship" ).parent().parent().addClass( "trsectionOther other-builtIn" )
+  $( "input #fieldSSN" ).parent().parent().addClass( "trsectionOther other-builtIn" )
+  $( "input #fieldStuNum" ).parent().parent().addClass( "trsectionOther builtIn" )
+  $( "input #fieldPrevStuId" ).parent().parent().addClass( "trsectionOther other-builtIn" )
+  $( "input #field" ).parent().parent().addClass( "trsectionOther other-builtIn" )
+  $( "input #fieldGuardianEmail" ).parent().parent().addClass( "trsectionOther other-builtIn" )
+  $( "select #primaryethnicity" ).parent().parent().addClass( "trsectionOther other-builtIn" )
+  /*
+    TODO: Fields Needed
+      -Grade level (Currently static, no id)
+  */
+  
+  /* Other-Unused(LPS)
+  ---------Info------- */
+  /*$( "input #" ).parent().parent().addClass( "trsectionOther other-lps" )
+  /*
+    TODO: Fields Needed
+      -NCLB/Title I School Choice
+      -First year LEP Student (DOE021)
+      -English Language Learner (DOE025)
+      -ELL Program Status (DOE026)
+      -State Assigned Student Identifier (SASID)
+      -Immigrant
+      -Enrollment Data
+      -Transferring From
+      -Birth State
+      -Birth Country (Rename to 'Country of Origin')
+      -Team Flag
+  */
+   
+  /*============'EVERYTHING ELSE' Catcher============*/
+  mark up all rows that will be within "Everthing Else" Section
   $VarEverythingElse = $j("form > div.box-round > table.linkDescList > tbody > tr")
-  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionName")
-  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionAddress")
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionStudent")
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionContacts")
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionEthRace")
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionOffice")
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionGrad")
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionLegal")
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionOther")
   $VarEverythingElse.addClass( "trsectionEverythingElse" )
-    
-  $j("tr.trsectionName").wrapAll('<div id="NameSection" class=""><div class="row"></div></div>')
-  $j("div#NameSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Name</h2>')
   
-  $j("tr.trsectionAddress").wrapAll('<div id="AddressSection" class=""><div class="row"></div></div>')
-  $j("div#AddressSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Address</h2>')
+  /* Wrap Student Section */
+  $j("tr.trsectionStudent").wrapAll('<div id="StudentSection" class=""><div class="row"></div></div>')
+  $j("div#StudentSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Student Information</h2>')
   
+  /* Wrap Contacts Section */
+  $j("tr.trsectionContacts").wrapAll('<div id="ContactsSection" class=""><div class="row"></div></div>')
+  $j("div#ContactsSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Contacts</h2>')
+  
+  /* Wrap Race Section */
+  $j("tr.trsectionEthRace").wrapAll('<div id="EthRaceSection" class=""><div class="row"></div></div>')
+  $j("div#EthRaceSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Ethnicity/Race Information</h2>')
+  
+  /* Wrap Office Section*/
+  $j("tr.trsectionOffice").wrapAll('<div id="OfficeSection" class=""><div class="row"></div></div>')
+  $j("div#OfficeSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Administrative Information</h2>')
+  
+  /* Wrap Grad Section */
+  $j("tr.trsectionGrad").wrapAll('<div id="GradSection" class=""><div class="row"></div></div>')
+  $j("div#GradSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Graduation Information</h2>')
+  
+  /* Wrap Legal Section */
+  $j("tr.trsectionLegal").wrapAll('<div id="LegalSection" class=""><div class="row"></div></div>')
+  $j("div#LegalSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Legal Information</h2>')
+  
+  /* Wrap Other Section */
+  $j("tr.trsectionOther").wrapAll('<div id="OtherSection" class=""><div class="row"></div></div>')
+  $j("div#OtherSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Other</h2>')
+  
+  /* Wrap 'Everything Else' (fields that exist but haven't been given a proper section) */
   $VarEverythingElse.wrapAll('<div id="EverythingelseSection" class=""><div class="row"></div></div>')
   $j("div#EverythingelseSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Everything Else</h2>')
     
@@ -78,4 +248,11 @@ function LPSGDRestyle(){
 $j(document).ready(AddGDfields);
 $j(document).ready(LPSGDRestyle);
 
+/*
+ NOTES:
+  + Every main section should have a Go to Top/Bottom
+	+ '***' means new field added that wasn't originally there.
+	+ Name the Menu Item LPS Demographics
+*/
 </script>
+
