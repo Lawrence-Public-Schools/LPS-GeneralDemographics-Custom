@@ -1,0 +1,251 @@
+function AddGDfields(){
+  var $trHomePhone =  $j( "input#fieldHomePhone" ).parent().parent();
+  var $trRaceCode = $j( "td:contains('MA Race Code')" ).parent();
+  var $trGradYear = $j( "input#fieldGradYear" ).parent().parent();
+  var $trStuNum = $j( "input#fieldStuNum" ).parent().parent();
+  
+  $trHomePhone.after( $j("tr#trfieldStudent_LPSemail") );
+  $trHomePhone.after( $j("tr#trfieldStudent_Personalemail") );
+  $trHomePhone.after( $j("tr#trfieldStudent_Mobile") );
+  
+  $trRaceCode.after( $j("tr#trselectMilitary") );
+  $trRaceCode.after( $j("tr#trfieldBirthCity") );
+  $trRaceCode.after( $j("tr#trcheckboxIncludeSASID") );
+  $trRaceCode.after( $j("tr#trcheckboxIncludeSIMS") );
+  $trRaceCode.after( $j("tr#trcheckboxExcludeState") );
+  
+  /*
+    NOTES:
+      -Tossing rows in after RaceCode, just need them in the table and don't think original placement matters too much 
+      -Date fields not showing up
+  */
+  $trRaceCode.after( $j("tr#trselect504") );
+  $trRaceCode.after( $j("tr#trfieldSPEDCode") );
+  $trRaceCode.after( $j("tr#trfieldFLEPDate") );
+  $trRaceCode.after( $j("tr#trfieldELCode") );
+  $trRaceCode.after( $j("tr#trfieldSchoolCode") );
+  $trRaceCode.after( $j("tr#trselectEntryGrade") );
+  $trRaceCode.after( $j("tr#trfieldEntryDate") );
+  
+  $trGradYear.after( $j("tr#trselectGradCoreCompletion") );
+  $trGradYear.after( $j("tr#trselectGradPlan") );
+  $trGradYear.after( $j("tr#trfieldCohort") );
+  $trGradYear.after( $j("tr#trfieldGradDate") );
+  
+  /* TODO: Legal fields */
+  
+  $j( "input#fieldPrevStuId" ).parent().parent().after( $j("tr#trselectGradeLvl") )
+  
+  /* Putting other-lps items after other-builtIn items */
+  $trStuNum.after( $j("tr#trselectTeamFlag") );
+  $trStuNum.after( $j("tr#trselectOriginCountry") );
+  $trStuNum.after( $j("tr#trselectBirthState") );
+  $trStuNum.after( $j("tr#trfieldTransferFrom") );
+  $trStuNum.after( $j("tr#trselectEnrollmentStatus") );
+  $trStuNum.after( $j("tr#trcheckboxIsImmigrant") );
+  $trStuNum.after( $j("tr#trfieldSASID") );
+  $trStuNum.after( $j("tr#trselectELStatus") );
+  $trStuNum.after( $j("tr#trcheckboxIsEL") );
+  $trStuNum.after( $j("tr#trselectFirstYearEL") );
+
+  $j( "div#LPS-GDCustomhiddentable" ).remove();
+}
+    
+function LPSGDRestyle() {
+
+  /*              
+    Student Information
+  -----------------Name--------------- */
+  $j( "input#lastName" ).parent().parent().addClass( "trsectionStudent student-name" ); /*First = 003, Middle = 004, Last = 005*/
+  /* ----------Home_Address----------- */
+  $j( "td:contains('Home Address')" ).parent().addClass( "trsectionStudent student-address" );
+  $j( "td:contains('~[text:psx.html.admin_students.generaldemographics.home_address]')" ).parent().addClass( "trsectionStudent student-address" );
+  /*st, apt*/
+  $j( "input#pstreet" ).parent().parent().addClass( "trsectionStudent student-address" );
+  $j( "input#papt" ).parent().parent().addClass( "trsectionStudent student-address" );
+  /*city, state, zip*/
+  $j( "input#pcity" ).parent().parent().addClass( "trsectionStudent student-address" ); /* DOE014 */
+  $j( "select#pstate" ).parent().parent().addClass( "trsectionStudent student-address" );
+  $j( "input#pzip" ).parent().parent().addClass( "trsectionStudent student-address" ); /* DOE051 */
+  /*utility*/
+  $j( "input#pgeocode" ).parent().parent().addClass( "trsectionStudent student-address" );
+  $j( "span#validatePrimaryAddress" ).parent().parent().addClass( "trsectionStudent student-address" );
+  /* ---------Mailing_Address--------- */
+  $j( "td:contains('Mailing Address -')" ).parent().addClass( "trsectionStudent student-mail" );
+  $j( "td:contains('~[text:psx.html.admin_students.generaldemographics.mailing_address_]')" ).parent().addClass( "trsectionStudent student-mail" );
+  /*mail(st, apt)*/
+  $j( "input#mstreet" ).parent().parent().addClass( "trsectionStudent student-mail" );
+  $j( "input#mapt" ).parent().parent().addClass( "trsectionStudent student-mail" );
+  /*mail(city, mstate, zip)*/
+  $j( "input#mcity" ).parent().parent().addClass( "trsectionStudent student-mail" );
+  $j( "select#mstate" ).parent().parent().addClass( "trsectionStudent student-mail" );
+  $j( "input#mzip" ).parent().parent().addClass( "trsectionStudent student-mail" );
+  /*mail(utility)*/
+  $j( "input#mgeocode" ).parent().parent().addClass( "trsectionStudent student-mail" );
+  $j( "span#validateMailingAddress" ).parent().parent().addClass( "trsectionStudent student-mail" );
+  /* -----------Phone/Email----------- */
+  $j( "input#fieldHomePhone" ).parent().parent().addClass( "trsectionStudent student-contactInfo" );
+  $j( "tr#trfieldStudent_Mobile" ).addClass( "trsectionStudent student-contactInfo" );
+  $j( "tr#trfieldStudent_Personalemail" ).addClass( "trsectionStudent student-contactInfo" );
+  $j( "tr#trfieldStudent_LPSemail" ).addClass( "trsectionStudent student-contactInfo" );
+  
+  /* Guardian/Contacts Information 
+  -------------------------------- */
+  /*$( "input #" ).parent().parent().addClass( "trsectionContacts" )
+  /*
+    TODO: Fields Needed
+      -Contacts
+      -Emergency Contacts
+      -Original Guardian 1 (old)
+      -Original Guardian 2 (old)
+      -Original Demo Father (old)
+      -Original Demo Mother (old)
+  */
+  
+  /* Ethnicity/Race/Other State Fields
+  -----------Ethnicity_&_Race---------DOE[008, 010, 029]
+    Notes:
+      -Two 'type = "hidden"' inputs above race selection box:
+        ids = "hiddenFieldSaveRace", "r_none_storage"
+      -Ethnicity & Race selections are nested in two <div> elements
+        .parent() x2
+  */
+  $j( "input#radioFedEthYes" ).parent().parent().parent().parent().addClass( "trsectionEthRace ethrace-select" );  /* DOE010 (Hispanic/Latino) */
+  $j( "input#race_A" ).parent().parent().parent().parent().addClass( "trsectionEthRace ethrace-select" ); /* DOE010 (Race) */
+  $j( "td:contains('MA Race Code')" ).parent().addClass( "trsectionEthRace ethrace-select" ); /* DOE010 Race code (could be autoCalculated from two fields above?)  */
+  /* -------Other_State_General------- */
+  $j( "tr#trcheckboxExcludeState" ).addClass( "trsectionEthRace ethrace-other" );
+  $j( "tr#trcheckboxIncludeSIMS" ).addClass( "trsectionEthRace ethrace-other" );
+  $j( "tr#trcheckboxIncludeSASID" ).addClass( "trsectionEthRace ethrace-other" );
+  $j( "tr#trfieldBirthCity" ).addClass( "trsectionEthRace ethrace-other" );  /* DOE008 */
+  $j( "tr#trselectMilitary" ).addClass( "trsectionEthRace ethrace-other" );  /* DOE029 */
+  
+  /* LPS Office Information
+  --------General_Info----- */
+  $j( "tr#trfieldEntryDate" ).addClass( "trsectionOffice office-general" );
+  $j( "tr#trselectEntryGrade" ).addClass( "trsectionOffice office-general" ); 
+  $j( "tr#trfieldSchoolCode" ).addClass( "trsectionOffice office-general" ); /* DOE015 */
+  /* -------EL_Info-------- */
+  $j( "tr#trfieldELCode" ).addClass( "trsectionOffice office-el" ); /* DOE027 or 24? maybe 41? */
+  $j( "tr#trfieldFLEPDate" ).addClass( "trsectionOffice office-el" );
+  /* ------SPED_Info------- */
+  $j( "tr#trfieldSPEDCode" ).addClass( "trsectionOffice office-el" ); /* DOE032, 34, 36, 38, or 40? */
+  $j( "tr#trselect504" ).addClass( "trsectionOffice office-el" ); /* DOE039 */
+  
+  /* LPS Graduation
+  --------Info----- */
+  $j( "input#fieldGradYear" ).parent().parent().addClass( "trsectionGrad" );
+  $j( "tr#trselectGradCoreCompletion" ).addClass( "trsectionGrad" ); /* DOE037 */
+  $j( "tr#trselectGradPlan" ).addClass( "trsectionGrad" ); /* DOE033 */
+  $j( "tr#trfieldCohort" ).addClass( "trsectionGrad" );
+  $j( "tr#trfieldGradDate" ).addClass( "trsectionGrad" );
+  
+  /* Legal Information
+  ------Name/Gender------ */
+  /*legal name*/
+  $j("input#legalLastName").parent().parent().addClass( "trsectionLegal" );
+  $j("input#legalFirstName").parent().parent().addClass( "trsectionLegal" );
+  $j("input#legalMiddleName").parent().parent().addClass( "trsectionLegal" );
+  $j("input#legalSuffixTextInput").parent().parent().addClass( "trsectionLegal" );
+  /*legal gender*/
+  $j("select#legalGenderSelect").parent().parent().addClass( "trsectionLegal" );  /* DOE009*/
+  
+  /* Other-Unused(Builtin)
+  -----------Info--------- */
+  $j( "input#fieldArea" ).parent().parent().addClass( "trsectionOther other-builtIn" );
+  $j( "input#fieldGuardianship" ).parent().parent().addClass( "trsectionOther other-builtIn" );
+  $j( "input#fieldSSN" ).parent().parent().addClass( "trsectionOther other-builtIn" );
+  $j( "input#fieldStuNum" ).parent().parent().addClass( "trsectionOther other-builtIn" );  /* DOE001 */
+  $j( "input#fieldPrevStuId" ).parent().parent().addClass( "trsectionOther other-builtIn" );
+  $j( "tr#trselectGradeLvl" ).addClass( "trsectionOther other-builtIn" );  /* DOE016 */
+  $j( "input#fieldGuardianEmail" ).parent().parent().addClass( "trsectionOther other-builtIn" );
+  $j( "select#primaryethnicity" ).parent().parent().addClass( "trsectionOther other-builtIn" );
+  
+  /* Other-Unused(LPS)
+  ---------Info------- */
+  /* $j( "tr#trselectNCLB" ).addClass( "trsectionOther other-lps" ); */
+  $j( "tr#trselectFirstYearEL" ).addClass( "trsectionOther other-lps" );  /* DOE021 */
+  $j( "tr#trcheckboxIsEL" ).addClass( "trsectionOther other-lps" );  /* DOE025 */
+  $j( "tr#trselectELStatus" ).addClass( "trsectionOther other-lps" );  /* DOE026 */
+  $j( "tr#trfieldSASID" ).addClass( "trsectionOther other-lps" );  /* DOE002 */
+  $j( "tr#trcheckboxIsImmigrant" ).addClass( "trsectionOther other-lps" );  /* DOE022 */
+  $j( "tr#trselectEnrollmentStatus" ).addClass( "trsectionOther other-lps" );  /* DOE012 */
+  $j( "tr#trfieldTransferFrom" ).addClass( "trsectionOther other-lps" );  
+  $j( "tr#trselectBirthState" ).addClass( "trsectionOther other-lps" );  
+  $j( "tr#trselectOriginCountry" ).addClass( "trsectionOther other-lps" );  /* DOE023 */
+  $j( "tr#trselectTeamFlag" ).addClass( "trsectionOther other-lps" );
+  
+  /*
+    TODO: Fields Needed
+      -NCLB/Title I School Choice (Row 1)
+  */
+   
+  /*============'EVERYTHING ELSE' Catcher============*/
+  $VarEverythingElse = $j("form > div.box-round > table.linkDescList > tbody > tr");
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionStudent");
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionContacts");
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionEthRace");
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionOffice");
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionGrad");
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionLegal");
+  $VarEverythingElse = ($VarEverythingElse).not("tr.trsectionOther");
+  $VarEverythingElse.addClass( "trsectionEverythingElse" );
+  
+  /* Wrap Student Section */
+  $j("tr.trsectionStudent").wrapAll('<div id="StudentSection" class=""><div class="row"></div></div>'); /* Starts at top */
+  $j("tr.student-contactInfo:first").before('<tr class="headerrow trsectionStudent student-contactInfo"><td colspan="2" class="bold">Phone & Email</td></tr>');
+  $j("div#StudentSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Student Information</h2>');
+  /* Home address row still shows up twice at bottom, don't know what how they work. Possible Solution: Remove 'student-address' class from headerrows and select $j( "td.student-address:contains('Home Address')" )  */
+  
+  /* Wrap 'Everything Else' (fields that exist but haven't been given a proper section) */
+  $VarEverythingElse.wrapAll('<div id="EverythingElseSection" class=""><div class="row"></div></div>'); /* Build bottom-to-top */
+  $j("div#EverythingElseSection").insertAfter( $j("div#StudentSection") );
+  $j("div#EverythingElseSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Everything Else</h2>');
+  
+  /* Wrap Other Section */
+  $j("tr.trsectionOther").wrapAll('<div id="OtherSection" class=""><div class="row"></div></div>');
+  $j("div#OtherSection").insertAfter( $j("div#StudentSection") )
+  $j("div#OtherSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Other</h2>');
+  
+  /* Wrap Legal Section */
+  $j("tr.trsectionLegal").wrapAll('<div id="LegalSection" class=""><div class="row"></div></div>');
+  $j("div#LegalSection").insertAfter( $j("div#StudentSection") );
+  $j("div#LegalSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Legal Information</h2>');
+  
+  /* Wrap Grad Section */
+  $j("tr.trsectionGrad").wrapAll('<div id="GradSection" class=""><div class="row"></div></div>');
+  $j("div#GradSection").insertAfter( $j("div#StudentSection") );
+  $j("div#GradSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Graduation Information</h2>');
+  
+  /* Wrap Office Section*/
+  $j("tr.trsectionOffice").wrapAll('<div id="OfficeSection" class=""><div class="row"></div></div>');
+  $j("div#OfficeSection").insertAfter( $j("div#StudentSection") );
+  $j("div#OfficeSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Administrative Information</h2>');
+  
+  /* Wrap Race Section */
+  $j("tr.trsectionEthRace").wrapAll('<div id="EthRaceSection" class=""><div class="row"></div></div>');
+  $j("div#EthRaceSection").insertAfter( $j("div#StudentSection") );
+  $j("div#EthRaceSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Ethnicity/Race Information</h2>');
+  
+  /* Wrap Contacts Section */
+  $j("tr.trsectionContacts").wrapAll('<div id="ContactsSection" class=""><div class="row"></div></div>');
+  $j("div#ContactsSection").insertAfter( $j("div#StudentSection") );
+  $j("div#ContactsSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Contacts</h2>');
+
+  $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
+    hideCollapseClasses($j(this));
+    hideCollapseText($j(this));
+    hideCollapseTarget($j(this));
+  } );
+
+}
+
+$j(document).ready(AddGDfields);
+$j(document).ready(LPSGDRestyle);
+
+/*
+ NOTES:
+  + Every main section should have a Go to Top/Bottom
+	+ '***' means new field added that wasn't originally there.
+	+ Name the Menu Item LPS Demographics
+*/
