@@ -1,5 +1,38 @@
 <!-- use jQuery to replace text -->
 <script src="/admin/javascript/LPSGDC.js"></script>
+<style type="text/css">
+#demo-navbar {
+  overflow: hidden;
+  background-color: #333; /* will likely be changing this */
+}
+
+#demo-navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#demo-navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#demo-navbar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.demo-sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+</style>
 <div id="LPS-GDCustomhiddentable" style="display: none;">
   <table>
     <tbody>
@@ -359,4 +392,17 @@
       </tr>
     </tbody>
   </table>
+  <div id="demo-navbar"> <!-- Add contacts/legal sections when they are done -->
+    <a href="#StudentSection">Student</a>
+    <a href="javascript:void(0)">Contacts</a>
+    <a href="#EthRaceSection">Ethnicity & Race</a>
+    <a href="#OfficeSection">Administration</a>
+    <a href="#GradSection">Graduation</a>
+    <a href="javascript:void(0)">Legal</a>
+    <a href="#OtherSection">Other</a>
+    <a href="#EverythingElseSection">Everything Else</a>
+    <a href="javascript:void(0)">Expand All</a>
+    <a href="javascript:void(0)">Collapse All</a>
+  </div>
+  
 </div>

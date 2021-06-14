@@ -71,7 +71,7 @@ function LPSGDRestyle() {
   $j( "input#pgeocode" ).parent().parent().addClass( "trsectionStudent student-address" );
   $j( "span#validatePrimaryAddress" ).parent().parent().addClass( "trsectionStudent student-address" );
   /* ---------Mailing_Address--------- */
-  $j( "td:contains('Mailing Address -')" ).parent().addClass( "trsectionStudent student-mail" );
+  $j( "td:contains('Mailing Address -')" ).parent().addClass( "trsectionStudent student-mail" ).removeClass("student-address"); /* Gets class cause it has "Home address" in the field */
   $j( "td:contains('~[text:psx.html.admin_students.generaldemographics.mailing_address_]')" ).parent().addClass( "trsectionStudent student-mail" );
   /*mail(st, apt)*/
   $j( "input#mstreet" ).parent().parent().addClass( "trsectionStudent student-mail" );
@@ -129,8 +129,8 @@ function LPSGDRestyle() {
   $j( "tr#trfieldELCode" ).addClass( "trsectionOffice office-el" ); /* DOE027 or 24? maybe 41? */
   $j( "tr#trfieldFLEPDate" ).addClass( "trsectionOffice office-el" );
   /* ------SPED_Info------- */
-  $j( "tr#trfieldSPEDCode" ).addClass( "trsectionOffice office-el" ); /* DOE032, 34, 36, 38, or 40? */
-  $j( "tr#trselect504" ).addClass( "trsectionOffice office-el" ); /* DOE039 */
+  $j( "tr#trfieldSPEDCode" ).addClass( "trsectionOffice office-sped" ); /* DOE032, 34, 36, 38, or 40? */
+  $j( "tr#trselect504" ).addClass( "trsectionOffice office-sped" ); /* DOE039 */
   
   /* LPS Graduation
   --------Info----- */
@@ -193,45 +193,90 @@ function LPSGDRestyle() {
   
   /* Wrap Student Section */
   $j("tr.trsectionStudent").wrapAll('<div id="StudentSection" class=""><div class="row"></div></div>'); /* Starts at top */
-  $j("tr.student-contactInfo:first").before('<tr class="headerrow trsectionStudent student-contactInfo"><td colspan="2" class="bold">Phone & Email</td></tr>');
   $j("div#StudentSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Student Information</h2>');
-  /* Home address row still shows up twice at bottom, don't know what how they work. Possible Solution: Remove 'student-address' class from headerrows and select $j( "td.student-address:contains('Home Address')" )  */
+  /* Wrap Subsections */
+  $j("tr.student-contactInfo:first").before('<tr class="headerrow trsectionStudent student-contactInfo"><td colspan="2" class="bold">Phone & Email</td></tr>');
+  $j("tr.student-name:first").before('<tr class="headerrow trsectionStudent student-name"><td colspan="2" class="bold">Name</td></tr>');
+  
+  
+  /* Backup headers
+  $j("tr.student-name").wrapAll('<div id="student-name" class=""><div class="row"></div></div>');
+  $j("div#student-name").before('<h2 class="toggle expanded" title="Click here to expand or collapse" style="">Name</h2>');
+  $j("tr.student-address").wrapAll('<div id="student-address" class=""><div class="row"></div></div>');
+  $j("div#student-address").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Home Address</h2>');
+  $j("tr.student-mail").wrapAll('<div id="student-mail" class=""><div class="row"></div></div>');
+  $j("div#student-mail").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Mailing Address</h2>');
+  $j("tr.student-contactInfo").wrapAll('<div id="student-contactInfo" class=""><div class="row"></div></div>');
+  $j("div#student-contactInfo").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Phone & Email</h2>');
+  */
+  /* 
+    Home address row still shows up twice at bottom, don't know how they work.
+      Possible Solution: Remove 'student-address' class from headerrows and select $j( "td.student-address:contains('Home Address')" )
+  */
   
   /* Wrap 'Everything Else' (fields that exist but haven't been given a proper section) */
   $VarEverythingElse.wrapAll('<div id="EverythingElseSection" class=""><div class="row"></div></div>'); /* Build bottom-to-top */
   $j("div#EverythingElseSection").insertAfter( $j("div#StudentSection") );
   $j("div#EverythingElseSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Everything Else</h2>');
+  /* Wrap Subsections */
+  
   
   /* Wrap Other Section */
   $j("tr.trsectionOther").wrapAll('<div id="OtherSection" class=""><div class="row"></div></div>');
   $j("div#OtherSection").insertAfter( $j("div#StudentSection") )
   $j("div#OtherSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Other</h2>');
+  /* Wrap Subsections */
+  $j("tr.trsectionOther:first").before('<tr class="headerrow trsectionOther"><td colspan="2" class="bold">Information</td></tr>');
   
   /* Wrap Legal Section */
   $j("tr.trsectionLegal").wrapAll('<div id="LegalSection" class=""><div class="row"></div></div>');
   $j("div#LegalSection").insertAfter( $j("div#StudentSection") );
   $j("div#LegalSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Legal Information</h2>');
+  /* Wrap Subsections */
   
   /* Wrap Grad Section */
   $j("tr.trsectionGrad").wrapAll('<div id="GradSection" class=""><div class="row"></div></div>');
   $j("div#GradSection").insertAfter( $j("div#StudentSection") );
   $j("div#GradSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Graduation Information</h2>');
+  /* Wrap Subsections */
+  $j("tr.trsectionGrad:first").before('<tr class="headerrow trsectionGrad"><td colspan="2" class="bold">Information</td></tr>');
   
   /* Wrap Office Section*/
   $j("tr.trsectionOffice").wrapAll('<div id="OfficeSection" class=""><div class="row"></div></div>');
   $j("div#OfficeSection").insertAfter( $j("div#StudentSection") );
   $j("div#OfficeSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Administrative Information</h2>');
+  /* Wrap Subsections */
+  $j("tr.office-general:first").before('<tr class="headerrow trsectionOffice office-general"><td colspan="2" class="bold">District Information</td></tr>');
+  $j("tr.office-el:first").before('<tr class="headerrow trsectionOffice office-el"><td colspan="2" class="bold">EL Information</td></tr>');
+  $j("tr.office-sped:first").before('<tr class="headerrow trsectionOffice office-sped"><td colspan="2" class="bold">SPED Information</td></tr>');
   
   /* Wrap Race Section */
   $j("tr.trsectionEthRace").wrapAll('<div id="EthRaceSection" class=""><div class="row"></div></div>');
   $j("div#EthRaceSection").insertAfter( $j("div#StudentSection") );
   $j("div#EthRaceSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Ethnicity/Race Information</h2>');
+  /* Wrap Subsections */
+  $j("tr.ethrace-select:first").before('<tr class="headerrow trsectionEthRace ethrace-select"><td colspan="2" class="bold">Ethnicity & Race</td></tr>');
+  $j("tr.ethrace-other:first").before('<tr class="headerrow trsectionEthRace ethrace-other"><td colspan="2" class="bold">Other State General</td></tr>');
   
   /* Wrap Contacts Section */
   $j("tr.trsectionContacts").wrapAll('<div id="ContactsSection" class=""><div class="row"></div></div>');
   $j("div#ContactsSection").insertAfter( $j("div#StudentSection") );
   $j("div#ContactsSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Contacts</h2>');
-
+  /* Wrap Subsections */
+  
+  
+  /* Nav anchors + Expand/Collapse all */
+  $j("div#demo-navbar").insertAfter( $j("p#student_detail_header") );
+  $(window).scroll( function () {
+    var navbar = document.getElementById("demo-navbar");
+    if (window.pageYOffset >= navbar.offsetTop) {
+      $(navbar).addClass("demo-sticky");
+    } else {
+      $(navbar).removeClass("demo-sticky");
+    }
+  } );
+  
+  /* Start page with all sections collapsed */
   $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
     hideCollapseClasses($j(this));
     hideCollapseText($j(this));
@@ -246,6 +291,5 @@ $j(document).ready(LPSGDRestyle);
 /*
  NOTES:
   + Every main section should have a Go to Top/Bottom
-	+ '***' means new field added that wasn't originally there.
 	+ Name the Menu Item LPS Demographics
 */
