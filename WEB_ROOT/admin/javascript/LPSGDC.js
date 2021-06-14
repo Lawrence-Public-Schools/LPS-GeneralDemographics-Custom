@@ -34,7 +34,7 @@ function AddGDfields(){
   
   /* TODO: Legal fields */
   
-  $j( "input#fieldPrevStuId" ).parent().parent().after( $j("tr#trselectGradeLvl") )
+  $j( "input#fieldPrevStuId" ).parent().parent().after( $j("tr#trselectGradeLvl") );
   
   /* Putting other-lps items after other-builtIn items */
   $trStuNum.after( $j("tr#trselectTeamFlag") );
@@ -47,6 +47,11 @@ function AddGDfields(){
   $trStuNum.after( $j("tr#trselectELStatus") );
   $trStuNum.after( $j("tr#trcheckboxIsEL") );
   $trStuNum.after( $j("tr#trselectFirstYearEL") );
+  
+  /* Nav anchors + Expand/Collapse all */
+  var stu_header = document.getElementById("student_detail_header");
+  var navbar = document.getElementById("demo-navbar");
+  stu_header.insertAdjacentElement("afterend", navbar);
 
   $j( "div#LPS-GDCustomhiddentable" ).remove();
 }
@@ -223,7 +228,7 @@ function LPSGDRestyle() {
   
   /* Wrap Other Section */
   $j("tr.trsectionOther").wrapAll('<div id="OtherSection" class=""><div class="row"></div></div>');
-  $j("div#OtherSection").insertAfter( $j("div#StudentSection") )
+  $j("div#OtherSection").insertAfter( $j("div#StudentSection") );
   $j("div#OtherSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Other</h2>');
   /* Wrap Subsections */
   $j("tr.trsectionOther:first").before('<tr class="headerrow trsectionOther"><td colspan="2" class="bold">Information</td></tr>');
@@ -264,17 +269,52 @@ function LPSGDRestyle() {
   $j("div#ContactsSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Contacts</h2>');
   /* Wrap Subsections */
   
-  
-  /* Nav anchors + Expand/Collapse all */
-  $j("div#demo-navbar").insertAfter( $j("p#student_detail_header") );
-  $(window).scroll( function () {
-    var navbar = document.getElementById("demo-navbar");
-    if (window.pageYOffset >= navbar.offsetTop) {
-      $(navbar).addClass("demo-sticky");
-    } else {
-      $(navbar).removeClass("demo-sticky");
+  /* Navbar - Section Links */
+  $j(".sectLink").on('click', function(event) {
+    /* Check for hash(anchor link) value NOTE: this.hash returns part of URL beginning with '#' aka the id of the linked element */
+    if (this.hash !== "") {
+      event.preventDefault();
+      var sectionAnchor = this.hash;
+      
+      if ( $j(sectionAnchor).hasClass("hide") ) {
+        $j(sectionAnchor).prev().toggleClass("collapsed expanded");
+        $j(sectionAnchor).toggleClass("hide");
+      }
+      if ( $j(sectionAnchor).length < 1 ) {
+        alert("Error: Section " + sectionAnchor + " does not exist");
+        return false;
+      }
+      
+      /* Animate smooth scroll + add hash (#) to URL when done (default click behavior) */
+      $j('html, body').animate( { scrollTop: $j(sectionAnchor).offset().top },
+        800, function () { window.location.hash = sectionAnchor; }
+      );
     }
-  } );
+  });
+  /* Navbar - Expand All */
+  $j("#expandAll").on('click', function(event) {
+    $j(".sectLink").each( function(index, elmnt) {
+      var $section = $j(elmnt.hash);
+      $section.removeClass("hide");
+      $section.prev().removeClass("collapsed").addClass("expanded");
+    });
+  });
+  /* Navbar - Collapse All */
+  $j("#collapseAll").on('click', function(event) {
+    $j(".sectLink").each( function(index, elmnt) {
+      var $section = $j(elmnt.hash);
+      $section.addClass("hide");
+      $section.prev().removeClass("expanded").addClass("collapsed");
+    });
+  });
+  /* Navbar - Slide Down/Up */
+  window.onscroll = function() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      document.getElementById("demo-navbar").style.top = "0";
+    } else {
+      document.getElementById("demo-navbar").style.top = "-100px";
+    }
+  };
   
   /* Start page with all sections collapsed */
   $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
@@ -282,6 +322,19 @@ function LPSGDRestyle() {
     hideCollapseText($j(this));
     hideCollapseTarget($j(this));
   } );
+  
+  
+  /* Not working like I want, not important enough to focus on rn
+  function stickScroll() {
+    var navbar = document.getElementById("demo-navbar");
+    if (window.pageYOffset >= navbar.offsetTop) {
+      $j(navbar).addClass("demo-sticky");
+    } else {
+      $j(navbar).removeClass("demo-sticky");
+    }
+  }
+  window.onscroll = function () { stickyScroll() }; 
+  */
 
 }
 

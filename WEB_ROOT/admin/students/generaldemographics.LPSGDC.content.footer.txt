@@ -4,6 +4,11 @@
 #demo-navbar {
   overflow: hidden;
   background-color: #333; /* will likely be changing this */
+  position: fixed;
+  top: -100px;
+  width: 100%;
+  transition: top 0.3s;
+  z-index: 1;
 }
 
 #demo-navbar a {
@@ -11,7 +16,7 @@
   display: block;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  padding: 15px;
   text-decoration: none;
   font-size: 17px;
 }
@@ -26,14 +31,20 @@
   color: white;
 }
 
-.demo-sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
 </style>
 <div id="LPS-GDCustomhiddentable" style="display: none;">
+  <nav id="demo-navbar"> <!-- Add contacts/legal sections when they are done -->
+    <a href="#StudentSection" class="sectLink">Student</a>
+    <a href="#ContactsSection" class="sectLink">Contacts</a>
+    <a href="#EthRaceSection" class="sectLink">Ethnicity & Race</a>
+    <a href="#OfficeSection" class="sectLink">Administration</a>
+    <a href="#GradSection" class="sectLink">Graduation</a>
+    <a href="#LegalSection" class="sectLink">Legal</a>
+    <a href="#OtherSection" class="sectLink">Other</a>
+    <a href="#EverythingElseSection" class="sectLink">Everything Else</a>
+    <a href="javascript:void(0)" id="expandAll">Expand All</a>
+    <a href="javascript:void(0)" id="collapseAll">Collapse All</a>
+  </nav>
   <table>
     <tbody>
     <!--  Custom Fields: 'Student Info' -->
@@ -392,17 +403,4 @@
       </tr>
     </tbody>
   </table>
-  <div id="demo-navbar"> <!-- Add contacts/legal sections when they are done -->
-    <a href="#StudentSection">Student</a>
-    <a href="javascript:void(0)">Contacts</a>
-    <a href="#EthRaceSection">Ethnicity & Race</a>
-    <a href="#OfficeSection">Administration</a>
-    <a href="#GradSection">Graduation</a>
-    <a href="javascript:void(0)">Legal</a>
-    <a href="#OtherSection">Other</a>
-    <a href="#EverythingElseSection">Everything Else</a>
-    <a href="javascript:void(0)">Expand All</a>
-    <a href="javascript:void(0)">Collapse All</a>
-  </div>
-  
 </div>
