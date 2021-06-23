@@ -134,6 +134,8 @@ function LPSGDRestyle() {
       -Ethnicity & Race selections are nested in two <div> elements
         .parent() x2
   */
+  $j( "form td:contains('Federal Ethnicity and Race')" ).parent().addClass( "trsectionEthRace ethrace-select" );  /* Federal Ethnicity and Race */
+  $j( "form td:contains('Massachusetts State Information')" ).parent().addClass( "trsectionEthRace ethrace-select" );  /* Massachusetts State Information */
   $j( "form input#radioFedEthYes" ).parent().parent().parent().parent().addClass( "trsectionEthRace ethrace-select" );  /* DOE010 (Hispanic/Latino) */
   $j( "form input#race_A" ).parent().parent().parent().parent().addClass( "trsectionEthRace ethrace-select" ); /* DOE010 (Race) */
   $j( "form td:contains('MA Race Code')" ).parent().addClass( "trsectionEthRace ethrace-select" ); /* DOE010 Race code (could be autoCalculated from two fields above?)  */
