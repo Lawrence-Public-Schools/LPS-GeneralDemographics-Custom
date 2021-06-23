@@ -63,7 +63,16 @@
       <tr id="trfieldStudent_LPSemail">
         <td class="bold">Student LPS Email &tilde;</td>
         <td>  <!-- Can probably just have them enter the first part and make the '@student.lawrence.k12.ma.us' part automatic -->
-          ~([01]student_number)@students.lawrence.k12.ma.us
+          ~[tlist_sql; SELECT
+	psc.email AS email
+FROM
+	PSM_STudentcontact psc
+	JOIN psm_studentcontacttype psct ON psc.studentcontacttypeid = psct.id
+	AND psct.name = 'Self'
+	JOIN sync_studentmap ssm ON psc.studentid = ssm.studentid
+	JOIN students stu ON ssm.studentsdcid = stu.dcid
+WHERE
+	stu.dcid =~(curstudid)]~(email)[/tlist_sql]
         </td>
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
