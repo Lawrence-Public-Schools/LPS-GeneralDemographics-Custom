@@ -72,7 +72,7 @@ FROM
 	JOIN sync_studentmap ssm ON psc.studentid = ssm.studentid
 	JOIN students stu ON ssm.studentsdcid = stu.dcid
 WHERE
-	stu.dcid =~(curstudid)]~(email)[/tlist_sql]
+	stu.student_number =~([01]student_number)]~(email)[/tlist_sql]
         </td>
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
