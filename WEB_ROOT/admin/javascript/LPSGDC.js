@@ -64,9 +64,9 @@ function AddGDfields(){
   $trStuNum.after( $j("tr#trselectFirstYearEL") );
   
   /* Nav anchors + Expand/Collapse all */
-  var stu_header = document.getElementById("student_detail_header");
-  var navbar = document.getElementById("demo-navbar");
-  stu_header.insertAdjacentElement("afterend", navbar);
+  var stu_header = $j("div#content-main p#student_detail_header");
+  var navbar = $j("div#LPS-GDCustomhiddentable nav#demo-navbar");
+  stu_header.after(navbar);
 
   $j( "div#LPS-GDCustomhiddentable" ).remove();
 }
