@@ -63,7 +63,7 @@
       <tr id="trfieldStudent_LPSemail">
         <td class="bold">Student LPS Email &tilde;</td>
         <td>  <!-- Can probably just have them enter the first part and make the '@student.lawrence.k12.ma.us' part automatic -->
-          <input type="text" id="fieldStudent_LPSemail" name="[Students.U_Students_Extension]student_LPSemail" value="" size="50" placeholder="first.last@student.lawrence.k12.ma.us">
+          ~([01]student_number)@students.lawrence.k12.ma.us
         </td>
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
