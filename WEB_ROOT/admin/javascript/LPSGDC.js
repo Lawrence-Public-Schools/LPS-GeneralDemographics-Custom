@@ -3,11 +3,20 @@ function AddGDfields(){
   var $trRaceCode = $j( "td:contains('MA Race Code')" ).parent();
   var $trGradYear = $j( "input#fieldGradYear" ).parent().parent();
   var $trStuNum = $j( "input#fieldStuNum" ).parent().parent();
-  
+  var $trMomHomePhone = $j( "input#fieldMotherHomePhone" ).parent().parent();
+  /* Tables are built bottom-to-top */
+  /* Insert Custom 'Student' Fields */
   $trHomePhone.after( $j("tr#trfieldStudent_LPSemail") );
   $trHomePhone.after( $j("tr#trfieldStudent_Personalemail") );
   $trHomePhone.after( $j("tr#trfieldStudent_Mobile") );
   
+  /* Insert Custom 'Contacts' Fields */
+  $trMomHomePhone.after( $j("tr#trfieldParents_old") );
+  $trMomHomePhone.after( $j("tr#trfieldGuardians_old") );
+  $trMomHomePhone.after( $j("tr#trfieldEmergencyContacts") );
+  $trMomHomePhone.after( $j("tr#trfieldContacts") );
+  
+  /* Insert Custom 'Ethnicity/Race' Fields */
   $trRaceCode.after( $j("tr#trselectMilitary") );
   $trRaceCode.after( $j("tr#trfieldBirthCity") );
   $trRaceCode.after( $j("tr#trcheckboxIncludeSASID") );
@@ -15,6 +24,7 @@ function AddGDfields(){
   $trRaceCode.after( $j("tr#trcheckboxExcludeState") );
   
   /*
+    Insert Custom 'Adminstrative' Fields
     NOTES:
       -Tossing rows in after RaceCode, just need them in the table and don't think original placement matters too much 
       -Date fields not showing up
@@ -27,16 +37,21 @@ function AddGDfields(){
   $trRaceCode.after( $j("tr#trselectEntryGrade") );
   $trRaceCode.after( $j("tr#trfieldEntryDate") );
   
+  /* Insert Custom 'Graduation' Fields */
   $trGradYear.after( $j("tr#trselectGradCoreCompletion") );
   $trGradYear.after( $j("tr#trselectGradPlan") );
   $trGradYear.after( $j("tr#trfieldCohort") );
   $trGradYear.after( $j("tr#trfieldGradDate") );
   
-  /* TODO: Legal fields */
+  /* TODO:Insert Custom 'Legal' fields */
   
+  
+  /* 
+    Insert Custom 'Other' Fields
+    NOTES: 
+      -Putting 'other-lps' items after 'other-builtIn' items 
+  */
   $j( "input#fieldPrevStuId" ).parent().parent().after( $j("tr#trselectGradeLvl") );
-  
-  /* Putting other-lps items after other-builtIn items */
   $trStuNum.after( $j("tr#trselectTeamFlag") );
   $trStuNum.after( $j("tr#trselectOriginCountry") );
   $trStuNum.after( $j("tr#trselectBirthState") );
@@ -106,6 +121,10 @@ function LPSGDRestyle() {
       -Original Demo Father (old)
       -Original Demo Mother (old)
   */
+  $j( "tr#trfieldParents_old" ).addClass( "trsectionContacts contacts-parents" );
+  $j( "tr#trfieldGuardians_old" ).addClass( "trsectionContacts contacts-guardians" );
+  $j( "tr#trfieldEmergencyContacts" ).addClass( "trsectionContacts contacts-emergency" );
+  $j( "tr#trfieldContacts" ).addClass( "trsectionContacts contacts-std" );
   
   /* Ethnicity/Race/Other State Fields
   -----------Ethnicity_&_Race---------DOE[008, 010, 029]
@@ -268,6 +287,10 @@ function LPSGDRestyle() {
   $j("div#ContactsSection").insertAfter( $j("div#StudentSection") );
   $j("div#ContactsSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Contacts</h2>');
   /* Wrap Subsections */
+  $j("tr.contacts-std:first").before( '<tr class="headerrow trsectionContacts contacts-std"> <td></td> <td class="bold">Contact 1</td> <td class="bold">Contact 2</td> </tr>');
+  $j("tr.contacts-emergency:first").before('<tr class="headerrow trsectionContacts contacts-emergency"> <td></td> <td class="bold">E-Contact 1</td> <td class="bold">E-Contact 2</td> </tr>');
+  $j("tr.contacts-guardians:first").before('<tr class="headerrow trsectionContacts contacts-guardians"> <td></td> <td class="bold">Guardian 1</td> <td class="bold">Guardian 2</td> </tr>');
+  $j("tr.contacts-parents:first").before('<tr class="headerrow trsectionContacts contacts-parents"> <td></td> <td class="bold">Father</td> <td class="bold">Mother</td> </tr>');
   
   /* Navbar - Section Links */
   $j(".sectLink").on('click', function(event) {
@@ -322,19 +345,6 @@ function LPSGDRestyle() {
     hideCollapseText($j(this));
     hideCollapseTarget($j(this));
   } );
-  
-  
-  /* Not working like I want, not important enough to focus on rn
-  function stickScroll() {
-    var navbar = document.getElementById("demo-navbar");
-    if (window.pageYOffset >= navbar.offsetTop) {
-      $j(navbar).addClass("demo-sticky");
-    } else {
-      $j(navbar).removeClass("demo-sticky");
-    }
-  }
-  window.onscroll = function () { stickyScroll() }; 
-  */
 
 }
 
