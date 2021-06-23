@@ -78,8 +78,8 @@ function LPSGDRestyle() {
   -----------------Name--------------- */
   $j( "input#lastName" ).parent().parent().addClass( "trsectionStudent student-name" ); /*First = 003, Middle = 004, Last = 005*/
   /* ----------Home_Address----------- */
-  $j( "td:contains('Home Address')" ).parent().addClass( "trsectionStudent student-address" );
-  $j( "td:contains('~[text:psx.html.admin_students.generaldemographics.home_address]')" ).parent().addClass( "trsectionStudent student-address" );
+  $j( "td:contains('Home Address')" ).not("td:contains('Mailing Address')").parent().addClass( "trsectionStudent student-address" );
+  //$j( "td:contains('~[text:psx.html.admin_students.generaldemographics.home_address]')" ).not("td:contains('Mailing Address')").parent().addClass( "trsectionStudent student-address" );
   /*st, apt*/
   $j( "input#pstreet" ).parent().parent().addClass( "trsectionStudent student-address" );
   $j( "input#papt" ).parent().parent().addClass( "trsectionStudent student-address" );
