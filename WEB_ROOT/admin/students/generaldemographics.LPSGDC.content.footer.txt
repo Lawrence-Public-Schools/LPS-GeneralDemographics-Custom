@@ -63,7 +63,16 @@
       <tr id="trfieldStudent_LPSemail">
         <td class="bold">Student LPS Email &tilde;</td>
         <td>  <!-- Can probably just have them enter the first part and make the '@student.lawrence.k12.ma.us' part automatic -->
-          ~([01]student_number)@students.lawrence.k12.ma.us
+          ~[tlist_sql; SELECT
+            psc.email AS email
+          FROM
+            PSM_STudentcontact psc
+            JOIN psm_studentcontacttype psct ON psc.studentcontacttypeid = psct.id
+              AND psct.name = 'Self'
+            JOIN sync_studentmap ssm ON psc.studentid = ssm.studentid
+            JOIN students stu ON ssm.studentsdcid = stu.dcid
+          WHERE
+            stu.student_number =~([01]student_number)]~(email)[/tlist_sql]
         </td>
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
@@ -147,7 +156,6 @@
       <tr id="trfieldELCode"> <!-- DOE027 or 24? maybe 41? -->
         <td class="bold">EL Code &tilde;</td>
         <td>
-          ~(students.u_def_ext_students.el)
           <input type="text" id="fieldELCode" name="[Students.U_Students_Extension]office_elcode" value="" size="8" placeholder="1234567890">
         </td>
       </tr>
@@ -189,7 +197,6 @@
       <tr id="trfieldCohort">
         <td class="bold">DESE Cohort &tilde;</td>  <!-- Dont know what the cohort options are, could maybe be better as a dropdown? -->
         <td>
-          ~(students.u_def_ext_students.cohort)
           <input type="text" id="fieldCohort" name="[Students.U_Students_Extension]graduation_cohort" value="" size="5" placeholder="########"> 
         </td>
       </tr>
