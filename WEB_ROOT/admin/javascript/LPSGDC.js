@@ -497,6 +497,7 @@ function LPSGDRestyle() {
   var $excludeState = $j( "form input#fieldExcludeState" );
   var $includeSIMS = $j( "form input#fieldIncludeSIMS" );
   var $includeSASID = $j( "form input#fieldIncludeSASID" );
+  var $entryGrade = $j( "form input#fieldEntryGrade" );
   
   switch( $excludeState.val() ) {
     case 'False':
@@ -533,6 +534,17 @@ function LPSGDRestyle() {
       $includeSASID.val("No value found");
       $includeSASID.addClass("noValue");
       break;
+  }
+  switch( $entryGrade.val() ) {
+    case '0':
+      $entryGrade.val("K");
+      break;
+    case '-2':
+      $entryGrade.val("PK");
+      break;
+    default:
+      $entryGrade.val("No value found");
+      $entryGrade.addClass("noValue");
   }
   
   /* Navbar - Section Links */

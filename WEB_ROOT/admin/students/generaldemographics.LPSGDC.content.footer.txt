@@ -78,7 +78,7 @@
     <!--  Custom Fields: 'Student Info' -->
       <tr id="trStudent_Mobile" class="row-student student-contactInfo">
         <td class="bold">Student Mobile &tilde;</td><!-- where is this info stored? -->
-        <td width="75%"><input type="tel" id="fieldStudentMobile" placeholder="123-456-7890" readonly /></td>
+        <td width="75%"><input type="tel" id="fieldStudentMobile" value="" placeholder="123-456-7890" readonly /></td>
       </tr>
       <tr id="trStudent_PersonalEmail" class="row-student student-contactInfo">
         <td class="bold">Student Personal Email &tilde;</td>
