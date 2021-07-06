@@ -63,10 +63,11 @@ function AddGDfields(){
   $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_FirstYearEL") );
   $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_NCLB") );
   
-  /* Nav anchors + Expand/Collapse all */
-  var stu_header = $j("div#content-main p#student_detail_header");
-  var navbar = $j("div#LPS-GDCustomhiddentable nav#demo-navbar");
-  stu_header.after(navbar);
+  /* Insert Navigation Tabs */
+  var stu_header = $j("div#content-main p#student_detail_header"); /* seems like bad practice but should work for now */
+  var navTabs = $j("div#LPS-GDCustomhiddentable div#demo-navTabs");
+  stu_header.after(navTabs);
+  navTabs.append( $j("div#content-main form") );
 
   $j( "div#LPS-GDCustomhiddentable" ).remove();
 }
@@ -198,42 +199,43 @@ function LPSGDRestyle() {
   $VarEverythingElse.addClass( "row-everythingElse" );
   
   /* Wrap Student Section */
-  $j("form tr.row-student").wrapAll('<div id="StudentSection" class="" width="100%"><div class="row" width="100%"></div></div>'); /* Starts at top */
-  $j("form div#StudentSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Student Information</h2>');
+  $j("form tr.row-student").wrapAll('<div id="StudentSection" class=""><div class="row"></div></div>'); /* Starts at top */
   /* Wrap Subsections */
-  $j("form tr.student-contactInfo:first").before('<tr class="headerrow row-student student-contactInfo" width="100%"><td colspan="2" class="bold" width="1920px">Phone & Email</td></tr>');
-  $j("form tr.student-name:first").before('<tr class="headerrow row-student student-name" width="100%"><td colspan="2" class="bold" width="1920px">Name</td></tr>'); /* Currently using static px width, should adjust to be responsive */
+  $j("form tr.student-contactInfo:first").before('<tr class="headerrow row-student student-contactInfo"><td colspan="2" class="bold" width="1920px">Phone & Email</td></tr>');
+  $j("form tr.student-name:first").before('<tr class="headerrow row-student student-name"><td colspan="2" class="bold" width="1920px">Name</td></tr>'); /* Currently using static px width, should adjust to be responsive */
   
   /* Wrap 'Everything Else' (fields exist but don't have a section) */
   $VarEverythingElse.wrapAll('<div id="EverythingElseSection" class=""><div class="row"></div></div>'); /* Stack under Student Section */
-  $j("div#EverythingElseSection").insertAfter( $j("form div#StudentSection") );
-  $j("div#EverythingElseSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Everything Else</h2>');
+  $j("form div#EverythingElseSection").insertAfter( $j("form div#StudentSection") );
+  /*
+    NOTES:
+    -Adding a header with a fixed width so that other rows will fill in table space
+    -Probably a lazy way format the page, should change later to be more dynamic
+  */
+  $j("form .row-everythingElse").children("td:nth-child(2)").attr("width", "75%");
+  $VarEverythingElse.first().before('<tr class="headerrow row-everythingElse"><td colspan="2" class="bold" width="1920px">Information</td></tr>')
   
   /* Wrap Other Section */
   $j("form tr.row-other").wrapAll('<div id="OtherSection" class=""><div class="row"></div></div>');
-  $j("div#OtherSection").insertAfter( $j("form div#StudentSection") );
-  $j("div#OtherSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Other</h2>');
+  $j("form div#OtherSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
-  $j("tr.row-other:first").before('<tr class="headerrow row-other"><td colspan="2" class="bold" width="1920px">Information</td></tr>');
+  $j("form tr.row-other:first").before('<tr class="headerrow row-other"><td colspan="2" class="bold" width="1920px">Information</td></tr>');
   
   /* Wrap Legal Section */
   $j("form tr.row-legal").wrapAll('<div id="LegalSection" class=""><div class="row"></div></div>');
-  $j("div#LegalSection").insertAfter( $j("form div#StudentSection") );
-  $j("div#LegalSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Legal Information</h2>');
+  $j("form div#LegalSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
-  $j("tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="1920px">Information</td></tr>');
+  $j("form tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="1920px">Information</td></tr>');
   
   /* Wrap Grad Section */
   $j("form tr.row-grad").wrapAll('<div id="GradSection" class=""><div class="row"></div></div>');
-  $j("div#GradSection").insertAfter( $j("form div#StudentSection") );
-  $j("div#GradSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Graduation Information</h2>');
+  $j("form div#GradSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
-  $j("tr.row-grad:first").before('<tr class="headerrow row-grad"><td colspan="2" class="bold" width="1920px">Information</td></tr>');
+  $j("form tr.row-grad:first").before('<tr class="headerrow row-grad"><td colspan="2" class="bold" width="1920px">Information</td></tr>');
   
   /* Wrap Office Section*/
   $j("form tr.row-office").wrapAll('<div id="OfficeSection" class=""><div class="row"></div></div>');
   $j("form div#OfficeSection").insertAfter( $j("form div#StudentSection") );
-  $j("form div#OfficeSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Administrative Information</h2>');
   /* Wrap Subsections */
   $j("form tr.office-general:first").before('<tr class="headerrow row-office office-general"><td colspan="2" class="bold" width="1920px">District Information</td></tr>');
   $j("form tr.office-el:first").before('<tr class="headerrow row-office office-el"><td colspan="2" class="bold" width="1920px">EL Information</td></tr>');
@@ -242,7 +244,6 @@ function LPSGDRestyle() {
   /* Wrap Race Section */
   $j("form tr.row-ethRace").wrapAll('<div id="EthRaceSection" class=""><div class="row"></div></div>');
   $j("form div#EthRaceSection").insertAfter( $j("form div#StudentSection") );
-  $j("form div#EthRaceSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Ethnicity/Race Information</h2>');
   /* Wrap Subsections */
   $j("form tr.ethrace-select:first").before('<tr class="headerrow row-ethRace ethrace-select"><td colspan="2" class="bold" width="1920px">Ethnicity & Race</td></tr>');
   $j("form tr.ethrace-other:first").before('<tr class="headerrow row-ethRace ethrace-other"><td colspan="2" class="bold" width="1920px">Other State General</td></tr>');
@@ -250,7 +251,6 @@ function LPSGDRestyle() {
   /* Wrap Contacts Section */
   $j("form tr.row-contacts").wrapAll('<div id="ContactsSection" class=""><div class="row"></div></div>');
   $j("form div#ContactsSection").insertAfter( $j("form div#StudentSection") );
-  $j("form div#ContactsSection").before('<h2 class="toggle expanded" title="Click here to expand or collapse">Contacts</h2>');
   /* Wrap Subsections */
   $j("form tr.contacts-std:first").before( '<tr class="headerrow row-contacts contacts-std"> <td></td> <td class="bold">Contact 1</td> <td class="bold">Contact 2</td> </tr>');
   $j("form tr.contacts-emergency:first").before('<tr class="headerrow row-contacts contacts-emergency"> <td></td> <td class="bold">E-Contact 1</td> <td class="bold">E-Contact 2</td> </tr>');
@@ -259,10 +259,19 @@ function LPSGDRestyle() {
   $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Father - Old</td> </tr>');
   $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Mother - Old</td> </tr>');
   
+  /* 
+  ---------Update Sections so they get 'ui-tabs' classes---------
+  -Section <div>s don't receive PS 'ui-tabs' classes until clicked, 
+    so simulate a click on each tab when page loads then
+    click back to starting section (Students)
+  */
+  $j(".sectLink").click();
+  $j(".sectLink[href='#StudentSection']").click();
+  
   /* Remove whitespace from field values, lets DOM know when they are empty for CSS */
   $j( "input" ).val(function( index, value ) { return value.trim(); });
   
-  /* Translate DOE Codes ('fieldName_DOE###') */
+  /* Translate DOE Codes - 'fieldName_DOE###' */
   var $enrollmentStatus_012 = $j("form input#fieldEnrollmentStatus");
   var $firstYearEL_021 = $j("form input#fieldFirstYearEL");
   var $immigrantStatus_022 = $j("form input#fieldImmigrantStatus");
@@ -401,6 +410,7 @@ function LPSGDRestyle() {
       $ELStatus_026.val("Transitional Bilingual Education");
       break;
     default:
+      
       $ELStatus_026.val("No value found");
       $ELStatus_026.addClass("noValue");
       break;
@@ -498,6 +508,7 @@ function LPSGDRestyle() {
   var $includeSIMS = $j( "form input#fieldIncludeSIMS" );
   var $includeSASID = $j( "form input#fieldIncludeSASID" );
   var $entryGrade = $j( "form input#fieldEntryGrade" );
+  var $title1NCLB = $j( "form input#fieldNCLB" ); 
   
   switch( $excludeState.val() ) {
     case 'False':
@@ -546,53 +557,17 @@ function LPSGDRestyle() {
       $entryGrade.val("No value found");
       $entryGrade.addClass("noValue");
   }
-  
-  /* Navbar - Section Links */
-  $j(".sectLink").on('click', function(event) {
-    /* Check for hash(anchor link) value NOTE: this.hash returns part of URL beginning with '#' aka the id of the linked element */
-    if (this.hash !== "") {
-      event.preventDefault();
-      var sectionAnchor = this.hash;
-      
-      if ( $j(sectionAnchor).hasClass("hide") ) {
-        $j(sectionAnchor).prev().toggleClass("collapsed expanded");
-        $j(sectionAnchor).toggleClass("hide");
-      }
-      if ( $j(sectionAnchor).length < 1 ) {
-        alert("Error: Section " + sectionAnchor + " does not exist");
-        return false;
-      }
-      
-      /* Animate smooth scroll + add hash (#) to URL when done (default click behavior) */
-      $j('html, body').animate( { scrollTop: $j(sectionAnchor).offset().top },
-        800, function () { window.location.hash = sectionAnchor; }
-      );
-    }
-  });
-  /* Navbar - Expand All */
-  $j("#expandAll").on('click', function(event) {
-    $j(".sectLink").each( function(index, elmnt) {
-      var $section = $j(elmnt.hash);
-      $section.removeClass("hide");
-      $section.prev().removeClass("collapsed").addClass("expanded");
-    });
-  });
-  /* Navbar - Collapse All */
-  $j("#collapseAll").on('click', function(event) {
-    $j(".sectLink").each( function(index, elmnt) {
-      var $section = $j(elmnt.hash);
-      $section.addClass("hide");
-      $section.prev().removeClass("expanded").addClass("collapsed");
-    });
-  });
-  /* Navbar - Slide Down/Up */
-  window.onscroll = function() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      document.getElementById("demo-navbar").style.top = "0";
-    } else {
-      document.getElementById("demo-navbar").style.top = "-100px";
-    }
-  };
+  switch( $title1NCLB.val() ) {
+    case '00':
+      $title1NCLB.val("Does not apply")
+      break;
+    case '01':
+      $title1NCLB.val("Student transferred from underperforming school")
+      break;
+    default:
+      $title1NCLB.val("No value found")
+      $entryGrade.addClass("noValue");
+  }
   
   /* Start page with all sections collapsed */
   $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
