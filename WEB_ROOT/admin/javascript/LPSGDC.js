@@ -27,9 +27,14 @@ function addLPSGDFields() {
   /* 'Ethnicity/Race' Fields */
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_Military") );
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_BirthCity") );
+  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable div#stateIncludeWrapper") );
+  var raceCodeViewBtn = '<td><button onclick="location.href=' + "'https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=001113601'" + '" class="editButton" type="button">View</button></td>';
+  $trRaceCode.append( raceCodeViewBtn );
+  /*
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_IncludeSASID") );
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_IncludeSIMS") );
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_ExcludeState") );  
+  */
   
   /* 'Adminstrative' Fields */
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trOffice_504Plan") );
@@ -217,6 +222,7 @@ function LPSGDRestyle() {
   $j("form tr.office-sped:first").before('<tr class="headerrow row-office office-sped"><td colspan="2" class="bold" width="1920px">SPED Information</td></tr>');
   
   /* Wrap Race Section */
+  $j("form div#stateIncludeWrapper").wrapAll('<tr class="row-ethRace ethrace-other"><td colspan="2"></td></tr>');
   $j("form tr.row-ethRace").wrapAll('<div id="EthRaceSection" class=""><div class="row"></div></div>');
   $j("form div#EthRaceSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
