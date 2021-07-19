@@ -1,14 +1,71 @@
 <!-- use jQuery to replace text -->
 <script src="/admin/javascript/LPSGDC.js"></script>
 <style type="text/css">
+/* Adjust navbar for screensize */
+  @media screen and (max-width: 1200px) {
+    #demo-navbar a {
+      font-size: 13px;
+      padding: 10px;
+    }
+  }
+  @media screen and (max-width: 840px) {
+    #demo-navbar a {
+      font-size: 10px;
+      padding: 7px;
+    }
+  }
+  /* 650px is when PS stops scaling the page  */
+  @media screen and (max-width: 650px) {
+    #demo-navbar a {
+      line-height: 1.5em;
+      font-size: 7px;
+      padding: 3px;
+    }
+  }
+  /* Maybe should change this to move links to a drop-down? */
+  @media screen and (max-width: 460px) {
+    #demo-navbar a {
+      font-size: 5px;
+      line-height: 1.5em;
+      padding: 2px;
+    }
+  }
+  
+  /* Slide-down navigation bar for section anchors */
+  #demo-navbar {
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: -100px;
+    width: 100%;
+    transition: top 0.3s;
+    z-index: 1;
+  }
+  #demo-navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  #demo-navbar a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  #demo-navbar a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+
   input:read-only {
     border-style: inset;
-    border-width: 2px; 
+    border-width: 2px;
     border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
     padding: 3px;
     background-color: rgb(217,217,217); /* highlight custom fields grey */
   }
-
   /* highlight fields: incomplete = red, completed = green */
   input:invalid {
     background-color: rgb(230, 179, 179);
@@ -25,33 +82,53 @@
   input:only-child {
     width: 99%;
   }
+  
+  #demoContactsSection {
+    border-style: none;
+  }
+  #studentContactsTable {
+    width: calc(100% - 20px);
+  }
 </style>
-<!-- 
+<!--
   NOTES:
-   -Can either do fields as 'disabled' or 'readonly' 
-     *I think the main difference is how it looks but maybe it changes
-       submit funcitionality. Setting as 'readonly' for now
-   -In order to save input to database, <input> needs
+  - In order to save input to database, <input> needs
      Core Fields:      name="[Table_Name]Field_Name"
      Extension Fields: name="[PrimaryTable.ExtensionGroupName]Field_Name"
-   -Using ~(Field_Name) applies a default read-only format, ~([Table_Name]Field_Name) does not 
-     
-  BUGS:
-   -Apparently adding name="[Table_Name]Field_Name" to inputs auto-adds
-     certain PS validation attributes/classes and screws up formatting 
-     when you put a field into focus
+  - Using ~(Field_Name) applies default read-only format, ~([Table_Name]Field_Name) does not
+  - Apparently adding name="[Table_Name]Field_Name" to inputs auto-adds certain PS
+     validation attributes/classes and screws up formatting when you put a field into focus
  -->
 <div id="LPS-GDCustomhiddentable" style="display: none;">
+  <nav id="demo-navbar">
+    <a href="#StudentSection" class="sectLink">Student</a>
+    <a href="#ContactsSection" class="sectLink">Contacts</a>
+    <a href="#EthRaceSection" class="sectLink">Ethnicity & Race</a>
+    <a href="#OfficeSection" class="sectLink">Administration</a>
+    <a href="#GradSection" class="sectLink">Graduation</a>
+    <a href="#LegalSection" class="sectLink">Legal</a>
+    <a href="#OtherSection" class="sectLink">Other</a>
+    <a href="#EverythingElseSection" class="sectLink">Everything Else</a>
+    <a href="#" id="expandAll">Expand All</a>
+    <a href="#" id="collapseAll">Collapse All</a>
+  </nav>
   <div class="tabs" id="demo-navTabs">
     <ul>
-      <li><a href="#StudentSection" class="sectLink">Student</a></li>
-      <li><a href="#ContactsSection" class="sectLink">Contacts</a></li>
-      <li><a href="#EthRaceSection" class="sectLink">Ethnicity & Race</a></li>
-      <li><a href="#OfficeSection" class="sectLink">Administration</a></li>
-      <li><a href="#GradSection" class="sectLink">Graduation</a></li>
-      <li><a href="#LegalSection" class="sectLink">Legal</a></li>
-      <li><a href="#OtherSection" class="sectLink">Other</a></li>
-      <li><a href="#EverythingElseSection" class="sectLink">Everything Else</a></li>
+      <!-- "Show All" option -->
+      <li> <!-- This is very broken oh lordy -->
+        <a href="#" id="demoShowAllTab" class="sectTab">
+          <input type="checkbox" id="demoShowAllCheckBox" name="demoShowAllCheckBox" value="1" checked>
+          <label>Show All (Broken)</label>
+        </a>
+      </li>
+      <li><a href="#StudentSection" class="sectTab">Student</a></li>
+      <li><a href="#ContactsSection" class="sectTab">Contacts</a></li>
+      <li><a href="#EthRaceSection" class="sectTab">Ethnicity & Race</a></li>
+      <li><a href="#OfficeSection" class="sectTab">Administration</a></li>
+      <li><a href="#GradSection" class="sectTab">Graduation</a></li>
+      <li><a href="#LegalSection" class="sectTab">Legal</a></li>
+      <li><a href="#OtherSection" class="sectTab">Other</a></li>
+      <li><a href="#EverythingElseSection" class="sectTab">Everything Else</a></li>
     </ul>
   </div>
   <table>
@@ -67,7 +144,7 @@
       </tr>
       <tr id="trStudent_LPSEmail" class="row-student student-contactInfo">
         <td class="bold">Student LPS Email &tilde;</td>
-        <td width="75%"><input type="email" id="fieldLPSEmail" value="~[tlist_sql; 
+        <td width="75%"><input type="email" id="fieldLPSEmail" value="~[tlist_sql;
           SELECT psc.Email AS email
           FROM PSM_STudentcontact psc
             JOIN PSM_StudentContactType psct ON psc.StudentContactTypeId = psct.id
@@ -78,10 +155,6 @@
             stu.student_number = ~([Students]student_number)]~(email)[/tlist_sql]"
           readonly />
         </td>
-      </tr>
-    <!--  Custom Fields: 'Guardian/Contacts Information' -->
-      <tr id="trContacts_">
-        
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
       <tr id="trRace_ExcludeState" class="row-ethRace ethrace-other">
@@ -143,9 +216,9 @@
         <td width="75%"><input type="text" name="[Students.U_Def_Ext_Students]cohort" id="fieldCohort" value="~(cohort)" placeholder="COHORT #..." readonly /></td>
       </tr>
       <tr id="trGrad_Plan" class="row-grad"> <!-- DOE033 *PK-10 = '500', 11/12 = '500' until graduated/receive certificate/complete grade 12 -->
-        <td class="bold">Post-Graduation Plan &tilde;</td> 
+        <td class="bold">Post-Graduation Plan &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]PostGradPlans" id="fieldGradPlan" value="~(PostGradPlans)" readonly /></td>
-         <!-- DEPENDENCIES: If... 
+         <!-- DEPENDENCIES: If...
               ...DOE012(Enrollment) = '04'(Graduate), then DOE033 != '500'(N/A) and DOE037(Core Completion) != '00'(Not a graduate)
               ...DOE033 does not = '500', then DOE12 must = '04', '10'(Certificate), or '11'(Completed Grade 12) -->
       </tr>
@@ -200,7 +273,7 @@
         <td class="bold">Transferring from &tilde;</td>
         <td width="75%"><input type="text" id="fieldTransferFrom" value="" size="17" placeholder="SCHOOL NAME" readonly /></td>
       </tr>
-      <tr id="trOther_BirthState" class="row-other other-lps"> 
+      <tr id="trOther_BirthState" class="row-other other-lps">
         <td class="bold">Birth State &tilde;</td>
         <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]MA_BirthState" id="fieldBirthState" value="~(MA_BirthState)" readonly /></td>
       </tr>
@@ -214,4 +287,270 @@
       </tr>
     </tbody>
   </table>
+
+  <!--
+    Copying Contacts page source and displaying it in Demographics 'Contacts' section.
+    -Omitted <script> code from Contacts that is not relevant to Demographics
+    -Removed unnecessary form elements (Add/Delete/Edit)
+    -Assuming Contacts form was properly validated when filled out, simply retrieve & display data
+  --> 
+  <!-- Start of Content & Bounding box <div controller = "studentPageContactsController"> : *Required* - used by Angular -->
+  <div class="box-round" data-ng-controller="studentPageContactsController"
+       data-require-path="components/contacts/index,components/widgets/dirtyInputHelper/index"
+       data-module-name="contactsModule" data-ng-cloak id="demoContactsSection">
+    <!-- Start of <div controller = "contactStudentController"> : Context container for Contacts table -->
+    <div data-ng-controller="contactStudentController">
+      <div class="button-row">
+        <input type="checkbox" id="showAllChkBox" data-ng-disabled="!demoContext.hasEndDateAccess" data-ng-model="context.showAllStudentContacts" 
+               data-ng-change="saveShowAllStudentContacts()" />
+        <label for="showAllChkBox" data-ng-bind="getShowAllStudentContactsMessageWithCount()"></label>
+        <!-- ~ "Add" button has been removed for Demographics ~ -->
+      </div>
+      <p class="feedback-info" data-ng-if="!context.contacts.length" >This student does not have any associated contacts.</p>
+      <!--============================================|STUDENT_CONTACTS_TABLE|============================================-->
+      <table id="studentContactsTable" class="grid" data-ng-if="context.contacts.length" >
+        <colgroup>
+     <!-- <col style="width: auto"> - Removed -->
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+     <!-- <col style="width: 1%"> - Removed -->
+        </colgroup>
+        <tr>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.name_email]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.relationship]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.phone_type]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.phone]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.address]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.custody]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.lives_with]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.school_pickup]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.emergency_contact]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.original_contact_type]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.start_date]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.end_date]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.data_access]</th>
+        </tr>
+        <!-- Uses AngularJS to create <tr> element for each contact -->
+        <tr data-ng-repeat="contact in context.contacts | filter: !context.showAllStudentContacts ? {contactStudents: {current: true}} : {} | 
+            orderBy:'contactStudents[0].sequence'"
+            class="center" data-ng-style="!contact.contactStudents[0].current && {'font-style':'italic'}">
+          <!-- ~ "Order" column has been removed for demographics ~ -->
+          <!-- "Name / Email" : Contact's full name + email address  -->
+          <td class="nowrap left" >
+          
+            <!--============================================|LINK TO "EDIT_CONTACTS" PAGE : BOOKMARKING FOR LATER|============================================-->
+            <!-- Has Name: let FLS do it's thing --> 
+            <a data-ng-href="/admin/contacts/edit.html#?contactid={{contact.contactId}}" target="_blank" data-ng-if="contact.firstName || contact.lastName">
+              <span id="contact-first-name-{{$index}}" data-ng-bind="contact.firstName" ></span>
+              <span id="contact-last-name-{{$index}}" data-ng-bind="contact.lastName" ></span>
+            </a>
+            <!--============================================|LINK TO "EDIT_CONTACTS" PAGE : BOOKMARKING FOR LATER|============================================-->
+            
+            <span data-ng-if="!contact.firstName && !contact.lastName">
+              <!-- No Name: distinguish between no access and some access -->
+              ~[if#FNACCESS.security.fieldLevel=PERSON.FIRSTNAME=NOACCESS]
+                ~[if#LNACCESS.security.fieldLevel=PERSON.LASTNAME=NOACCESS]
+                  <!-- No Access: print fls mask with out anchor-->
+                  <span>~[text:psx.html.admin_students.unlimitedcontacts.fls_mask]</span>
+                [else#LNACCESS]
+                  <!-- Some Access: print no name with anchor -->
+                  <a data-ng-href="/admin/contacts/edit.html#?contactid={{contact.contactId}}" target="_blank">
+                    ~[text:psx.html.admin_students.unlimitedcontacts.no_name]{{contact.contactId}}
+                  </a>
+                [/if#LNACCESS]
+              [else#FNACCESS]
+                <!-- Some Access: print no name with anchor -->
+                <a data-ng-href="/admin/contacts/edit.html#?contactid={{contact.contactId}}" target="_blank">
+                  ~[text:psx.html.admin_students.unlimitedcontacts.no_name]{{contact.contactId}}
+                </a>
+              [/if#FNACCESS]
+            </span>
+            <br />
+            <input id="personemailaddressassocid-{{$index}}" name="personemailaddressassocid[{{$index}}]" type="hidden" value="{{contact.view.preferredEmail.contactEmailId}}">
+            <input id="emailaddresid-{{$index}}" name="emailaddressid[{{$index}}]" type="hidden" value="{{contact.view.preferredEmail.emailId}}">
+            <span id="contact-email-{{$index}}" data-ng-if="contact.view.preferredEmail.address" data-ng-bind="'<' + contact.view.preferredEmail.address + '>'" ></span>
+          </td>
+          <!-- "Relationship" : How Contact is related to Student -->
+          <td>
+            <span id="contact-relationshiptype-{{$index}}" data-ng-bind="relationshipTypeCodeSetLookup[contact.contactStudents[0].activeDetail.relationship].value" ></span>
+          </td>
+          <!-- "Phone Type" : Mobile, Home, Work... -->
+          <td>
+            <span id="contact-phonetype-{{$index}}" data-ng-bind="phoneTypeCodeSetLookup[contact.view.firstPhone.phoneType].value" ></span>
+          </td>
+          <!-- "Phone" : Phone number for Contact -->
+          <td class="nowrap">
+            <input id="phonenumberid-{{$index}}" name="phonenumberid[{{$index}}]" type="hidden" value="{{contact.view.firstPhone.phoneNumberId}}">
+            <input id="personphonenumberassocid-{{$index}}" name="personphonenumbersassocid[{{$index}}]" type="hidden" value="{{contact.view.firstPhone.contactsPhoneId}}">
+            <span id="contact-phone-{{$index}}" data-ng-bind="contact.view.firstPhone.phoneNumber" ></span>
+            <span id="contact-phoneext-{{$index}}" data-ng-bind="contact.view.firstPhone.extension !== '' && contact.view.firstPhone.extension != null ?
+                  ' x' + contact.view.firstPhone.extension : ''" ></span>
+          </td>
+          <!-- "Address" : Home Address of Contact -->
+          <td class="nowrap left" >
+            <div id="contact-physical-address-{{$index}}">
+              <span data-ng-bind="contact.view.firstAddress.street" ></span>
+              <span data-ng-if="contact.view.firstAddress.unit.length" data-ng-bind="' ' + contact.view.firstAddress.unit"></span>
+              <br/>
+              <div data-ng-if="contact.view.firstAddress.linetwo.length">
+                <span data-ng-bind="contact.view.firstAddress.linetwo" ></span>
+                <br/>
+              </div>
+              <div data-ng-if="contact.view.firstAddress.city || stateCodesetDisplayMap[contact.view.firstAddress.state].code || contact.view.firstAddress.postalcode">
+                <!-- only append comma if both city and state are present. -->
+                <span data-ng-if="contact.view.firstAddress.city && stateCodesetDisplayMap[contact.view.firstAddress.state].code">
+                  <span data-ng-bind="contact.view.firstAddress.city"></span>,
+                </span>
+                <span data-ng-if="!contact.view.firstAddress.city || !stateCodesetDisplayMap[contact.view.firstAddress.state].code">
+                  <span data-ng-bind="contact.view.firstAddress.city"></span>
+                </span>
+                <span data-ng-bind="stateCodesetDisplayMap[contact.view.firstAddress.state].code"></span>
+                <span data-ng-bind="contact.view.firstAddress.postalcode"></span>
+              </div>
+            </div>
+            <input id="personaddressassocid-{{$index}}" name="personaddressassocid[{{$index}}]" type="hidden" value="{{contact.view.firstAddress.contactsAddressId}}">
+            <input id="personaddresid-{{$index}}" name="personaddressid[{{$index}}]" type="hidden" value="{{contact.view.firstAddress.addressId}}">
+          </td>
+          <!-- "Custody" : Does Contact have legal Custody? [x] => Y, [ ] => N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.custodial}">
+            <center><em id="contact-custody-{{$index}}"></em></center>
+          </td>
+          <!-- "Lives With" : Does Student currently live with Contact? [ ] => Y, [ ] => N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.livesWith}">
+            <center><em id="contact-livesWith-{{$index}}"></em></center>
+          </td>
+          <!-- 
+            "School Pickup" : Is Contact allowed(?) to pickup Student from school? [ ] = Y, [x] = N   
+             -I assume since no flags are set that it only gets set if there is an issue
+          -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.schoolPickup}">
+            <center><em id="contact-schoolPickup-{{$index}}"></em></center>
+          </td>
+          <!-- "Emerg. Contact" : Is Contact an Emerg. Contact? [x] = Y, [ ] = N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.emergency}">
+            <center><em id="contact-emergency-{{$index}}"></em></center>
+          </td>
+          <!-- "Original Contact Type" column : Idk what this is for but it does what it says -->
+          <td>
+            <span id="contact-originalcontacttype-{{$index}}" data-ng-bind="contact.contactStudents[0].originalContactType.value" 
+                  name="relationship-originalcontacttype-display-{{$index}}" ></span>
+          </td>
+          <!-- "Start Date" : Field is empty for most Contacts, presumably for temp Contacts -->
+          <td>
+            <span id="contact-startDate-{{$index}}" data-ng-bind="localizedDate(contact.contactStudents[0].activeDetail.startDate)"></span>
+          </td>
+          <!-- "End Date" : Field is empty for most Contacts, presumably for temp Contacts -->
+          <td>
+            <span id="contact-endDate-{{$index}}" data-ng-bind="localizedDate(contact.contactStudents[0].activeDetail.endDate)"></span>
+          </td>
+          <!-- "Data Access" : Does Contact have access Student data? [x] => Y, [ ] => N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].canAccessData}">
+            <center><em id="contact-data-access-{{$index}}" ></em></center>
+          </td>
+          <!-- ~ "Actions" column has been removed for demographics ~ -->
+        </tr>
+      </table>
+      <!--============================================|STUDENT_CONTACTS_TABLE_END|============================================-->
+    </div>
+    <script> var _curSchoolNumber = 0; </script>
+    <div class="hidden">
+      <input id="studentDcid" type="hidden" value="113601" />
+      <input id="schoolId" type="hidden" value="0" />
+      <input id="studentNumber" type="hidden" value="111308" />
+    </div>
+  </div>
+
+  <!-- Comment Form -->
+  <div class="box-round" id="demoComments">
+    <div class="tlistCollectionTable tlistCollectionTableInitialized">
+      <div class="button-row">
+        <button type="button" id="addButton">Add</button>
+      </div>
+      <table class="grid">
+        <colgroup>
+          <col class="col-COMMENT_DATE">
+          <col class="col-COMMENT_REASON">
+          <col class="col-COMMENT_PERSON">
+          <col class="col-COMMENT_COMMENT">
+          <col class="col-delete">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Date of Comment</th>
+            <th>Reason for Comment</th>
+            <th>Person Making Change</th>
+            <th>Comment</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="rowId_52412">
+            <td id="COMMENT_DATE_52412" class="td-COMMENT_DATE">
+              <b class="dpWrapper">
+                <input type="text" class="COMMENT_DATE psDateWidget unvalidated hasDatepicker" value="03/26/2019"
+                       data-validation="{&quot;type&quot;:&quot;date&quot;,&quot;key&quot;:&quot;students.u_comment.comment_date&quot;}"
+                       name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_DATE$format=date" data-key="students.u_comment.comment_date" id="dp1625588312868" placeholder="MM/DD/YYYY">
+                <button type="button" class="ui-datepicker-trigger" aria-hidden="true" tabindex="-1"></button>
+              </b>
+            </td>
+            <td id="COMMENT_REASON_52412" class="td-COMMENT_REASON">
+              <input type="text" class="COMMENT_REASON psTextWidget" value="TransferFrom-Original" maxlength="25"
+                     data-validation="{&quot;maxlength&quot;:&quot;25&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_reason&quot;}"
+                     name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_REASON" data-key="students.u_comment.comment_reason" id="ldv_generatedID1">
+            </td>
+            <td id="COMMENT_PERSON_52412" class="td-COMMENT_PERSON">
+              <input type="text" class="COMMENT_PERSON psTextWidget unvalidated" value="DC" maxlength="2"
+                     data-validation="{&quot;maxlength&quot;:&quot;2&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_person&quot;}"
+                     name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_PERSON" data-key="students.u_comment.comment_person">
+            </td>
+            <td id="COMMENT_COMMENT_52412" class="td-COMMENT_COMMENT">
+              <input type="text" class="COMMENT_COMMENT psTextWidget unvalidated" value="GLCA" maxlength="500"
+                     data-validation="{&quot;maxlength&quot;:&quot;500&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_comment&quot;}"
+                     name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_COMMENT" data-key="students.u_comment.comment_comment">
+            </td>
+            <td>
+              <input class="deleteCB hide" name="DC-STUDENTS:113601.U_COMMENT.U_COMMENT:52412" type="checkbox">
+              <button class="undoDelRow hide" type="button"><em>&nbsp;</em></button>
+              <button class="deleteRow" type="button"><em>&nbsp;</em></button>
+            </td>
+          </tr>
+          <tr class="new">
+            <td id="COMMENT_DATE_-{INSERT_COUNTER}" class="td-COMMENT_DATE">
+              <input type="text" class="COMMENT_DATE" data-addclass="psDateWidget" value=""
+                     data-validation-add="{&quot;type&quot;:&quot;date&quot;,&quot;key&quot;:&quot;students.u_comment.comment_date&quot;}"
+                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_DATE$format=date">
+            </td>
+            <td id="COMMENT_REASON_-{INSERT_COUNTER}" class="td-COMMENT_REASON">
+              <input type="text" class="COMMENT_REASON" data-addclass="psTextWidget" maxlength="25" value=""
+                     data-validation-add="{&quot;maxlength&quot;:&quot;25&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_reason&quot;}"
+                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_REASON">
+            </td>
+            <td id="COMMENT_PERSON_-{INSERT_COUNTER}" class="td-COMMENT_PERSON">
+              <input type="text" class="COMMENT_PERSON" data-addclass="psTextWidget" maxlength="2" value=""
+                     data-validation-add="{&quot;maxlength&quot;:&quot;2&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_person&quot;}"
+                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_PERSON">
+            </td>
+            <td id="COMMENT_COMMENT_-{INSERT_COUNTER}" class="td-COMMENT_COMMENT">
+              <input type="text" class="COMMENT_COMMENT" data-addclass="psTextWidget" maxlength="500" value=""
+                     data-validation-add="{&quot;maxlength&quot;:&quot;500&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_comment&quot;}"
+                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_COMMENT">
+            </td>
+            <td class="deleteCol"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
 </div>
