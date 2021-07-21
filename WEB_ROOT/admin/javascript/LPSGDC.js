@@ -181,8 +181,8 @@ function LPSGDRestyle() {
   /* Wrap Student Section */
   $j("form tr.row-student").wrapAll('<div id="StudentSection" class=""><div class="row"></div></div>'); /* Starts at top */
   /* Wrap Subsections */
-  $j("form tr.student-contactInfo:first").before('<tr class="headerrow row-student student-contactInfo"><td colspan="2" class="bold" width="1920px">Phone & Email</td></tr>');
-  $j("form tr.student-name:first").before('<tr class="headerrow row-student student-name"><td colspan="2" class="bold" width="1920px">Name</td></tr>'); /* Currently using static px width, should adjust to be responsive */
+  $j("form tr.student-contactInfo:first").before('<tr class="headerrow row-student student-contactInfo"><td colspan="2" class="bold" width="100%">Phone & Email</td></tr>');
+  $j("form tr.student-name:first").before('<tr class="headerrow row-student student-name"><td colspan="2" class="bold" width="100%">Name</td></tr>'); /* Currently using static px width, should adjust to be responsive */
   
   /* Wrap 'Everything Else' (fields exist but don't have a section) */
   $VarEverythingElse.wrapAll('<div id="EverythingElseSection" class=""><div class="row"></div></div>'); /* Stack under Student Section */
@@ -193,48 +193,48 @@ function LPSGDRestyle() {
     -Probably a lazy way format the page, should change later to be more dynamic
   */
   $j("form .row-everythingElse").children("td:nth-child(2)").attr("width", "75%");
-  $VarEverythingElse.first().before('<tr class="headerrow row-everythingElse"><td colspan="2" class="bold" width="1920px">Information</td></tr>');
+  $VarEverythingElse.first().before('<tr class="headerrow row-everythingElse"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Other Section */
   $j("form tr.row-other").wrapAll('<div id="OtherSection" class=""><div class="row"></div></div>');
   $j("form div#OtherSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
-  $j("form tr.row-other:first").before('<tr class="headerrow row-other"><td colspan="2" class="bold" width="1920px">Information</td></tr>');
+  $j("form tr.row-other:first").before('<tr class="headerrow row-other"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Legal Section */
   $j("form tr.row-legal").wrapAll('<div id="LegalSection" class=""><div class="row"></div></div>');
   $j("form div#LegalSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
-  $j("form tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="1920px">Information</td></tr>');
+  $j("form tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Grad Section */
   $j("form tr.row-grad").wrapAll('<div id="GradSection" class=""><div class="row"></div></div>');
   $j("form div#GradSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
-  $j("form tr.row-grad:first").before('<tr class="headerrow row-grad"><td colspan="2" class="bold" width="1920px">Information</td></tr>');
+  $j("form tr.row-grad:first").before('<tr class="headerrow row-grad"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Office Section*/
   $j("form tr.row-office").wrapAll('<div id="OfficeSection" class=""><div class="row"></div></div>');
   $j("form div#OfficeSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
-  $j("form tr.office-general:first").before('<tr class="headerrow row-office office-general"><td colspan="2" class="bold" width="1920px">District Information</td></tr>');
-  $j("form tr.office-el:first").before('<tr class="headerrow row-office office-el"><td colspan="2" class="bold" width="1920px">EL Information</td></tr>');
-  $j("form tr.office-sped:first").before('<tr class="headerrow row-office office-sped"><td colspan="2" class="bold" width="1920px">SPED Information</td></tr>');
+  $j("form tr.office-general:first").before('<tr class="headerrow row-office office-general"><td colspan="2" class="bold" width="100%">District Information</td></tr>');
+  $j("form tr.office-el:first").before('<tr class="headerrow row-office office-el"><td colspan="2" class="bold" width="100%">EL Information</td></tr>');
+  $j("form tr.office-sped:first").before('<tr class="headerrow row-office office-sped"><td colspan="2" class="bold" width="100%">SPED Information</td></tr>');
   
   /* Wrap Race Section */
   $j("form div#stateIncludeWrapper").wrapAll('<tr class="row-ethRace ethrace-other"><td colspan="2"></td></tr>');
   $j("form tr.row-ethRace").wrapAll('<div id="EthRaceSection" class=""><div class="row"></div></div>');
   $j("form div#EthRaceSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
-  $j("form tr.ethrace-select:first").before('<tr class="headerrow row-ethRace ethrace-select"><td colspan="2" class="bold" width="1920px">Ethnicity & Race</td></tr>');
-  $j("form tr.ethrace-other:first").before('<tr class="headerrow row-ethRace ethrace-other"><td colspan="2" class="bold" width="1920px">Other State General</td></tr>');
+  $j("form tr.ethrace-select:first").before('<tr class="headerrow row-ethRace ethrace-select"><td colspan="2" class="bold" width="100%">Ethnicity & Race</td></tr>');
+  $j("form tr.ethrace-other:first").before('<tr class="headerrow row-ethRace ethrace-other"><td colspan="2" class="bold" width="100%">Other State General</td></tr>');
   
   /* Wrap Contacts Section */
   $j("form div#demoContactsSection").wrapAll('<tr class="row-contacts contacts-table"><td colspan="2"></td></tr>');
   $j("form tr.row-contacts").wrapAll('<div id="ContactsSection" class=""><div class="row"></div></div>');
   $j("form div#ContactsSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
-  $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="1920px">Parents - Old (will be phased out)</td> </tr>');
+  $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');
   $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Father - Old</td> </tr>');
   $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Mother - Old</td> </tr>');
 }
@@ -244,17 +244,18 @@ function hideSections() {
   $j(".collapseHeader").remove();
   
 }
-
+/* So this seems to create a copy of the whole page and place it below everything else for some reason, could be a result of bubbling on events? */
 /* Adds toggle-collapse headers to sections & activates navbar functions */
 function toggleShowAll() {
-  $j("form div#StudentSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Student Information</h2>').attr("style", "display: block !important");
-  $j("form div#EverythingElseSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Everything Else</h2>').attr("style", "display: block !important");
-  $j("form div#OtherSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Other</h2>').attr("style", "display: block !important");
-  $j("form div#LegalSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Legal Information</h2>').attr("style", "display: block !important");
-  $j("form div#GradSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Graduation Information</h2>').attr("style", "display: block !important");
-  $j("form div#OfficeSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Administrative Information</h2>').attr("style", "display: block !important");
-  $j("form div#EthRaceSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Ethnicity/Race Information</h2>').attr("style", "display: block !important");
-  $j("form div#ContactsSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Contacts</h2>').attr("style", "display: block !important");
+  $j("form div#StudentSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Student Information</h2>');
+  $j("form div#EverythingElseSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Everything Else</h2>');
+  $j("form div#OtherSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Other</h2>');
+  $j("form div#LegalSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Legal Information</h2>');
+  $j("form div#GradSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Graduation Information</h2>');
+  $j("form div#OfficeSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Administrative Information</h2>');
+  $j("form div#EthRaceSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Ethnicity/Race Information</h2>');
+  $j("form div#ContactsSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Contacts</h2>');
+  $j("form div").css("display", "block");
   
   /* Navbar - Section Links */
   $j(".sectLink").on('click', function(event) {
@@ -322,24 +323,6 @@ $j(document).ready(function() {
   var $showAllTab = $j("#demoShowAllTab");
   
   /*
-    When checkbox is...
-     -Checked: Switch to "Show All" view
-     -Unchecked: Switch to tabbed view
-  */
-  $showAllChkbx.change(function() {
-    if ( $j( this ).checked ) {
-      toggleShowAll();
-    } else {
-      hideSections();
-    }
-  });
-  
-  $showAllTab.click(function (event) {
-    event.preventDefault();
-    $showAllChkbx.click();
-  });
-  
-  /*
   Beginning of concept for other tabs to leave "Show All" view instead of acting like navbar
     $j(".sectTab").not($showAllTab).click(function() {
       if ( $showAllChkbx.checked ) {
@@ -368,6 +351,24 @@ $j(document).ready(function() {
     hideCollapseClasses($j(this));
     hideCollapseText($j(this));
     hideCollapseTarget($j(this));
+  });
+  
+  /*
+    When checkbox is...
+     -Checked: Switch to "Show All" view
+     -Unchecked: Switch to tabbed view
+  
+  $showAllChkbx.change(function() {
+    if ( $j( this ).checked ) {
+      toggleShowAll();
+    } else {
+      hideSections();
+    }
+  });
+  */
+  $showAllTab.click(function (event) {
+    event.preventDefault();
+    $showAllChkbx.click();
   });
   
   /* Comment codes */
