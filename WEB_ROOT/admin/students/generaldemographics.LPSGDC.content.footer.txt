@@ -1,139 +1,7 @@
 <!DOCTYPE html>
 <!-- use jQuery to replace text -->
 <script src="/admin/javascript/LPSGDC.js"></script>
-<style type="text/css">
-/* highlight fields: incomplete = red, completed = green !!FOR BUG-FINDING/FIXING ONLY!! */
-  /*
-  input:invalid {
-    background-color: rgb(230, 179, 179);
-  }
-  input:placeholder-shown {
-    background-color: rgb(230, 179, 179);
-  }
-  input:valid {
-    background-color: rgb(179, 230, 179);
-  }
-  input.noValue {
-    background-color: rgb(230, 179, 179);
-  }
-  */
-/* Adjust navbar for screensize */
-  @media screen and (max-width: 1200px) {
-    #demoNavBar a {
-      font-size: 13px;
-      padding: 10px;
-    }
-  }
-  @media screen and (max-width: 840px) {
-    #demoNavBar a {
-      font-size: 10px;
-      padding: 7px;
-    }
-  }
-  /* 650px is when PS stops scaling the page  */
-  @media screen and (max-width: 650px) {
-    #demoNavBar a {
-      line-height: 1.5em;
-      font-size: 7px;
-      padding: 3px;
-    }
-  }
-  /* Maybe should change this to move links to a drop-down? */
-  @media screen and (max-width: 460px) {
-    #demoNavBar a {
-      font-size: 5px;
-      line-height: 1.5em;
-      padding: 2px;
-    }
-  }
-  
-/* Slide-down navigation bar for section anchors */
-  #demoNavBar {
-    position: fixed;
-    top: -100px;
-    width: 100%;
-    transition: top 0.3s;
-    overflow: hidden;
-    background-color: #333;
-    z-index: 1;
-  }
-  #demoNavBar a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 15px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  #demoNavBar a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  #demoNavBar a.active {
-    background-color: #04AA6D;
-    color: white;
-  }
-
-  #navToggleBox {
-    position: fixed;
-    top: -50px;
-    right: 50%;
-    width: 5%;
-    transition: top 0.2s ease 0.1;
-    overflow: hidden;
-    background-color: #333;
-    z-index: 1;
-  }
-  #navToggleBox a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 10px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  #navToggleBox a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  #navToggleBox a.active {
-    background-color: #04AA6D;
-    color: white;
-  }
-  #navToggleBox button {
-    float: left;
-    padding: 0px;
-    margin: 0px 0px 5px 12.5px;
-    line-height: 0.8em;
-  }
-  
-/* Make read-only inputs look normal */
-  input:read-only {
-    border-style: inset;
-    border-width: 2px;
-    border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
-    padding: 3px;
-    background-color: rgb(255,255,255);
-    /*background-color: rgb(217,217,217); /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
-  }
-  
-  input:only-child { width: 99%; }
-  
-  .editButton { float: right; }
-  
-  #editStateIncludeBtn { margin-top: 0px; }
-  
-  #stateIncludeBox {
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-bottom: 0px;
-  }
-  
-  #demoContactsTable { border-style: none; }
-  #studentContactsTable { width: calc(100% - 20px); }
-</style>
+<link rel="stylesheet" type="text/css" href="/admin/styles/LPSGDC.css"></style>
 <!--
   NOTES:
   - In order to save input to database, <input> needs
@@ -158,14 +26,7 @@
     <a href="javascript:void(0);" id="collapseAll">Collapse All</a>
   </nav>
   <div id="navToggleBox">
-    <button type="button" width="50%"><a href="javascript:void(0);" id="toggleNavBar">&#x1f845;</a></button>
-  </div>
-  <div id="demoStyleOptions">
-    <label for="demoViewStyles" id="viewLabel" style="margin-left: 2em">View Style: </label>
-    <select id="demoViewStyles">
-      <option value="Collapse" selected>Collapsed (default)</option>
-      <option value="Tab">Tabs</option>
-    </select>
+    <button type="button"><a href="javascript:void(0);" id="toggleNavBar">&#x1f845;</a></button>
   </div>
   <div class="tabs" id="demoNavTabs">
     <ul>
@@ -203,40 +64,40 @@
             stu.student_number = ~([Students]student_number)]~(email)[/tlist_sql]"
           class="psTextWidget" readonly />
         </td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/emailconfig.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/emailconfig.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
       <tr id="trRace_BirthCity" class="row-ethRace ethrace-other"> <!-- DOE008 *Needs to be converted to town code -->
         <td class="bold">City/Town of Birth &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]BirthCity" id="fieldBirthCity" value="~(BirthCity)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#ldv_generatedID2'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#ldv_generatedID2'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trRace_Military" class="row-ethRace ethrace-other"> <!-- DOE029 -->
         <td class="bold">Family Military Status &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]MilitaryStatus" id="fieldMilitaryStatus" value="~(MilitaryStatus)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#militaryStatus'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#militaryStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Office Data' -->
       <tr id="trOffice_EntryDate" class="row-office office-general">
         <td class="bold">District Entry Date &tilde;</td>
         <td width="75%"><input type="text" name="[Students]DistrictEntryDate" id="fieldEntryDate" value="~(DistrictEntryDate)" placeholder="~[short.date]" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/modifydata.html?frn=~(frn)#dp1626705387672" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/modifydata.html?frn=~(frn)#dp1626705387672" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOffice_EntryGrade" class="row-office office-general">
         <td class="bold">District Entry Grade &tilde;</td> <!-- Auto-formatting makes this want a number, so translating it to K/PK might cause issues?   -->
         <td width="75%"><input type="text" name="[Students]DistrictEntryGradeLevel" id="fieldEntryGrade" value="~(DistrictEntryGradeLevel)" class="psTextWidget" readonly /></td>
         <!-- Entry Grade has no ID to link to on target page so linking to Entry Date which is directly above it -->
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/modifydata.html?frn=~(frn)#dp1626705387672" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/modifydata.html?frn=~(frn)#dp1626705387672" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOffice_SchoolCode" class="row-office office-general">
         <td class="bold">School Code &tilde;</td> <!-- DOE015 *code = 0000000[1,2] for SPED (1:gradeLvl >12 or private preschool), (2:homeschooled) -->
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]OverrideSchoolCode" id="fieldSchoolCode" value="~(OverrideSchoolCode)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_SchoolCode'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_SchoolCode'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOffice_ELCode" class="row-office office-el"> <!-- DOE027 or 24? maybe 41? -->
         <td class="bold">EL Code &tilde;</td>
         <td width="75%"><input type="text" name="[Students.U_Def_Ext_Students]EL" id="fieldELCode" value="~(EL)" placeholder="EL CODE ###..." class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/ellsims.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/ellsims.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOffice_FLEPDate" class="row-office office-el">
         <td class="bold">FLEP Date &tilde;</td> <!-- BUG: For some reason '~[short.date]' returns 'MM/DD/YYYY' here but gives the actual date in #fieldGradDate (I think because gradDate is a custom value) -->
@@ -245,12 +106,12 @@
       <tr id="trOffice_SPEDCode" class="row-office office-sped"> <!-- -->
         <td class="bold">SPED Code &tilde;</td>
         <td width="75%"><input type="text" name="[Students.U_Students_Extension]SPED" id="fieldSPEDCode" value="~(SPED)" placeholder="SPED CODE ###..." class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/spe.html?frn=~(frn)'" class="editButton" type="button">View</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/spe.html?frn=~(frn)'" class="editButton" type="button">View</button></td>-->
       </tr>
       <tr id="trOffice_504Plan" class="row-office office-sped">
         <td class="bold">504 Plan &tilde;</td> <!-- DOE039-->
         <td width="75%"><input type="text" name="[Students.S_MA_STU_SPED_X]Sec504PlanStatus" id="field504Plan" value="~(Sec504PlanStatus)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_504PlanStatus'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_504PlanStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Graduation Info' -->
       <tr id="trGrad_Date" class="row-grad">
@@ -264,7 +125,7 @@
       <tr id="trGrad_Plan" class="row-grad"> <!-- DOE033 *PK-10 = '500', 11/12 = '500' until graduated/receive certificate/complete grade 12 -->
         <td class="bold">Post-Graduation Plan &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]PostGradPlans" id="fieldGradPlan" value="~(PostGradPlans)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#futureplans'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#futureplans'" class="editButton" type="button">Edit</button></td>-->
          <!-- DEPENDENCIES: If...
               ...DOE012(Enrollment) = '04'(Graduate), then DOE033 != '500'(N/A) and DOE037(Core Completion) != '00'(Not a graduate)
               ...DOE033 does not = '500', then DOE12 must = '04', '10'(Certificate), or '11'(Completed Grade 12) -->
@@ -272,7 +133,7 @@
       <tr id="trGrad_CoreCompletion" class="row-grad"> <!-- DOE037 *DOE033(GradPlan) dependencies includes all DOE037 dependencies  -->
         <td class="bold">Massachusetts Core Curriculum Completion &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]GradCompleteCoreCurriculum" id="fieldCoreCompletion" value="~(GradCompleteCoreCurriculum)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#gradstatus'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#gradstatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!-- Custom Fields: 'Legal Info' -->
       <tr id="trLegal_FullName" class="row-legal">
@@ -289,7 +150,7 @@
         <td class="bold">Legal Gender &tilde;</td>
         <td width="75%"><input type="text" name="[Students]Gender" id="fieldLegalGender" value="~(gender)" class="psTextWidget" readonly /></td>
         <!-- Gender on SIMS page doesn't have an ID to link to, should figure out how to get link to focus on it -->
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!-- Custom Fields: 'Other' (LPS)  -->
       <tr id="trOther_NCLB" class="row-other other-lps"> <!-- DOE020(?) *DOE020 is for 'Title 1 participation type', this is 'Title 1 School Choice status'. Don't know what the difference is. -->
@@ -299,32 +160,32 @@
       <tr id="trOther_FirstYearEL" class="row-other other-lps"> <!-- DOE021 *DEPENDENCIES: Students with Grade Level(DOE016) = 'PK' or 'SP' should be given '00'(N/A)-->
         <td class="bold">First Year English Learner &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LEP1stYrInUS" id="fieldFirstYearEL" value="~(LEP1stYrInUS)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_LEPinUS'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_LEPinUS'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_IsEL" class="row-other other-lps"> <!-- DOE025 *DEPENDENCIES: If DOE025 = '01'(yes_EL) then DOE024(Native Language) != '267'(English) -->
         <td class="bold">English Learner &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LimitedEnglishProficiency" id="fieldIsEL" value="~(LimitedEnglishProficiency)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_EngProficiency'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_EngProficiency'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_ELStatus" class="row-other other-lps"> <!-- DOE026 *DEPENDENCIES: If DOE026 != '00'(Not Enrolled) then DOE025(isEL) = '01'(yes_EL)-->
         <td class="bold">EL Program Status &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LEPProgramStatus" id="fieldELStatus" value="~(LEPProgramStatus)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#BilingualStatus'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#BilingualStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_SASID" class="row-other other-lps"> <!-- DOE002 *10 digits long, -->
         <td class="bold">State Assigned Student Identifier (SASID) &tilde;</td>
         <td width="75%"><input type="text" name="[Students]State_StudentNumber" id="fieldSASID" value="~(State_StudentNumber)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#ldv_generatedID2'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#ldv_generatedID2'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_IsImmigrant" class="row-other other-lps"> <!-- DOE022 *DEPENDENCIES: If DOE022 = '01'(yes_immigrant) then DOE023(Origin Country) != '500'(not an immigrant) -->
         <td class="bold">Immigrant &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]ImmigrantStatus" id="fieldImmigrantStatus" value="~(ImmigrantStatus)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_ImmgrStatus'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_ImmgrStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_EnrollmentStatus" class="row-other other-lps"> <!-- DOE012 *DEPENDENCIES: Students reported with a code of 04 must be in grades 11, 12 or SP. See DOE033/Appendix I(in doc) for more -->
         <td class="bold">Enrollment Status &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]EnrollStatusTimeOfCollection" id="fieldEnrollmentStatus" value="~(EnrollStatusTimeOfCollection)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#enrollstatus'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#enrollstatus'" class="editButton" type="button">Edit</button></td>-->
       <tr id="trOther_TransferFrom" class="row-other other-lps">
         <td class="bold">Transferring from &tilde;</td>
         <td width="75%"><input type="text" id="fieldTransferFrom" value="" size="17" placeholder="SCHOOL NAME" class="psTextWidget" readonly /></td>
@@ -336,7 +197,7 @@
       <tr id="trOther_OriginCountry" class="row-other other-lps"> <!-- DOE023 *Surely there's a better way to do this than list every country here -->
         <td class="bold">Country of Origin &tilde;</td> <!-- value="500" > not an immigrant student (US Origin) -->
         <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]CountryOfOrigin" id="fieldOriginCountry" value="~(CountryOfOrigin)" class="psTextWidget" readonly /></td>
-        <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_Country'" class="editButton" type="button">Edit</button></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_Country'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_TeamFlag" class="row-other other-lps">
         <td class="bold">Team Flag &tilde;</td>
@@ -348,7 +209,7 @@
   <!-- Grouping these 3 fields in a box-round to communicate that the "Edit" button functions the same for each -->
   <div id="stateIncludeWrapper" class="row-ethRace ethrace-other">
     <div class="button-row" style="margin:0px;padding-bottom:0px;">
-      <button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/stateMA.html?frn=~(frn)'" id="editStateIncludeBtn" type="button">Edit</button>
+      <!--<button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/stateMA.html?frn=~(frn)'" id="editStateIncludeBtn" type="button">Edit</button>-->
     </div>
     <div class="box-round" id="stateIncludeBox">
       <table class="linkDescList" style="margin-top:0px;width:100%;">
@@ -390,7 +251,7 @@
         <input type="checkbox" id="showAllChkBox" data-ng-disabled="!demoContext.hasEndDateAccess" data-ng-model="context.showAllStudentContacts" 
                data-ng-change="saveShowAllStudentContacts()" />
         <label for="showAllChkBox" data-ng-bind="getShowAllStudentContactsMessageWithCount()"></label>
-        <button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/contacts.html?frn=~(frn)'" id="viewContactsBtn" type="button">View Contacts Page</button>
+        <!--<button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/contacts.html?frn=~(frn)'" id="viewContactsBtn" type="button">View Contacts Page</button>-->
         <!-- ~ "Add" button has been removed for Demographics ~ -->
       </div>
       <p class="feedback-info" data-ng-if="!context.contacts.length" >This student does not have any associated contacts.</p>

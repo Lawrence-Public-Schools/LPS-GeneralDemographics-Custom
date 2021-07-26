@@ -7,9 +7,6 @@ function addLPSGDFields() {
   var $trGradYear = $j( "form input#fieldGradYear" ).parent().parent();
   var $trStuNum = $j( "form input#fieldStuNum" ).parent().parent();
   var $trMomHomePhone = $j( "form input#fieldMotherHomePhone" ).parent().parent();
-  var raceCodeViewBtn = '<td><button onclick="location.href=' 
-    + "'https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=001113601'" 
-    + '" class="editButton" type="button">View</button></td>';
 
     /*================NOTES:======================================================
    -Tables are built bottom-to-top
@@ -31,7 +28,6 @@ function addLPSGDFields() {
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_Military") );
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_BirthCity") );
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable div#stateIncludeWrapper") );
-  $trRaceCode.append( raceCodeViewBtn );
   /*
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_IncludeSASID") );
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_IncludeSIMS") );
@@ -71,23 +67,8 @@ function addLPSGDFields() {
   $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_FirstYearEL") );
   $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_NCLB") );
   
-  /* Navigation Tabs */
-  var $navTabs = $j("div#LPS-GDCustomhiddentable div#demoNavTabs");
-  $j("div#content-main form").before($navTabs).appendTo($navTabs);
-  
-  /* Navbar for collapsed view */
-  var $navBar = $j("div#LPS-GDCustomhiddentable nav#demoNavBar");
-  $navTabs.before($navBar);
-  $navTabs.before( $j("div#LPS-GDCustomhiddentable div#navToggleBox") );
-  
-  /* Style Options Section */
-  var $styleOptions = $j("div#LPS-GDCustomhiddentable div#demoStyleOptions");
-  $navTabs.before($styleOptions);
-  
   /* Comment Box */
   $j("form>div.box-round:first-child").after( $j("#demoComments") );
-
-  $j( "div#LPS-GDCustomhiddentable" ).remove();
 }
 
 /*
@@ -247,11 +228,29 @@ function LPSGDRestyle() {
   //$j('<div id="ShowAll"></div>').insertBefore( $j("form div#StudentSection") );
 }
 
-/* 
-  Hide all sections except selected, reverts to tabnav form
-    - Arg(s)  : Any valid JQuery selector
-        Default = "div#StudentSection"
-    - Returns : NULL
+/*
+  -Check URL for tag and add required elements/styling
+*/
+function selectViewStyle() {
+  if(window.location.hash === '#/TabView') {
+    var $navTabs = $j("div#LPS-GDCustomhiddentable div#demoNavTabs");
+    $j("div#content-main form").before($navTabs).appendTo($navTabs);
+    /* 
+      -Section <div>s don't receive PS 'ui-tabs' classes until clicked, 
+        simulate a click on each tab when page loads then go back to
+        default tab ('#StudentSection')
+    */
+    $j("a.sectTab").click();
+    $j('a.sectTab[href="#StudentSection"]').click();
+  } else {
+    var $navBar = $j("div#LPS-GDCustomhiddentable nav#demoNavBar");
+    $j("div#content-main form").before($navBar).before( $j("div#LPS-GDCustomhiddentable div#navToggleBox") );
+    showCollapsed();
+  }
+}
+
+/*
+  -Controls navbar slide-down/up
 */
 function toggleDisplayNav() {
   /* JQuery's .css("top", "--px") wouldn't work and this did so I'm using this */
@@ -262,25 +261,16 @@ function toggleDisplayNav() {
     navToggle.style.transition = "top 0.2s ease 0.1s";
     navToggle.style.top = "50px";
     $j("a#toggleNavBar").text("\uD83E\uDC45"); // Up Arrow
+    $j("a#toggleNavBar").parent().css("background-color", "rgb(0, 75, 120)");
   } else {
     navBar.style.top= "-100px";
     navToggle.style.transition = "top 0.15s ease 0s";
-    navToggle.style.top = "0px";
+    navToggle.style.top = "0%";
     $j("a#toggleNavBar").text("\uD83E\uDC47"); // Down Arrow
+    $j("a#toggleNavBar").parent().css("background-color", "rgb(0, 102, 165)");
   }
 }
 
-function hideCollapsed() {
-  $j(".collapseHeader").remove();
-  $j("#demoNavBar").css("top", "-100px"); // If Im going this way I can probably just dynamically add/remove it instead.
-  $j("div#navToggleBox").css( {"transition":"top 0.3s ease 0s","top":"-50px"} );
-  $j("#demoNavBar").off();
-  $j("#toggleNavBar").off();
-  $j('form div[id$="Section"]').removeClass("hide").css("display", "none");
-  $j("div#demoNavTabs > ul").prop("hidden", false);
-}
-
-/* So this seems to create a copy of the whole page and place it below everything else for some reason, could be a result of bubbling on events? */
 /* Adds toggle-collapse headers to sections & activates navbar functions */
 function showCollapsed() {
   $j("form div#StudentSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Student Information</h2>');
@@ -293,7 +283,7 @@ function showCollapsed() {
   $j("form div#ContactsSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Contacts</h2>');
   $j("form div").css("display", "block");
   $j("div#demoNavTabs > ul").prop("hidden", true);
-  toggleDisplayNav();  
+  toggleDisplayNav();
    
   /* Load page with all sections collapsed */
   $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
@@ -347,63 +337,16 @@ function showCollapsed() {
     event.preventDefault();
     toggleDisplayNav();
   });
-  
-  /* Navbar - Slide Down/Up - DEPRECATED: Navbar visibility now tied to "Show All"
-  window.onscroll = function navScroll() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      $j("nav#demoNavBar").css("top", "0");
-    } else {
-      $j("nav#demoNavBar").css("top", "-100px");
-    }
-  };
-  */
 }
 
-/* 
-  -Run LPS customization functions
-  -Initialize event listeners
-  -Could be replaced by surrounding code in single block
-*/
 $j(document).ready(function() {
   /* Add LPS customizations to GD page then restyle page with the new elements */
   addLPSGDFields();
   LPSGDRestyle();
+  selectViewStyle();
   
-  /* ----------------Event Listeners---------------- */
-  var $viewSelect = $j("select#demoViewStyles");
-  var curSection = location.hash.replace("#/","#"); // Cut out '/' because it causes issues
-  
-  /* View Style Selection */
-  $viewSelect.on("change", function(event) {
-    switch( $viewSelect.val() ) {
-      case 'Tab':
-        hideCollapsed();
-        if( /#.*Section/.test(location.href) ) {
-          $j('div#demoNavTabs a[href="'+ curSection +'"]').click();
-        } else {
-          $j('div#demoNavTabs a[href="#StudentSection"]').click();
-        }
-        break;
-      case 'Collapse':
-        showCollapsed();
-        break;
-      default:
-        hideCollapsed();
-        break;
-    }
-  });
-  
-  /* 
-  ---------Update Sections so they get 'ui-tabs' classes-----------
-  -Section <div>s don't receive PS 'ui-tabs' classes until clicked, 
-    simulate a click on each tab when page loads then go back to
-    default tab ('#StudentSection')
-  */
-  $j("a.sectTab").click();
-  $j('a.sectTab[href="#StudentSection"]').click();
-  
-  /* Start in Collapsed View */
-  showCollapsed();
+  /* Remove hidden customization template */
+  $j( "div#LPS-GDCustomhiddentable" ).remove();
   
   /* Remove whitespace from field values, lets DOM know when they are empty for CSS */
   $j( "input" ).val(function( index, value ) { return value.trim(); });
@@ -424,8 +367,6 @@ $j(document).ready(function() {
       InstValues['RE']='Re-Engaged';
       InstValues['Other']='Other';
 });
-
-
 
 /* 
   ~ Moved down here because scrolling through it was annoying ~
