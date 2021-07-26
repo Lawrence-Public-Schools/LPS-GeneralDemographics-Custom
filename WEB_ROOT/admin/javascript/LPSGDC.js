@@ -7,7 +7,10 @@ function addLPSGDFields() {
   var $trGradYear = $j( "form input#fieldGradYear" ).parent().parent();
   var $trStuNum = $j( "form input#fieldStuNum" ).parent().parent();
   var $trMomHomePhone = $j( "form input#fieldMotherHomePhone" ).parent().parent();
-  
+  var raceCodeViewBtn = '<td><button onclick="location.href=' 
+    + "'https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=001113601'" 
+    + '" class="editButton" type="button">View</button></td>';
+
     /*================NOTES:======================================================
    -Tables are built bottom-to-top
    -Sections of entirely custom fields are inserted after MA Race Code, just need
@@ -22,13 +25,12 @@ function addLPSGDFields() {
   $trHomePhone.after( $j("div#LPS-GDCustomhiddentable tr#trStudent_Mobile") );
   
   /* 'Contacts' Table */
-  $trHomePhone.after( $j("div#LPS-GDCustomhiddentable div#demoContactsSection") );
+  $trHomePhone.after( $j("div#LPS-GDCustomhiddentable div#demoContactsTable") );
   
   /* 'Ethnicity/Race' Fields */
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_Military") );
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_BirthCity") );
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable div#stateIncludeWrapper") );
-  var raceCodeViewBtn = '<td><button onclick="location.href=' + "'https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=001113601'" + '" class="editButton" type="button">View</button></td>';
   $trRaceCode.append( raceCodeViewBtn );
   /*
   $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_IncludeSASID") );
@@ -70,21 +72,24 @@ function addLPSGDFields() {
   $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_NCLB") );
   
   /* Navigation Tabs */
-  var $stu_header = $j("div#content-main p#student_detail_header"); /* seems like bad practice but should work for now */
-  var $navTabs = $j("div#LPS-GDCustomhiddentable div#demo-navTabs");
-  $stu_header.after($navTabs);
-  $navTabs.append( $j("div#content-main form") );
+  var $navTabs = $j("div#LPS-GDCustomhiddentable div#demoNavTabs");
+  $j("div#content-main form").before($navTabs).appendTo($navTabs);
   
-  /* Navbar for "Show All" view */
-  var $navbar = $j("div#LPS-GDCustomhiddentable nav#demo-navbar");
-  $stu_header.after($navbar);
+  /* Navbar for collapsed view */
+  var $navBar = $j("div#LPS-GDCustomhiddentable nav#demoNavBar");
+  $navTabs.before($navBar);
+  $navTabs.before( $j("div#LPS-GDCustomhiddentable div#navToggleBox") );
+  
+  /* Style Options Section */
+  var $styleOptions = $j("div#LPS-GDCustomhiddentable div#demoStyleOptions");
+  $navTabs.before($styleOptions);
   
   /* Comment Box */
   $j("form>div.box-round:first-child").after( $j("#demoComments") );
 
   $j( "div#LPS-GDCustomhiddentable" ).remove();
 }
- 
+
 /*
   -Add LPS classes to PowerSchool default fields
   -Wrap related fields into sections and rebuild table using sections
@@ -230,23 +235,54 @@ function LPSGDRestyle() {
   $j("form tr.ethrace-other:first").before('<tr class="headerrow row-ethRace ethrace-other"><td colspan="2" class="bold" width="100%">Other State General</td></tr>');
   
   /* Wrap Contacts Section */
-  $j("form div#demoContactsSection").wrapAll('<tr class="row-contacts contacts-table"><td colspan="2"></td></tr>');
+  $j("form div#demoContactsTable").wrapAll('<tr class="row-contacts contacts-table"><td colspan="2"></td></tr>');
   $j("form tr.row-contacts").wrapAll('<div id="ContactsSection" class=""><div class="row"></div></div>');
   $j("form div#ContactsSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
   $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');
   $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Father - Old</td> </tr>');
   $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Mother - Old</td> </tr>');
+  
+  /* Insert showAll Section (Empty, used for anchor) ~Might just link to StudentSection instead~ */
+  //$j('<div id="ShowAll"></div>').insertBefore( $j("form div#StudentSection") );
 }
 
-/* Hides all sections except selected, essentially reverts to tabnav-form */
-function hideSections() {
-  $j(".collapseHeader").remove();
-  
+/* 
+  Hide all sections except selected, reverts to tabnav form
+    - Arg(s)  : Any valid JQuery selector
+        Default = "div#StudentSection"
+    - Returns : NULL
+*/
+function toggleDisplayNav() {
+  /* JQuery's .css("top", "--px") wouldn't work and this did so I'm using this */
+  var navBar = document.getElementById("demoNavBar"); 
+  var navToggle = document.getElementById("navToggleBox");
+  if(navBar.style.top === "-100px") {
+    navBar.style.top = "0px";
+    navToggle.style.transition = "top 0.2s ease 0.1s";
+    navToggle.style.top = "50px";
+    $j("a#toggleNavBar").text("\uD83E\uDC45"); // Up Arrow
+  } else {
+    navBar.style.top= "-100px";
+    navToggle.style.transition = "top 0.15s ease 0s";
+    navToggle.style.top = "0px";
+    $j("a#toggleNavBar").text("\uD83E\uDC47"); // Down Arrow
+  }
 }
+
+function hideCollapsed() {
+  $j(".collapseHeader").remove();
+  $j("#demoNavBar").css("top", "-100px"); // If Im going this way I can probably just dynamically add/remove it instead.
+  $j("div#navToggleBox").css( {"transition":"top 0.3s ease 0s","top":"-50px"} );
+  $j("#demoNavBar").off();
+  $j("#toggleNavBar").off();
+  $j('form div[id$="Section"]').removeClass("hide").css("display", "none");
+  $j("div#demoNavTabs > ul").prop("hidden", false);
+}
+
 /* So this seems to create a copy of the whole page and place it below everything else for some reason, could be a result of bubbling on events? */
 /* Adds toggle-collapse headers to sections & activates navbar functions */
-function toggleShowAll() {
+function showCollapsed() {
   $j("form div#StudentSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Student Information</h2>');
   $j("form div#EverythingElseSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Everything Else</h2>');
   $j("form div#OtherSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Other</h2>');
@@ -256,26 +292,35 @@ function toggleShowAll() {
   $j("form div#EthRaceSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Ethnicity/Race Information</h2>');
   $j("form div#ContactsSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Contacts</h2>');
   $j("form div").css("display", "block");
-  
-  /* Navbar - Section Links */
+  $j("div#demoNavTabs > ul").prop("hidden", true);
+  toggleDisplayNav();  
+   
+  /* Load page with all sections collapsed */
+  $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
+    hideCollapseClasses($j(this));
+    hideCollapseText($j(this));
+    hideCollapseTarget($j(this));
+  });
+
+  /* Add Navbar Event Listeners */
   $j(".sectLink").on('click', function(event) {
     /* Check for hash(anchor link) value NOTE: this.hash returns part of URL beginning with '#' aka the id of the linked element */
     if (this.hash !== "") {
       event.preventDefault();
-      var sectionAnchor = this.hash;
+      var $sectionAnchor = $j(this.hash);
       
-      if ( $j(sectionAnchor).hasClass("hide") ) {
-        $j(sectionAnchor).prev().toggleClass("collapsed expanded");
-        $j(sectionAnchor).toggleClass("hide");
+      if ( $sectionAnchor.hasClass("hide") ) {
+        $sectionAnchor.prev().toggleClass("collapsed expanded");
+        $sectionAnchor.toggleClass("hide");
       }
-      if ( $j(sectionAnchor).length < 1 ) {
-        alert("Error: Section " + sectionAnchor + " does not exist");
+      if ( $sectionAnchor.length < 1 ) {
+        alert("Error: Section " + this.hash + " does not exist");
         return false;
       }
       
       /* Animate smooth scroll + add hash (#) to URL when done (default click behavior) */
-      $j('html, body').animate( { scrollTop: $j(sectionAnchor).offset().top },
-        800, function () { window.location.hash = sectionAnchor; }
+      $j('html, body').animate( { scrollTop: $sectionAnchor.offset().top },
+        600, function () { window.location.hash = $sectionAnchor.attr('id'); }
       );
     }
   });
@@ -297,80 +342,75 @@ function toggleShowAll() {
       $section.prev().removeClass("expanded").addClass("collapsed");
     });
   });
-  /* Navbar - Slide Down/Up */
-  window.onscroll = function() {
+  /* Toggle NavBar On/Off */
+  $j("#toggleNavBar").on('click', function(event) {
+    event.preventDefault();
+    toggleDisplayNav();
+  });
+  
+  /* Navbar - Slide Down/Up - DEPRECATED: Navbar visibility now tied to "Show All"
+  window.onscroll = function navScroll() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      document.getElementById("demo-navbar").style.top = "0";
+      $j("nav#demoNavBar").css("top", "0");
     } else {
-      document.getElementById("demo-navbar").style.top = "-100px";
+      $j("nav#demoNavBar").css("top", "-100px");
     }
   };
-  
+  */
 }
 
 /* 
   -Run LPS customization functions
   -Initialize event listeners
-  -Could be replaced by surrounding code in single block 
+  -Could be replaced by surrounding code in single block
 */
 $j(document).ready(function() {
   /* Add LPS customizations to GD page then restyle page with the new elements */
   addLPSGDFields();
   LPSGDRestyle();
   
-  /* Event Listeners */
-  var $showAllChkbx = $j("#demoShowAllCheckBox");
-  var $showAllTab = $j("#demoShowAllTab");
+  /* ----------------Event Listeners---------------- */
+  var $viewSelect = $j("select#demoViewStyles");
+  var curSection = location.hash.replace("#/","#"); // Cut out '/' because it causes issues
   
-  /*
-  Beginning of concept for other tabs to leave "Show All" view instead of acting like navbar
-    $j(".sectTab").not($showAllTab).click(function() {
-      if ( $showAllChkbx.checked ) {
-        $showAllChkbx.click();
-      }
-    });
-  */
+  /* View Style Selection */
+  $viewSelect.on("change", function(event) {
+    switch( $viewSelect.val() ) {
+      case 'Tab':
+        hideCollapsed();
+        if( /#.*Section/.test(location.href) ) {
+          $j('div#demoNavTabs a[href="'+ curSection +'"]').click();
+        } else {
+          $j('div#demoNavTabs a[href="#StudentSection"]').click();
+        }
+        break;
+      case 'Collapse':
+        showCollapsed();
+        break;
+      default:
+        hideCollapsed();
+        break;
+    }
+  });
   
   /* 
   ---------Update Sections so they get 'ui-tabs' classes-----------
   -Section <div>s don't receive PS 'ui-tabs' classes until clicked, 
     simulate a click on each tab when page loads then go back to
-    default tab ('Show All')
+    default tab ('#StudentSection')
   */
   $j("a.sectTab").click();
-  $j("a.sectTab[href='#demoShowAllTab']").click();
+  $j('a.sectTab[href="#StudentSection"]').click();
+  
+  /* Start in Collapsed View */
+  showCollapsed();
   
   /* Remove whitespace from field values, lets DOM know when they are empty for CSS */
   $j( "input" ).val(function( index, value ) { return value.trim(); });
   
   /* Translate DOE Codes - 'fieldName_DOE###' (Moved to seperate function for readability) */
   decodeDemoVals();
-  
-  /* Load page with all sections collapsed */
-  $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
-    hideCollapseClasses($j(this));
-    hideCollapseText($j(this));
-    hideCollapseTarget($j(this));
-  });
-  
-  /*
-    When checkbox is...
-     -Checked: Switch to "Show All" view
-     -Unchecked: Switch to tabbed view
-  
-  $showAllChkbx.change(function() {
-    if ( $j( this ).checked ) {
-      toggleShowAll();
-    } else {
-      hideSections();
-    }
-  });
-  */
-  $showAllTab.click(function (event) {
-    event.preventDefault();
-    $showAllChkbx.click();
-  });
-  
+
   /* Comment codes */
   var InstValues= {};
       InstValues[' ']='';
@@ -689,7 +729,6 @@ function decodeDemoVals() {
       $entryGrade.addClass("noValue");
   }
 }
-
 /*
  NOTES:
   + Every main section should have a Go to Top/Bottom

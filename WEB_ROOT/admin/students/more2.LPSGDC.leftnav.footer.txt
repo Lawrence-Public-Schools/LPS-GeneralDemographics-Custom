@@ -1,0 +1,18 @@
+    <style>
+      a.LPSECTA:link {
+        color: red;
+      }
+      a.LPSECTA:visited {
+        color: red;
+      }
+      a.LPSECTA:hover {
+        color: red;
+      }
+      }
+    </style>
+<script type="text/javascript">
+$j(document).ready(function() {
+$j( "ul#std_information > li > a[href^='generaldemographics.html?frn=']" ).parent().replaceWith( $j('<li><a class="LPSGDC" href="generaldemographics.html?frn=~(studentfrn)#TabView">General Demographics - Tabs &tilde;</a></li>') );
+$j( "ul#std_information > li > a[href^='generaldemographics.html?frn=']" ).parent().after($j('<li ><a class="LPSGDC" href="generaldemographics.html?frn=~(studentfrn)#CollapsedView">General Demographics - Collapsed &tilde;</a></li>'));
+});
+</script>

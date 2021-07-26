@@ -1,73 +1,8 @@
+<!DOCTYPE html>
 <!-- use jQuery to replace text -->
 <script src="/admin/javascript/LPSGDC.js"></script>
 <style type="text/css">
-/* Adjust navbar for screensize */
-  @media screen and (max-width: 1200px) {
-    #demo-navbar a {
-      font-size: 13px;
-      padding: 10px;
-    }
-  }
-  @media screen and (max-width: 840px) {
-    #demo-navbar a {
-      font-size: 10px;
-      padding: 7px;
-    }
-  }
-  /* 650px is when PS stops scaling the page  */
-  @media screen and (max-width: 650px) {
-    #demo-navbar a {
-      line-height: 1.5em;
-      font-size: 7px;
-      padding: 3px;
-    }
-  }
-  /* Maybe should change this to move links to a drop-down? */
-  @media screen and (max-width: 460px) {
-    #demo-navbar a {
-      font-size: 5px;
-      line-height: 1.5em;
-      padding: 2px;
-    }
-  }
-  
-  /* Slide-down navigation bar for section anchors */
-  #demo-navbar {
-    overflow: hidden;
-    background-color: #333;
-    position: fixed;
-    top: -100px;
-    width: 100%;
-    transition: top 0.3s;
-    z-index: 1;
-  }
-  #demo-navbar a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 15px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  #demo-navbar a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  #demo-navbar a.active {
-    background-color: #04AA6D;
-    color: white;
-  }
-
-  input:read-only {
-    border-style: inset;
-    border-width: 2px;
-    border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
-    padding: 3px;
-    background-color: rgb(255,255,255);
-    /*background-color: rgb(217,217,217);*/ /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
-  }
-  /* highlight fields: incomplete = red, completed = green !!FOR BUG-FINDING/FIXING ONLY!! */
+/* highlight fields: incomplete = red, completed = green !!FOR BUG-FINDING/FIXING ONLY!! */
   /*
   input:invalid {
     background-color: rgb(230, 179, 179);
@@ -82,17 +17,113 @@
     background-color: rgb(230, 179, 179);
   }
   */
-  input:only-child {
-    width: 99%;
+/* Adjust navbar for screensize */
+  @media screen and (max-width: 1200px) {
+    #demoNavBar a {
+      font-size: 13px;
+      padding: 10px;
+    }
+  }
+  @media screen and (max-width: 840px) {
+    #demoNavBar a {
+      font-size: 10px;
+      padding: 7px;
+    }
+  }
+  /* 650px is when PS stops scaling the page  */
+  @media screen and (max-width: 650px) {
+    #demoNavBar a {
+      line-height: 1.5em;
+      font-size: 7px;
+      padding: 3px;
+    }
+  }
+  /* Maybe should change this to move links to a drop-down? */
+  @media screen and (max-width: 460px) {
+    #demoNavBar a {
+      font-size: 5px;
+      line-height: 1.5em;
+      padding: 2px;
+    }
   }
   
-  .editButton {
-    float: right;
+/* Slide-down navigation bar for section anchors */
+  #demoNavBar {
+    position: fixed;
+    top: -100px;
+    width: 100%;
+    transition: top 0.3s;
+    overflow: hidden;
+    background-color: #333;
+    z-index: 1;
+  }
+  #demoNavBar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  #demoNavBar a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  #demoNavBar a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  #navToggleBox {
+    position: fixed;
+    top: -50px;
+    right: 50%;
+    width: 5%;
+    transition: top 0.2s ease 0.1;
+    overflow: hidden;
+    background-color: #333;
+    z-index: 1;
+  }
+  #navToggleBox a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  #navToggleBox a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  #navToggleBox a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+  #navToggleBox button {
+    float: left;
+    padding: 0px;
+    margin: 0px 0px 5px 12.5px;
+    line-height: 0.8em;
   }
   
-  #editStateIncludeBtn {
-    margin-top: 0px;
+/* Make read-only inputs look normal */
+  input:read-only {
+    border-style: inset;
+    border-width: 2px;
+    border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+    padding: 3px;
+    background-color: rgb(255,255,255);
+    /*background-color: rgb(217,217,217); /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
   }
+  
+  input:only-child { width: 99%; }
+  
+  .editButton { float: right; }
+  
+  #editStateIncludeBtn { margin-top: 0px; }
   
   #stateIncludeBox {
     margin-left: 0px;
@@ -100,12 +131,8 @@
     margin-bottom: 0px;
   }
   
-  #demoContactsSection {
-    border-style: none;
-  }
-  #studentContactsTable {
-    width: calc(100% - 20px);
-  }
+  #demoContactsTable { border-style: none; }
+  #studentContactsTable { width: calc(100% - 20px); }
 </style>
 <!--
   NOTES:
@@ -118,7 +145,7 @@
   - Im going to want to change the edit links to not specificially link to frn=001113601
  -->
 <div id="LPS-GDCustomhiddentable" style="display: none;">
-  <nav id="demo-navbar">
+  <nav id="demoNavBar">
     <a href="#StudentSection" class="sectLink">Student</a>
     <a href="#ContactsSection" class="sectLink">Contacts</a>
     <a href="#EthRaceSection" class="sectLink">Ethnicity & Race</a>
@@ -127,18 +154,21 @@
     <a href="#LegalSection" class="sectLink">Legal</a>
     <a href="#OtherSection" class="sectLink">Other</a>
     <a href="#EverythingElseSection" class="sectLink">Everything Else</a>
-    <a href="#" id="expandAll">Expand All</a>
-    <a href="#" id="collapseAll">Collapse All</a>
+    <a href="javascript:void(0);" id="expandAll">Expand All</a>
+    <a href="javascript:void(0);" id="collapseAll">Collapse All</a>
   </nav>
-  <div class="tabs" id="demo-navTabs">
+  <div id="navToggleBox">
+    <button type="button" width="50%"><a href="javascript:void(0);" id="toggleNavBar">&#x1f845;</a></button>
+  </div>
+  <div id="demoStyleOptions">
+    <label for="demoViewStyles" id="viewLabel" style="margin-left: 2em">View Style: </label>
+    <select id="demoViewStyles">
+      <option value="Collapse" selected>Collapsed (default)</option>
+      <option value="Tab">Tabs</option>
+    </select>
+  </div>
+  <div class="tabs" id="demoNavTabs">
     <ul>
-      <!-- "Show All" option -->
-      <li> <!-- This is very broken oh lordy -->
-        <a href="#showAll" id="demoShowAllTab" class="sectTab">
-          <input type="checkbox" id="demoShowAllCheckBox" name="demoShowAllCheckBox" value="1" checked>
-          <label>Show All (Broken)</label>
-        </a>
-      </li>
       <li><a href="#StudentSection" class="sectTab">Student</a></li>
       <li><a href="#ContactsSection" class="sectTab">Contacts</a></li>
       <li><a href="#EthRaceSection" class="sectTab">Ethnicity & Race</a></li>
@@ -176,7 +206,6 @@
         <td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/emailconfig.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
-      
       <tr id="trRace_BirthCity" class="row-ethRace ethrace-other"> <!-- DOE008 *Needs to be converted to town code -->
         <td class="bold">City/Town of Birth &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]BirthCity" id="fieldBirthCity" value="~(BirthCity)" class="psTextWidget" readonly /></td>
@@ -316,34 +345,34 @@
     </tbody>
   </table>
 
-<!-- Grouping these 3 fields in a box-round to communicate that the "Edit" button functions the same for each -->
-<div id="stateIncludeWrapper" class="row-ethRace ethrace-other">
-  <div class="button-row" style="margin:0px;padding-bottom:0px;">
-    <button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/stateMA.html?frn=~(frn)'" id="editStateIncludeBtn" type="button">Edit</button>
+  <!-- Grouping these 3 fields in a box-round to communicate that the "Edit" button functions the same for each -->
+  <div id="stateIncludeWrapper" class="row-ethRace ethrace-other">
+    <div class="button-row" style="margin:0px;padding-bottom:0px;">
+      <button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/stateMA.html?frn=~(frn)'" id="editStateIncludeBtn" type="button">Edit</button>
+    </div>
+    <div class="box-round" id="stateIncludeBox">
+      <table class="linkDescList" style="margin-top:0px;width:100%;">
+        <colgroup>
+          <col style="width: auto">
+          <col style="width: 100%">
+        </colgroup>
+        <tbody width="100%">
+          <tr id="trRace_ExcludeState" class="">
+            <td class="bold">Exclude from State Reporting? &tilde;</td>
+            <td><input type="text" name="[Students]State_ExcludeFromReporting" id="fieldExcludeState" value="~(State_ExcludeFromReporting)" class="psTextWidget" readonly /></td>
+          </tr> <!-- All "include/exclude" fields are in the same place so only need one edit button link -->
+          <tr id="trRace_IncludeSIMS" class="">
+            <td class="bold">Include in SIMS Report? &tilde;</td>
+            <td><input type="text" name="[Students.S_MA_STU_SIMS_X]IncludeInSIMSInd" id="fieldIncludeSIMS" value="~(IncludeInSIMSInd)" class="psTextWidget" readonly /></td>
+          </tr>
+          <tr id="trRace_IncludeSASID" class="">
+            <td class="bold">Include in SASID Report? &tilde;</td>
+            <td><input type="text" name="[Students.S_MA_STU_X]IncludeInSASIDMSRInd" id="fieldIncludeSASID" value="~(IncludeInSASIDMSRInd)" class="psTextWidget" readonly /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="box-round" id="stateIncludeBox">
-    <table class="linkDescList" style="margin-top:0px;width:100%;">
-      <colgroup>
-        <col style="width: auto">
-        <col style="width: 100%">
-      </colgroup>
-      <tbody width="100%">
-        <tr id="trRace_ExcludeState" class="">
-          <td class="bold">Exclude from State Reporting? &tilde;</td>
-          <td><input type="text" name="[Students]State_ExcludeFromReporting" id="fieldExcludeState" value="~(State_ExcludeFromReporting)" class="psTextWidget" readonly /></td>
-        </tr> <!-- All "include/exclude" fields are in the same place so only need one edit button link -->
-        <tr id="trRace_IncludeSIMS" class="">
-          <td class="bold">Include in SIMS Report? &tilde;</td>
-          <td><input type="text" name="[Students.S_MA_STU_SIMS_X]IncludeInSIMSInd" id="fieldIncludeSIMS" value="~(IncludeInSIMSInd)" class="psTextWidget" readonly /></td>
-        </tr>
-        <tr id="trRace_IncludeSASID" class="">
-          <td class="bold">Include in SASID Report? &tilde;</td>
-          <td><input type="text" name="[Students.S_MA_STU_X]IncludeInSASIDMSRInd" id="fieldIncludeSASID" value="~(IncludeInSASIDMSRInd)" class="psTextWidget" readonly /></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
       
   <!--
     Copying Contacts page source and displaying it in Demographics 'Contacts' section.
@@ -354,7 +383,7 @@
   <!-- Start of Content & Bounding box <div controller = "studentPageContactsController"> : *Required* - used by Angular -->
   <div class="box-round" data-ng-controller="studentPageContactsController"
        data-require-path="components/contacts/index,components/widgets/dirtyInputHelper/index"
-       data-module-name="contactsModule" data-ng-cloak id="demoContactsSection">
+       data-module-name="contactsModule" data-ng-cloak id="demoContactsTable">
     <!-- Start of <div controller = "contactStudentController"> : Context container for Contacts table -->
     <div data-ng-controller="contactStudentController">
       <div class="button-row">
