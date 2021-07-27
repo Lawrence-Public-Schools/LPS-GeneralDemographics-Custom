@@ -1,140 +1,136 @@
 /* highlight fields: incomplete = red, completed = green !!FOR BUG-FINDING/FIXING ONLY!! */
-  /*
-  input:invalid {
-    background-color: rgb(230, 179, 179);
-  }
-  input:placeholder-shown {
-    background-color: rgb(230, 179, 179);
-  }
-  input:valid {
-    background-color: rgb(179, 230, 179);
-  }
-  input.noValue {
-    background-color: rgb(230, 179, 179);
-  }
-  */
-/* Adjust navbar for screensize */
-  @media screen and (max-width: 1200px) {
-    #demoNavBar a {
-      font-size: 13px;
-      padding: 10px;
-    }
-  }
-  @media screen and (max-width: 840px) {
-    #demoNavBar a {
-      font-size: 10px;
-      padding: 7px;
-    }
-  }
-  /* 650px is when PS stops scaling the page  */
-  @media screen and (max-width: 650px) {
-    #demoNavBar a {
-      line-height: 1.5em;
-      font-size: 7px;
-      padding: 3px;
-    }
-  }
-  /* Maybe should change this to move links to a drop-down? */
-  @media screen and (max-width: 460px) {
-    #demoNavBar a {
-      font-size: 5px;
-      line-height: 1.5em;
-      padding: 2px;
-    }
-  }
-  
-  /* Style headers to match other PS pages */
-  h2.toggle.collapsed {
-    background-color: rgb(237, 237, 237);
-  }
-  h2.toggle.expanded {
-    background-color: rgb(163, 191, 204);
-  }
-  
-/* Slide-down navigation bar for section anchors */
-  #demoNavBar {
-    position: fixed;
-    top: -100px;
-    width: 100%;
-    transition: top 0.3s;
-    overflow: hidden;
-    background-color: #333;
-    z-index: 1;
-  }
-  #demoNavBar a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 15px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  #demoNavBar a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  #demoNavBar a.active {
-    background-color: #04AA6D;
-    color: white;
-  }
+/*
+input:invalid {
+  background-color: rgb(230, 179, 179);
+}
+input:placeholder-shown {
+  background-color: rgb(230, 179, 179);
+}
+input:valid {
+  background-color: rgb(179, 230, 179);
+}
+input.noValue {
+  background-color: rgb(230, 179, 179);
+}
+*/
 
-  #navToggleBox {
-    position: fixed;
-    top: -50px;
-    right: 50%;
-    width: 5%;
-    transition: top 0.2s ease 0.1;
-    overflow: hidden;
-    background-color: transparent;
-    z-index: 1;
-  }
-  #navToggleBox a {
-    display: block;
-    color: #f2f2f2;
-    margin: 0px !important; 
-    text-align: center;
+/* Adjust navbar for screensize */
+@media screen and (max-width: 1200px) {
+  #demoNavBar a {
+    font-size: 13px;
     padding: 10px;
-    text-decoration: none;
-    width: auto;
-    font-size: 17px;
   }
-  #navToggleBox a:hover {
-    background-color: #ddd;
-    color: black;
+}
+@media screen and (max-width: 840px) {
+  #demoNavBar a {
+    font-size: 10px;
+    padding: 7px;
   }
-  #navToggleBox a.active {
-    background-color: #04AA6D;
-    color: white;
-  }
-  #navToggleBox button {
-    padding: 0px;
-    width: 100%;
-    margin: 0%;
-    line-height: 0.8em;
-  }
-  
-/* Make read-only inputs look normal */
-  input:read-only {
-    border-style: inset;
-    border-width: 2px;
-    border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+}
+/* 650px is when PS stops scaling the page  */
+@media screen and (max-width: 650px) {
+  #demoNavBar a {
+    line-height: 1.5em;
+    font-size: 7px;
     padding: 3px;
-    background-color: rgb(255,255,255);
-    /*background-color: rgb(217,217,217); /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
   }
-  
-  input:only-child { width: 99%; }
-  
-  .editButton { float: right; }
-  
-  #editStateIncludeBtn { margin-top: 0px; }
-  
-  #stateIncludeBox {
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-bottom: 0px;
+}
+/* Maybe should change this to move links to a drop-down? */
+@media screen and (max-width: 460px) {
+  #demoNavBar a {
+    font-size: 5px;
+    line-height: 1.5em;
+    padding: 2px;
   }
-  
-  #demoContactsTable { border-style: none; }
-  #studentContactsTable { width: calc(100% - 20px); }
+}
+
+/* Style headers to match other PS pages */
+.collapsed {
+  background-color: rgb(237, 237, 237);
+}
+.expanded {
+  background-color: rgb(163, 191, 204);
+}
+
+/* Slide-down navigation bar for section anchors */
+#demoNavBar {
+  position: fixed;
+  top: -100px;
+  width: 100%;
+  transition: top 0.3s;
+  overflow: hidden;
+  background-color: #333;
+  z-index: 1;
+}
+#demoNavBar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 15px;
+  text-decoration: none;
+  font-size: 17px;
+}
+#demoNavBar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+#demoNavBar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+#navToggleBox {
+  position: fixed;
+  top: -50px;
+  right: 50%;
+  width: 5%;
+  transition: top 0.2s ease 0.1;
+  overflow: hidden;
+  background-color: transparent;
+  z-index: 1;
+}
+#navToggleBox a {
+  display: block;
+  color: #f2f2f2;
+  margin: 0 !important; 
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+  width: auto;
+  font-size: 17px;
+}
+#navToggleBox a:hover {
+  background-color: #ddd;
+  color: black;
+}
+#navToggleBox a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+#navToggleBox button {
+  padding: 0;
+  width: 100%;
+  margin: 0;
+  line-height: 0.8em;
+}
+
+/* Make inputs look normal */
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea, select {
+  border-style: inset;
+  border-width: 2px;
+  border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+  padding: 3px;
+  background-color: rgb(255,255,255);
+  /*background-color: rgb(217,217,217); /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+}
+input:only-child { width: 99%; }
+
+.row > table {
+  margin: 0;
+  width: 100%;
+}
+
+#stateIncludeBox { margin: 0; }  
+#demoContactsTable { border-style: none; }
+#studentContactsTable { width: calc(100% - 20px); }

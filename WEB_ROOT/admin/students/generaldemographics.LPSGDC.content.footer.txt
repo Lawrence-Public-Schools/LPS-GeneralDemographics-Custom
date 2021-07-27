@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- use jQuery to replace text -->
 <script src="/admin/javascript/LPSGDC.js"></script>
-<link rel="stylesheet" type="text/css" href="/admin/styles/LPSGDC.css"></style>
+<link rel="stylesheet" type="text/css" href="/admin/styles/LPSGDC.css" />
 <!--
   NOTES:
   - In order to save input to database, <input> needs
@@ -247,13 +247,6 @@
        data-module-name="contactsModule" data-ng-cloak id="demoContactsTable">
     <!-- Start of <div controller = "contactStudentController"> : Context container for Contacts table -->
     <div data-ng-controller="contactStudentController">
-      <div class="button-row">
-        <input type="checkbox" id="showAllChkBox" data-ng-disabled="!demoContext.hasEndDateAccess" data-ng-model="context.showAllStudentContacts" 
-               data-ng-change="saveShowAllStudentContacts()" />
-        <label for="showAllChkBox" data-ng-bind="getShowAllStudentContactsMessageWithCount()"></label>
-        <!--<button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/contacts.html?frn=~(frn)'" id="viewContactsBtn" type="button">View Contacts Page</button>-->
-        <!-- ~ "Add" button has been removed for Demographics ~ -->
-      </div>
       <p class="feedback-info" data-ng-if="!context.contacts.length" >This student does not have any associated contacts.</p>
       <!--============================================|STUDENT_CONTACTS_TABLE|============================================-->
       <table id="studentContactsTable" class="grid" data-ng-if="context.contacts.length" >
@@ -339,8 +332,6 @@
           </td>
           <!-- "Phone" : Phone number for Contact -->
           <td class="nowrap">
-            <input id="phonenumberid-{{$index}}" name="phonenumberid[{{$index}}]" type="hidden" value="{{contact.view.firstPhone.phoneNumberId}}">
-            <input id="personphonenumberassocid-{{$index}}" name="personphonenumbersassocid[{{$index}}]" type="hidden" value="{{contact.view.firstPhone.contactsPhoneId}}">
             <span id="contact-phone-{{$index}}" data-ng-bind="contact.view.firstPhone.phoneNumber" ></span>
             <span id="contact-phoneext-{{$index}}" data-ng-bind="contact.view.firstPhone.extension !== '' && contact.view.firstPhone.extension != null ?
                   ' x' + contact.view.firstPhone.extension : ''" ></span>

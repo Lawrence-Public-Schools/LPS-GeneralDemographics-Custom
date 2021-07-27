@@ -164,43 +164,43 @@ function LPSGDRestyle() {
   $VarEverythingElse = ($VarEverythingElse).not("form tr.row-other");
   $VarEverythingElse.addClass( "row-everythingElse" );
   
+  /*
+  ISSUE: Formmatting is bad, especially on large monitors
+    IDEA: Give each section it's own table:
+    - Copy PS table w/ custom fields into 
+  */
   /* Wrap Student Section */
-  $j("form tr.row-student").wrapAll('<div id="StudentSection" class=""><div class="row"></div></div>'); /* Starts at top */
+  $j("form tr.row-student").wrapAll('<div id="StudentSection" style="margin:0"><div class="row" style="margin:0"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>'); /* Starts at top */
   /* Wrap Subsections */
   $j("form tr.student-contactInfo:first").before('<tr class="headerrow row-student student-contactInfo"><td colspan="2" class="bold" width="100%">Phone & Email</td></tr>');
-  $j("form tr.student-name:first").before('<tr class="headerrow row-student student-name"><td colspan="2" class="bold" width="100%">Name</td></tr>'); /* Currently using static px width, should adjust to be responsive */
+  $j("form tr.student-name:first").before('<tr class="headerrow row-student student-name" style="width:100%"><td colspan="2" class="bold" width="100%">Name</td></tr>');
   
   /* Wrap 'Everything Else' (fields exist but don't have a section) */
-  $VarEverythingElse.wrapAll('<div id="EverythingElseSection" class=""><div class="row"></div></div>'); /* Stack under Student Section */
+  $VarEverythingElse.wrapAll('<div id="EverythingElseSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>'); /* Stack under Student Section */
   $j("form div#EverythingElseSection").insertAfter( $j("form div#StudentSection") );
-  /*
-    NOTES:
-    -Adding a header with fixed width so other rows will fill in table space
-    -Probably a lazy way format the page, should change later to be more dynamic
-  */
   $j("form .row-everythingElse").children("td:nth-child(2)").attr("width", "75%");
   $VarEverythingElse.first().before('<tr class="headerrow row-everythingElse"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Other Section */
-  $j("form tr.row-other").wrapAll('<div id="OtherSection" class=""><div class="row"></div></div>');
+  $j("form tr.row-other").wrapAll('<div id="OtherSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("form div#OtherSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
   $j("form tr.row-other:first").before('<tr class="headerrow row-other"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Legal Section */
-  $j("form tr.row-legal").wrapAll('<div id="LegalSection" class=""><div class="row"></div></div>');
+  $j("form tr.row-legal").wrapAll('<div id="LegalSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("form div#LegalSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
   $j("form tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Grad Section */
-  $j("form tr.row-grad").wrapAll('<div id="GradSection" class=""><div class="row"></div></div>');
+  $j("form tr.row-grad").wrapAll('<div id="GradSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("form div#GradSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
   $j("form tr.row-grad:first").before('<tr class="headerrow row-grad"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Office Section*/
-  $j("form tr.row-office").wrapAll('<div id="OfficeSection" class=""><div class="row"></div></div>');
+  $j("form tr.row-office").wrapAll('<div id="OfficeSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("form div#OfficeSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
   $j("form tr.office-general:first").before('<tr class="headerrow row-office office-general"><td colspan="2" class="bold" width="100%">District Information</td></tr>');
@@ -208,28 +208,29 @@ function LPSGDRestyle() {
   $j("form tr.office-sped:first").before('<tr class="headerrow row-office office-sped"><td colspan="2" class="bold" width="100%">SPED Information</td></tr>');
   
   /* Wrap Race Section */
-  $j("form div#stateIncludeWrapper").wrapAll('<tr class="row-ethRace ethrace-other"><td colspan="2"></td></tr>');
-  $j("form tr.row-ethRace").wrapAll('<div id="EthRaceSection" class=""><div class="row"></div></div>');
+  $j("form div#stateIncludeWrapper").wrapAll('<tr class="row-ethRace ethrace-other" width="100%"><td colspan="2"></td></tr>');
+  $j("form tr.row-ethRace").wrapAll('<div id="EthRaceSection" class=""><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("form div#EthRaceSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
   $j("form tr.ethrace-select:first").before('<tr class="headerrow row-ethRace ethrace-select"><td colspan="2" class="bold" width="100%">Ethnicity & Race</td></tr>');
   $j("form tr.ethrace-other:first").before('<tr class="headerrow row-ethRace ethrace-other"><td colspan="2" class="bold" width="100%">Other State General</td></tr>');
   
   /* Wrap Contacts Section */
-  $j("form div#demoContactsTable").wrapAll('<tr class="row-contacts contacts-table"><td colspan="2"></td></tr>');
-  $j("form tr.row-contacts").wrapAll('<div id="ContactsSection" class=""><div class="row"></div></div>');
+  $j("form div#demoContactsTable").wrapAll('<tr class="row-contacts contacts-table" width="100%"><td colspan="2"></td></tr>');
+  $j("form tr.row-contacts").wrapAll('<div id="ContactsSection" class=""><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("form div#ContactsSection").insertAfter( $j("form div#StudentSection") );
   /* Wrap Subsections */
   $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');
   $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Father - Old</td> </tr>');
   $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Mother - Old</td> </tr>');
   
-  /* Insert showAll Section (Empty, used for anchor) ~Might just link to StudentSection instead~ */
-  //$j('<div id="ShowAll"></div>').insertBefore( $j("form div#StudentSection") );
+  /* Remove Original Table */
+  $j("form div#StudentSection").unwrap().unwrap();
+  $j("form div#StudentSection").prev("colgroup").remove();
 }
 
 /*
-  -Check URL for tag and add required elements/styling
+  -Check URL for view tag and edit accordingly
 */
 function selectViewStyle() {
   if(window.location.hash === '#/TabView') {
@@ -249,9 +250,7 @@ function selectViewStyle() {
   }
 }
 
-/*
-  -Controls navbar slide-down/up
-*/
+/* Should try to make this disappear when bar is open, reappears when mouse hovers over bar*/
 function toggleDisplayNav() {
   /* JQuery's .css("top", "--px") wouldn't work and this did so I'm using this */
   var navBar = document.getElementById("demoNavBar"); 
@@ -282,6 +281,8 @@ function showCollapsed() {
   $j("form div#EthRaceSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Ethnicity/Race Information</h2>');
   $j("form div#ContactsSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Contacts</h2>');
   $j("form div").css("display", "block");
+  $j("form div.row").parent().css("margin", "0 11px 0 11px");
+  $j("form div.row").css("margin", "0");
   $j("div#demoNavTabs > ul").prop("hidden", true);
   toggleDisplayNav();
    
@@ -309,8 +310,9 @@ function showCollapsed() {
       }
       
       /* Animate smooth scroll + add hash (#) to URL when done (default click behavior) */
-      $j('html, body').animate( { scrollTop: $sectionAnchor.offset().top },
-        600, function () { window.location.hash = $sectionAnchor.attr('id'); }
+      var scrollDest = $sectionAnchor.offset().top - 50;
+      $j('html, body').animate( { scrollTop: scrollDest},
+        600
       );
     }
   });
