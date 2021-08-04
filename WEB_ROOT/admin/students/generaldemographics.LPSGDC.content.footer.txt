@@ -412,84 +412,22 @@
 
   <!-- Comment Form -->
   <div class="box-round" id="demoComments">
-    <div class="tlistCollectionTable tlistCollectionTableInitialized">
-      <div class="button-row">
-        <button type="button" id="addButton">Add</button>
-      </div>
-      <table class="grid">
-        <colgroup>
-          <col class="col-COMMENT_DATE">
-          <col class="col-COMMENT_REASON">
-          <col class="col-COMMENT_PERSON">
-          <col class="col-COMMENT_COMMENT">
-          <col class="col-delete">
-        </colgroup>
-        <thead>
-          <tr>
-            <th>Date of Comment</th>
-            <th>Reason for Comment</th>
-            <th>Person Making Change</th>
-            <th>Comment</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr id="rowId_52412">
-            <td id="COMMENT_DATE_52412" class="td-COMMENT_DATE">
-              <b class="dpWrapper">
-                <input type="text" class="COMMENT_DATE psDateWidget unvalidated hasDatepicker" value="03/26/2019"
-                       data-validation="{&quot;type&quot;:&quot;date&quot;,&quot;key&quot;:&quot;students.u_comment.comment_date&quot;}"
-                       name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_DATE$format=date" data-key="students.u_comment.comment_date" id="dp1625588312868" placeholder="MM/DD/YYYY">
-                <button type="button" class="ui-datepicker-trigger" aria-hidden="true" tabindex="-1"></button>
-              </b>
-            </td>
-            <td id="COMMENT_REASON_52412" class="td-COMMENT_REASON">
-              <input type="text" class="COMMENT_REASON psTextWidget" value="TransferFrom-Original" maxlength="25"
-                     data-validation="{&quot;maxlength&quot;:&quot;25&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_reason&quot;}"
-                     name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_REASON" data-key="students.u_comment.comment_reason" id="ldv_generatedID1">
-            </td>
-            <td id="COMMENT_PERSON_52412" class="td-COMMENT_PERSON">
-              <input type="text" class="COMMENT_PERSON psTextWidget unvalidated" value="DC" maxlength="2"
-                     data-validation="{&quot;maxlength&quot;:&quot;2&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_person&quot;}"
-                     name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_PERSON" data-key="students.u_comment.comment_person">
-            </td>
-            <td id="COMMENT_COMMENT_52412" class="td-COMMENT_COMMENT">
-              <input type="text" class="COMMENT_COMMENT psTextWidget unvalidated" value="GLCA" maxlength="500"
-                     data-validation="{&quot;maxlength&quot;:&quot;500&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_comment&quot;}"
-                     name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_COMMENT" data-key="students.u_comment.comment_comment">
-            </td>
-            <td>
-              <input class="deleteCB hide" name="DC-STUDENTS:113601.U_COMMENT.U_COMMENT:52412" type="checkbox">
-              <button class="undoDelRow hide" type="button"><em>&nbsp;</em></button>
-              <button class="deleteRow" type="button"><em>&nbsp;</em></button>
-            </td>
-          </tr>
-          <tr class="new">
-            <td id="COMMENT_DATE_-{INSERT_COUNTER}" class="td-COMMENT_DATE">
-              <input type="text" class="COMMENT_DATE" data-addclass="psDateWidget" value=""
-                     data-validation-add="{&quot;type&quot;:&quot;date&quot;,&quot;key&quot;:&quot;students.u_comment.comment_date&quot;}"
-                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_DATE$format=date">
-            </td>
-            <td id="COMMENT_REASON_-{INSERT_COUNTER}" class="td-COMMENT_REASON">
-              <input type="text" class="COMMENT_REASON" data-addclass="psTextWidget" maxlength="25" value=""
-                     data-validation-add="{&quot;maxlength&quot;:&quot;25&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_reason&quot;}"
-                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_REASON">
-            </td>
-            <td id="COMMENT_PERSON_-{INSERT_COUNTER}" class="td-COMMENT_PERSON">
-              <input type="text" class="COMMENT_PERSON" data-addclass="psTextWidget" maxlength="2" value=""
-                     data-validation-add="{&quot;maxlength&quot;:&quot;2&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_person&quot;}"
-                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_PERSON">
-            </td>
-            <td id="COMMENT_COMMENT_-{INSERT_COUNTER}" class="td-COMMENT_COMMENT">
-              <input type="text" class="COMMENT_COMMENT" data-addclass="psTextWidget" maxlength="500" value=""
-                     data-validation-add="{&quot;maxlength&quot;:&quot;500&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_comment&quot;}"
-                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_COMMENT">
-            </td>
-            <td class="deleteCol"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+     ~[tlist_child:STUDENTS.U_COMMENT.U_COMMENT;displaycols:COMMENT_DATE,COMMENT_REASON,COMMENT_PERSON,COMMENT_COMMENT;fieldNames:Date of Comment,Reason for Comment,Person Making Change,Comment;type:html]
+<script>	
+		var InstValues= {};
+		InstValues[' ']='';
+		InstValues['REG']='Registration';
+		InstValues['COA']='Change of Address';
+		InstValues['PCU']='Program Code Updates';
+		InstValues['HOME']='Homeless';
+                InstValues['TF']='TransferFrom-Original';
+                InstValues['WD']='Withdrawal';
+                InstValues['GC']='Grade Change';
+                InstValues['RE']='Re-Engaged';
+		InstValues['Other']='Other';
+		//tlistText2DropDown('COMMENT_REASON',InstValues);
+				</script>
+        <!-- <div class="button-row"><input type="hidden" name="ac" value="prim">~[submitbutton]</div> -->
+	</div>
   
 </div>
