@@ -1,208 +1,125 @@
-/*
-  -Insert custom fields & elements from hidden div into Demographics page
-*/
-function addLPSGDFields() {
-  var $trHomePhone =  $j( "form input#fieldHomePhone" ).parent().parent();
-  var $trRaceCode = $j( "form td:contains('MA Race Code')" ).parent();
-  var $trGradYear = $j( "form input#fieldGradYear" ).parent().parent();
-  var $trStuNum = $j( "form input#fieldStuNum" ).parent().parent();
-  var $trMomHomePhone = $j( "form input#fieldMotherHomePhone" ).parent().parent();
+$j(document).ready(function() {
+  addLPSGDFields();
+  LPSGDRestyle();
+  selectViewStyle();
 
-    /*================NOTES:======================================================
-   -Tables are built bottom-to-top
-   -Sections of entirely custom fields are inserted after MA Race Code, just need
-      them in the table and don't think original placement matters. Race code 
-      defaults to bottom so this should avoid conflicts.
+  $j( "div#LPS-GDCustomhiddentable" ).remove(); /* Remove hidden LPSGDC templates */
+  $j( "input" ).val(function( index, value ) { return value.trim(); }); /* Remove extra whitespace from field values */
+  decodeDemoVals(); /* Translate DOE Codes - 'fieldName_DOE###' (Moved to seperate function for readability) */
+  
+  /* Event Listeners */
+  $j(window.location).on("hashchange", selectViewStyle());
+});
+
+/* Insert custom fields & comment box into Demographics page */
+function addLPSGDFields() {
+  var $trHomePhone =  $j("#fieldHomePhone").parent().parent();
+  var $trRaceCode = $j( "form td:contains('MA Race Code')" ).parent();
+  var $trGradYear = $j("#fieldGradYear").parent().parent();
+  var $trStuNum = $j("#fieldStuNum").parent().parent();
+  var $trMomHomePhone = $j("#fieldMotherHomePhone").parent().parent();
+
+  /*================NOTES:======================================================
+   -Sections of entirely custom fields are inserted after MA Race Code, need
+      them in table & don't think original placement matters. Race code
+      defaults to bottom, so this should avoid conflicts.
    -Contacts Table is wrapped in a <div>, copied from Contacts page minus 
       certain features.
   ============================================================================*/
-  /* 'Student' Fields */
-  $trHomePhone.after( $j("div#LPS-GDCustomhiddentable tr#trStudent_LPSEmail") );
-  $trHomePhone.after( $j("div#LPS-GDCustomhiddentable tr#trStudent_PersonalEmail") );
-  $trHomePhone.after( $j("div#LPS-GDCustomhiddentable tr#trStudent_Mobile") );
-  
-  /* 'Contacts' Table */
-  $trHomePhone.after( $j("div#LPS-GDCustomhiddentable div#demoContactsTable") );
-  
-  /* 'Ethnicity/Race' Fields */
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_Military") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_BirthCity") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable div#stateIncludeWrapper") );
-  /*
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_IncludeSASID") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_IncludeSIMS") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trRace_ExcludeState") );  
-  */
-  
-  /* 'Adminstrative' Fields */
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trOffice_504Plan") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trOffice_SPEDCode") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trOffice_FLEPDate") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trOffice_ELCode") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trOffice_SchoolCode") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trOffice_EntryGrade") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trOffice_EntryDate") );
-  
-  /* 'Graduation' Fields */
-  $trGradYear.after( $j("div#LPS-GDCustomhiddentable tr#trGrad_CoreCompletion") );
-  $trGradYear.after( $j("div#LPS-GDCustomhiddentable tr#trGrad_Plan") );
-  $trGradYear.after( $j("div#LPS-GDCustomhiddentable tr#trGrad_Cohort") );
-  $trGradYear.after( $j("div#LPS-GDCustomhiddentable tr#trGrad_Date") );
-  
-  /* 'Legal' fields */
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trLegal_FullName") );
-  $trRaceCode.after( $j("div#LPS-GDCustomhiddentable tr#trLegal_Gender") );
-  
-  /* 'Other' Fields */
-  $j( "form input#fieldPrevStuId" ).parent().parent().after( $j("div#LPS-GDCustomhiddentable tr#trselectGradeLvl") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_TeamFlag") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_OriginCountry") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_BirthState") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_TransferFrom") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_EnrollmentStatus") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_IsImmigrant") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_SASID") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_ELStatus") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_IsEL") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_FirstYearEL") );
-  $trStuNum.after( $j("div#LPS-GDCustomhiddentable tr#trOther_NCLB") );
-  
-  /* Comment Box */
-  $j("form>div.box-round:first-child").after( $j("#demoComments") );
+  $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-student") ); /* Student          */
+  $trHomePhone.after( $j("#demoContactsTable") );                      /* Contacts         */
+  $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-ethRace") );  /* Ethnicity & Race */
+  $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-office") );   /* Adminstration    */
+  $trGradYear.after( $j("#LPS-GDCustomhiddentable tr.row-grad") );     /* Graduation       */
+  $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-legal") );    /* Legal            */
+  $trStuNum.after( $j("#LPS-GDCustomhiddentable tr.row-other") );      /* Other            */
+  $j("form>div.box-round:first-child").after( $j("#demoComments") );   /* Comment Box      */
+  $j("#content-main form").before( $j("#demoNavTabs") )                /* Navigation Tabs  */
+    .appendTo( $j("#demoNavTabs") );                                   /*~~~~~~~~~~~~~~~~~~*/
+  $j("div.pds-app-header-bar-center").append( $j("#demoNavBar") );     /* Navigation Bar   */
 }
 
-/*
-  -Add LPS classes to PowerSchool default fields
-  -Wrap related fields into sections and rebuild table using sections
-  -Add sub-section headers
-*/
+/* Add LPS classes to default fields & wrap class groups in section containers */
 function LPSGDRestyle() {
-  /* Student Information
+
+  const stdFieldRow = (rowSelectors, rowClassNames) => { return $j(rowSelectors).parent().parent().addClass(rowClassNames) };
+
+  /* Student
   -----------------Name--------------- */
-  $j( "form input#lastName" ).parent().parent().addClass( "row-student student-name" ); /* DOE###: First = 003, Middle = 004, Last = 005*/
+  stdFieldRow("#lastName", "row-student student-name" );
   /* ----------Home_Address----------- */
   $j( "form td:contains('Home Address')" ).not("td:contains('Mailing Address')").parent().addClass( "row-student student-address" );
-  /*st, apt*/
-  $j( "form input#pstreet" ).parent().parent().addClass( "row-student student-address" );
-  $j( "form input#papt" ).parent().parent().addClass( "row-student student-address" );
-  /*city, state, zip*/
-  $j( "form input#pcity" ).parent().parent().addClass( "row-student student-address" ); /* DOE014 */
-  $j( "form select#pstate" ).parent().parent().addClass( "row-student student-address" );
-  $j( "form input#pzip" ).parent().parent().addClass( "row-student student-address" ); /* DOE051 */
-  /*utility*/
-  $j( "form input#pgeocode" ).parent().parent().addClass( "row-student student-address" );
-  $j( "form span#validatePrimaryAddress" ).parent().parent().addClass( "row-student student-address" );
+  stdFieldRow("#pstreet, #papt, #pcity, #pstate, #pzip, #pgeocode, #validatePrimaryAddress", "row-student student-address");
   /* ---------Mailing_Address--------- */
   $j( "form td:contains('Mailing Address -')" ).parent().addClass( "row-student student-mail" ).removeClass("student-address"); /* Gets class cause it has "Home address" in the field */
   $j( "form td:contains('~[text:psx.html.admin_students.generaldemographics.mailing_address_]')" ).parent().addClass( "row-student student-mail" );
-  /*mail(st, apt)*/
-  $j( "form input#mstreet" ).parent().parent().addClass( "row-student student-mail" );
-  $j( "form input#mapt" ).parent().parent().addClass( "row-student student-mail" );
-  /*mail(city, mstate, zip)*/
-  $j( "form input#mcity" ).parent().parent().addClass( "row-student student-mail" );
-  $j( "form select#mstate" ).parent().parent().addClass( "row-student student-mail" );
-  $j( "form input#mzip" ).parent().parent().addClass( "row-student student-mail" );
-  /*mail(utility)*/
-  $j( "form input#mgeocode" ).parent().parent().addClass( "row-student student-mail" );
-  $j( "form span#validateMailingAddress" ).parent().parent().addClass( "row-student student-mail" );
+  stdFieldRow("#mstreet, #mapt, #mcity, #mstate, #mzip, #mgeocode, #validateMailingAddress", "row-student student-mail");
   /* -----------Phone/Email----------- */
-  $j( "form input#fieldHomePhone" ).parent().parent().addClass( "row-student student-contactInfo" );
-  
-  /* Guardian/Contacts Information 
-  -------------------------------- */
-  $j( "form td#father" ).parent().addClass("row-contacts contacts-parentsOld contacts-fatherOld");
-  $j( "form input#fieldFatherDayPhone" ).parent().parent().addClass("row-contacts contacts-parentsOld contacts-fatherOld");
-  $j( "form input#fieldFatherHomePhone" ).parent().parent().addClass("row-contacts contacts-parentsOld contacts-fatherOld");
-  $j( "form input#fieldFatherEmployer" ).parent().parent().addClass("row-contacts contacts-parentsOld contacts-fatherOld");
-  $j( "form td#mother" ).parent().addClass("row-contacts contacts-parentsOld contacts-motherOld");
-  $j( "form input#fieldMotherDayPhone" ).parent().parent().addClass("row-contacts contacts-parentsOld contacts-motherOld");
-  $j( "form input#fieldMotherHomePhone" ).parent().parent().addClass("row-contacts contacts-parentsOld contacts-motherOld");
-  $j( "form input#fieldMotherEmployer" ).parent().parent().addClass("row-contacts contacts-parentsOld contacts-motherOld");
-  
-  /* Ethnicity/Race/Other State Fields
-  -----------Ethnicity_&_Race--------- */
-  $j( "form td:contains('Federal Ethnicity and Race')" ).parent().addClass( "row-ethRace ethrace-select" );  /* Federal Ethnicity and Race */
-  $j( "form td:contains('Massachusetts State Information')" ).parent().addClass( "row-ethRace ethrace-select" );  /* Massachusetts State Information */
-  $j( "form input#radioFedEthYes" ).parent().parent().parent().parent().addClass( "row-ethRace ethrace-select" );  /* DOE010 (Hispanic/Latino) */
-  $j( "form input#race_A" ).parent().parent().parent().parent().addClass( "row-ethRace ethrace-select" ); /* DOE010 (Race) */
-  $j( "form td:contains('MA Race Code')" ).parent().addClass( "row-ethRace ethrace-select" ); /* DOE010 Race code */
-  
-  /* 
-    LPS Office Information
-      - Fields are initialized w/ proper classes 
-  */
+  stdFieldRow("#fieldHomePhone", "row-student student-contactInfo");
 
-  /* LPS Graduation
-  --------Info----- */
-  $j( "form input#fieldGradYear" ).parent().parent().addClass( "row-grad" );
-  
-  /* Legal Information
-  ------Name/Gender------ */
-  /* LEGAL FIELDS USING BUILT-IN | Not working (fields are made after page is loaded?) */
-  $j("form input#legalLastName").parent().parent().addClass( "row-legal" );
-  $j("form select#legalGenderSelect").parent().parent().addClass( "row-legal" );  /* DOE009*/
-  
-  /* Other-Unused(Builtin)
-  -----------Info--------- */
-  $j( "form input#fieldArea" ).parent().parent().addClass( "row-other other-builtIn" );
-  $j( "form input#fieldGuardianship" ).parent().parent().addClass( "row-other other-builtIn" );
-  $j( "form input#fieldSSN" ).parent().parent().addClass( "row-other other-builtIn" );
-  $j( "form input#fieldStuNum" ).parent().parent().addClass( "row-other other-builtIn" );  /* DOE001 */
-  $j( "form input#fieldPrevStuId" ).parent().parent().addClass( "row-other other-builtIn" );
+  /* Contacts */
+  $j( "#father" ).parent().addClass("row-contacts contacts-parentsOld contacts-fatherOld");
+  stdFieldRow("form input[id^='fieldFather']", "row-contacts contacts-parentsOld contacts-fatherOld");
+  $j( "#mother" ).parent().addClass("row-contacts contacts-parentsOld contacts-motherOld");
+  stdFieldRow("form input[id^='fieldMother']", "row-contacts contacts-parentsOld contacts-motherOld");
+
+  /* Ethnicity & Race */
+  $j( "form td:contains('Federal Ethnicity and Race')" ).parent().addClass( "row-ethRace ethrace-select" );
+  $j( "form td:contains('Massachusetts State Information')" ).parent().addClass( "row-ethRace ethrace-select" );
+  $j( "#radioFedEthYes" ).parent().parent().parent().parent().addClass( "row-ethRace ethrace-select" );
+  $j( "#race_A" ).parent().parent().parent().parent().addClass( "row-ethRace ethrace-select" );
+  $j( "form td:contains('MA Race Code')" ).parent().addClass( "row-ethRace ethrace-select" );
+
+  /* Administration - All fields are initialized in LPS-GDCustomhiddentable */
+
+  /* Graduation */
+  stdFieldRow("#fieldGradYear", "row-grad");
+
+  /* Legal : USING BUILT-IN | Not working (fields are made after page is loaded?) */
+  stdFieldRow("#legalLastName, #legalGenderSelect", "row-legal");
+
+  /* Other */
+  stdFieldRow("#fieldArea, #primaryethnicity, #fieldGuardianship, #fieldPrevStuId, #fieldSSN, #fieldStuNum", "row-other other-builtIn");
   $j( "form td:contains('Grade Level')" ).parent().addClass( "row-other other-builtIn" );  /* DOE016 */
-  $j( "form input#fieldGuardianEmail" ).parent().parent().addClass( "row-other other-builtIn" );
-  $j( "form select#primaryethnicity" ).parent().parent().addClass( "row-other other-builtIn" );
    
   /*============'EVERYTHING ELSE' Catcher============*/
-  $VarEverythingElse = $j("form > div.box-round > table.linkDescList > tbody > tr");
-  $VarEverythingElse = ($VarEverythingElse).not("form tr.row-student");
-  $VarEverythingElse = ($VarEverythingElse).not("form tr.row-contacts");
-  $VarEverythingElse = ($VarEverythingElse).not("form tr.row-ethRace");
-  $VarEverythingElse = ($VarEverythingElse).not("form tr.row-office");
-  $VarEverythingElse = ($VarEverythingElse).not("form tr.row-grad");
-  $VarEverythingElse = ($VarEverythingElse).not("form tr.row-legal");
-  $VarEverythingElse = ($VarEverythingElse).not("form tr.row-other");
+  $VarEverythingElse = $j("form > div.box-round > table.linkDescList > tbody > tr").not(".row-student, .row-contacts, .row-ethrace, .row-office, .row-grad, .row-legal, row-other");
   $VarEverythingElse.addClass( "row-everythingElse" );
   
-  /*
-  ISSUE: Formmatting is bad, especially on large monitors
-    IDEA: Give each section it's own table:
-    - Copy PS table w/ custom fields into 
-  */
   /* Wrap Student Section */
   $j("form tr.row-student").wrapAll('<div id="StudentSection" style="margin:0"><div class="row" style="margin:0"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>'); /* Starts at top */
-  /* Wrap Subsections */
+  /* Subsections */
   $j("form tr.student-contactInfo:first").before('<tr class="headerrow row-student student-contactInfo"><td colspan="2" class="bold" width="100%">Phone & Email</td></tr>');
   $j("form tr.student-name:first").before('<tr class="headerrow row-student student-name" style="width:100%"><td colspan="2" class="bold" width="100%">Name</td></tr>');
   
   /* Wrap 'Everything Else' (fields exist but don't have a section) */
   $VarEverythingElse.wrapAll('<div id="EverythingElseSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>'); /* Stack under Student Section */
-  $j("form div#EverythingElseSection").insertAfter( $j("form div#StudentSection") );
+  $j("#EverythingElseSection").insertAfter( $j("#StudentSection") );
   $j("form .row-everythingElse").children("td:nth-child(2)").attr("width", "75%");
   $VarEverythingElse.first().before('<tr class="headerrow row-everythingElse"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Other Section */
   $j("form tr.row-other").wrapAll('<div id="OtherSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("form div#OtherSection").insertAfter( $j("form div#StudentSection") );
-  /* Wrap Subsections */
+  $j("#OtherSection").insertAfter( $j("form div#StudentSection") );
+  /* Subsections */
   $j("form tr.row-other:first").before('<tr class="headerrow row-other"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Legal Section */
   $j("form tr.row-legal").wrapAll('<div id="LegalSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("form div#LegalSection").insertAfter( $j("form div#StudentSection") );
-  /* Wrap Subsections */
+  $j("#LegalSection").insertAfter( $j("form div#StudentSection") );
+  /* Subsections */
   $j("form tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Grad Section */
   $j("form tr.row-grad").wrapAll('<div id="GradSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("form div#GradSection").insertAfter( $j("form div#StudentSection") );
-  /* Wrap Subsections */
+  $j("#GradSection").insertAfter( $j("form div#StudentSection") );
+  /* Subsections */
   $j("form tr.row-grad:first").before('<tr class="headerrow row-grad"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Office Section*/
   $j("form tr.row-office").wrapAll('<div id="OfficeSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("form div#OfficeSection").insertAfter( $j("form div#StudentSection") );
-  /* Wrap Subsections */
+  $j("#OfficeSection").insertAfter( $j("form div#StudentSection") );
+  /* Subsections */
   $j("form tr.office-general:first").before('<tr class="headerrow row-office office-general"><td colspan="2" class="bold" width="100%">District Information</td></tr>');
   $j("form tr.office-el:first").before('<tr class="headerrow row-office office-el"><td colspan="2" class="bold" width="100%">EL Information</td></tr>');
   $j("form tr.office-sped:first").before('<tr class="headerrow row-office office-sped"><td colspan="2" class="bold" width="100%">SPED Information</td></tr>');
@@ -210,82 +127,79 @@ function LPSGDRestyle() {
   /* Wrap Race Section */
   $j("form div#stateIncludeWrapper").wrapAll('<tr class="row-ethRace ethrace-other" width="100%"><td colspan="2"></td></tr>');
   $j("form tr.row-ethRace").wrapAll('<div id="EthRaceSection" class=""><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("form div#EthRaceSection").insertAfter( $j("form div#StudentSection") );
-  /* Wrap Subsections */
+  $j("#EthRaceSection").insertAfter( $j("form div#StudentSection") );
+  /* Subsections */
   $j("form tr.ethrace-select:first").before('<tr class="headerrow row-ethRace ethrace-select"><td colspan="2" class="bold" width="100%">Ethnicity & Race</td></tr>');
   $j("form tr.ethrace-other:first").before('<tr class="headerrow row-ethRace ethrace-other"><td colspan="2" class="bold" width="100%">Other State General</td></tr>');
   
   /* Wrap Contacts Section */
   $j("form div#demoContactsTable").wrapAll('<tr class="row-contacts contacts-table" width="100%"><td colspan="2"></td></tr>');
   $j("form tr.row-contacts").wrapAll('<div id="ContactsSection" class=""><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("form div#ContactsSection").insertAfter( $j("form div#StudentSection") );
-  /* Wrap Subsections */
+  $j("#ContactsSection").insertAfter( $j("form div#StudentSection") );
+  /* Subsections */
   $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');
   $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Father - Old</td> </tr>');
   $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Mother - Old</td> </tr>');
   
   /* Remove Original Table */
-  $j("form div#StudentSection").unwrap().unwrap();
-  $j("form div#StudentSection").prev("colgroup").remove();
+  $j("#StudentSection").unwrap().unwrap();
+  $j("#StudentSection").prev("colgroup").remove();
 }
 
 /*
-  -Check URL for view tag and edit accordingly
+  Check URL for view tag and edit accordingly
+    -Try using html template files to dynamically add/remove the navbar and tabs instead of hiding them?
 */
 function selectViewStyle() {
-  if(window.location.hash === '#/TabView') {
-    var $navTabs = $j("div#LPS-GDCustomhiddentable div#demoNavTabs");
-    $j("div#content-main form").before($navTabs).appendTo($navTabs);
-    /* 
-      -Section <div>s don't receive PS 'ui-tabs' classes until clicked, 
-        simulate a click on each tab when page loads then go back to
-        default tab ('#StudentSection')
-    */
-    $j("a.sectTab").click();
-    $j('a.sectTab[href="#StudentSection"]').click();
-  } else {
-    var $navBar = $j("div#LPS-GDCustomhiddentable nav#demoNavBar");
-    $j("div#content-main form").before($navBar).before( $j("div#LPS-GDCustomhiddentable div#navToggleBox") );
-    showCollapsed();
+  switch( window.location.hash.replace('#/','#') ) {
+    case "#TabView":
+      /* Remove Collapsible Headers & NavBar */
+      $j(".collapseHeader").remove();
+      $j("#demoNavBar").css("display", "none");
+      $j("#demoNavBar").off();
+      
+      /* re-enable tab display */
+      $j('form div[id$="Section"]').removeClass("hide").css("display", "none");
+      $j("#demoNavTabs > ul").prop("hidden", false);
+      
+      /*
+        -Section <div>s don't receive PS 'ui-tabs' classes until clicked, simulate click
+          on each tab when page loads then return to default ('#StudentSection')
+      */
+      $j("a.sectTab").click();
+      $j('a.sectTab[href="#StudentSection"]').click();
+      break;
+    case "#CollapseView":
+      /* Remove NavTabs */
+      $j("#demoNavTabs > ul").prop("hidden", true);
+      if( $j(".collapseHeader").length < 1 ) {
+        showCollapsed();
+      }break;
+    default:
+      window.location.hash = "CollapseView";
+      window.location.reload();
+      break;
   }
 }
 
-/* Should try to make this disappear when bar is open, reappears when mouse hovers over bar*/
-function toggleDisplayNav() {
-  /* JQuery's .css("top", "--px") wouldn't work and this did so I'm using this */
-  var navBar = document.getElementById("demoNavBar"); 
-  var navToggle = document.getElementById("navToggleBox");
-  if(navBar.style.top === "-100px") {
-    navBar.style.top = "0px";
-    navToggle.style.transition = "top 0.2s ease 0.1s";
-    navToggle.style.top = "50px";
-    $j("a#toggleNavBar").text("\uD83E\uDC45"); // Up Arrow
-    $j("a#toggleNavBar").parent().css("background-color", "rgb(0, 75, 120)");
-  } else {
-    navBar.style.top= "-100px";
-    navToggle.style.transition = "top 0.15s ease 0s";
-    navToggle.style.top = "0%";
-    $j("a#toggleNavBar").text("\uD83E\uDC47"); // Down Arrow
-    $j("a#toggleNavBar").parent().css("background-color", "rgb(0, 102, 165)");
-  }
-}
-
-/* Adds toggle-collapse headers to sections & activates navbar functions */
+/* Add toggle-collapse headers to sections & activate navbar functions */
 function showCollapsed() {
-  $j("form div#StudentSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Student Information</h2>');
-  $j("form div#EverythingElseSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Everything Else</h2>');
-  $j("form div#OtherSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Other</h2>');
-  $j("form div#LegalSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Legal Information</h2>');
-  $j("form div#GradSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Graduation Information</h2>');
-  $j("form div#OfficeSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Administrative Information</h2>');
-  $j("form div#EthRaceSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Ethnicity/Race Information</h2>');
-  $j("form div#ContactsSection").before('<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">Contacts</h2>');
-  $j("form div").css("display", "block");
+  
+  const createCollapseHeader = (title) => { return '<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">' + title + '</h2>' };
+  
+  $j("#StudentSection").before( createCollapseHeader("Student Information") );
+  $j("#EverythingElseSection").before( createCollapseHeader("Everything Else") );
+  $j("#OtherSection").before( createCollapseHeader("Other") );
+  $j("#LegalSection").before( createCollapseHeader("Legal Information") );
+  $j("#GradSection").before( createCollapseHeader("Graduation Information") );
+  $j("#OfficeSection").before( createCollapseHeader("Administrative Information") );
+  $j("#EthRaceSection").before( createCollapseHeader("Ethnicity/Race Information") );
+  $j("#ContactsSection").before( createCollapseHeader("Contacts") );
+  $j("form div").css("display", "box");
+  $j("#demoNavBar").css("display", "inline-flex");
   $j("form div.row").parent().css("margin", "0 11px 0 11px");
   $j("form div.row").css("margin", "0");
-  $j("div#demoNavTabs > ul").prop("hidden", true);
-  toggleDisplayNav();
-   
+
   /* Load page with all sections collapsed */
   $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
     hideCollapseClasses($j(this));
@@ -293,7 +207,7 @@ function showCollapsed() {
     hideCollapseTarget($j(this));
   });
 
-  /* Add Navbar Event Listeners */
+  /* Navbar Event Listeners */
   $j(".sectLink").on('click', function(event) {
     /* Check for hash(anchor link) value NOTE: this.hash returns part of URL beginning with '#' aka the id of the linked element */
     if (this.hash !== "") {
@@ -311,9 +225,7 @@ function showCollapsed() {
       
       /* Animate smooth scroll + add hash (#) to URL when done (default click behavior) */
       var scrollDest = $sectionAnchor.offset().top - 50;
-      $j('html, body').animate( { scrollTop: scrollDest},
-        600
-      );
+      $j('html, body').animate( { scrollTop: scrollDest}, 600);
     }
   });
   /* Navbar - Expand All */
@@ -334,56 +246,29 @@ function showCollapsed() {
       $section.prev().removeClass("expanded").addClass("collapsed");
     });
   });
-  /* Toggle NavBar On/Off */
-  $j("#toggleNavBar").on('click', function(event) {
-    event.preventDefault();
-    toggleDisplayNav();
-  });
+  $j(window).on("scroll", function(event) {
+    if(window.pageYOffset > 50){
+      $j("#demoNavBar, #demoNavBar > a").css( {'display':'inline-block'} );
+      $j("#demoNavBar").css( {'position':'fixed','top':'0','left':'0','width':'100%'} );
+      $j("#demoNavBar > a").css( {'width':'8%'} )
+    } else {
+      $j("#demoNavBar, #demoNavBar > a").css( {'display':'inline-flex','width':'auto'} );
+      $j("#demoNavBar").css( {'position':'initial','top':'initial'} );
+    }
+  })
 }
 
-$j(document).ready(function() {
-  /* Add LPS customizations to GD page then restyle page with the new elements */
-  addLPSGDFields();
-  LPSGDRestyle();
-  selectViewStyle();
-  
-  /* Remove hidden customization template */
-  $j( "div#LPS-GDCustomhiddentable" ).remove();
-  
-  /* Remove whitespace from field values, lets DOM know when they are empty for CSS */
-  $j( "input" ).val(function( index, value ) { return value.trim(); });
-  
-  /* Translate DOE Codes - 'fieldName_DOE###' (Moved to seperate function for readability) */
-  decodeDemoVals();
-
-  /* Comment codes */
-  var InstValues= {};
-      InstValues[' ']='';
-      InstValues['REG']='Registration';
-      InstValues['COA']='Change of Address';
-      InstValues['PCU']='Program Code Updates';
-      InstValues['HOME']='Homeless';
-      InstValues['TF']='TransferFrom-Original';
-      InstValues['WD']='Withdrawal';
-      InstValues['GC']='Grade Change';
-      InstValues['RE']='Re-Engaged';
-      InstValues['Other']='Other';
-});
-
-/* 
-  ~ Moved down here because scrolling through it was annoying ~
-  -Decode DOE fields + fields w/ ambiguous values
-*/
+/* Decode DOE fields + fields w/ ambiguous values */
 function decodeDemoVals() {
-  var $enrollmentStatus_012 = $j("form input#fieldEnrollmentStatus");
-  var $firstYearEL_021 = $j("form input#fieldFirstYearEL");
-  var $immigrantStatus_022 = $j("form input#fieldImmigrantStatus");
-  var $isEL_025 = $j("form input#fieldIsEL");
-  var $ELStatus_026 = $j("form input#fieldELStatus");
-  var $militaryStat_029 = $j("form input#fieldMilitaryStatus");
-  var $gradPlan_033 = $j("form input#fieldGradPlan");
-  var $coreCompletion_037 = $j("form input#fieldCoreCompletion");
-  var $504Plan_039 = $j("form input#field504Plan");
+  var $enrollmentStatus_012 = $j("#fieldEnrollmentStatus");
+  var $firstYearEL_021 = $j("#fieldFirstYearEL");
+  var $immigrantStatus_022 = $j("#fieldImmigrantStatus");
+  var $isEL_025 = $j("#fieldIsEL");
+  var $ELStatus_026 = $j("#fieldELStatus");
+  var $militaryStat_029 = $j("#fieldMilitaryStatus");
+  var $gradPlan_033 = $j("#fieldGradPlan");
+  var $coreCompletion_037 = $j("#fieldCoreCompletion");
+  var $504Plan_039 = $j("#field504Plan");
   
   switch( $enrollmentStatus_012.val() ) {
     case '01':
@@ -607,11 +492,11 @@ function decodeDemoVals() {
   }
   
   /* Decode ambiguous non-DOE values */
-  var $excludeState = $j( "form input#fieldExcludeState" );
-  var $includeSIMS = $j( "form input#fieldIncludeSIMS" );
-  var $includeSASID = $j( "form input#fieldIncludeSASID" );
-  var $entryGrade = $j( "form input#fieldEntryGrade" );
-  var $title1NCLB = $j( "form input#fieldNCLB" ); 
+  var $excludeState = $j("#fieldExcludeState");
+  var $includeSIMS = $j("#fieldIncludeSIMS");
+  var $includeSASID = $j("#fieldIncludeSASID");
+  var $entryGrade = $j("#fieldEntryGrade");
+  var $title1NCLB = $j("#fieldNCLB"); 
   
   switch( $excludeState.val() ) {
     case 'False':
@@ -672,8 +557,3 @@ function decodeDemoVals() {
       $entryGrade.addClass("noValue");
   }
 }
-/*
- NOTES:
-  + Every main section should have a Go to Top/Bottom
-	+ Name the Menu Item LPS Demographics
-*/

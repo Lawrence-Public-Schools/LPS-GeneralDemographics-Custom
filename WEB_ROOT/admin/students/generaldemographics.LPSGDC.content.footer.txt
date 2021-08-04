@@ -22,8 +22,8 @@
     <a href="#LegalSection" class="sectLink">Legal</a>
     <a href="#OtherSection" class="sectLink">Other</a>
     <a href="#EverythingElseSection" class="sectLink">Everything Else</a>
-    <a href="javascript:void(0);" id="expandAll">Expand All</a>
-    <a href="javascript:void(0);" id="collapseAll">Collapse All</a>
+    <a href="javascript:void(0);" id="expandAll" class="sectLink">Expand All</a>
+    <a href="javascript:void(0);" id="collapseAll" class="sectLink">Collapse All</a>
   </nav>
   <div id="navToggleBox">
     <button type="button"><a href="javascript:void(0);" id="toggleNavBar">&#x1f845;</a></button>
@@ -67,7 +67,19 @@
         <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/emailconfig.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
-      <tr id="trRace_BirthCity" class="row-ethRace ethrace-other"> <!-- DOE008 *Needs to be converted to town code -->
+      <tr id="trRace_ExcludeState" class="row-ethRace ethrace-other">
+        <td class="bold">Exclude from State Reporting? &tilde;</td>
+        <td><input type="text" name="[Students]State_ExcludeFromReporting" id="fieldExcludeState" value="~(State_ExcludeFromReporting)" class="psTextWidget" readonly /></td>
+      </tr>
+      <tr id="trRace_IncludeSIMS" class="row-ethRace ethrace-other">
+        <td class="bold">Include in SIMS Report? &tilde;</td>
+        <td><input type="text" name="[Students.S_MA_STU_SIMS_X]IncludeInSIMSInd" id="fieldIncludeSIMS" value="~(IncludeInSIMSInd)" class="psTextWidget" readonly /></td>
+      </tr>
+      <tr id="trRace_IncludeSASID" class="row-ethRace ethrace-other">
+        <td class="bold">Include in SASID Report? &tilde;</td>
+        <td><input type="text" name="[Students.S_MA_STU_X]IncludeInSASIDMSRInd" id="fieldIncludeSASID" value="~(IncludeInSASIDMSRInd)" class="psTextWidget" readonly /></td>
+      </tr>
+      <tr id="trRace_BirthCity" class="row-ethRace ethrace-other"> <!-- DOE008 *Must be converted to town code -->
         <td class="bold">City/Town of Birth &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]BirthCity" id="fieldBirthCity" value="~(BirthCity)" class="psTextWidget" readonly /></td>
         <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#ldv_generatedID2'" class="editButton" type="button">Edit</button></td>-->
@@ -186,6 +198,7 @@
         <td class="bold">Enrollment Status &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]EnrollStatusTimeOfCollection" id="fieldEnrollmentStatus" value="~(EnrollStatusTimeOfCollection)" class="psTextWidget" readonly /></td>
         <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#enrollstatus'" class="editButton" type="button">Edit</button></td>-->
+      </tr>
       <tr id="trOther_TransferFrom" class="row-other other-lps">
         <td class="bold">Transferring from &tilde;</td>
         <td width="75%"><input type="text" id="fieldTransferFrom" value="" size="17" placeholder="SCHOOL NAME" class="psTextWidget" readonly /></td>
@@ -205,35 +218,6 @@
       </tr>
     </tbody>
   </table>
-
-  <!-- Grouping these 3 fields in a box-round to communicate that the "Edit" button functions the same for each -->
-  <div id="stateIncludeWrapper" class="row-ethRace ethrace-other">
-    <div class="button-row" style="margin:0px;padding-bottom:0px;">
-      <!--<button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/stateMA.html?frn=~(frn)'" id="editStateIncludeBtn" type="button">Edit</button>-->
-    </div>
-    <div class="box-round" id="stateIncludeBox">
-      <table class="linkDescList" style="margin-top:0px;width:100%;">
-        <colgroup>
-          <col style="width: auto">
-          <col style="width: 100%">
-        </colgroup>
-        <tbody width="100%">
-          <tr id="trRace_ExcludeState" class="">
-            <td class="bold">Exclude from State Reporting? &tilde;</td>
-            <td><input type="text" name="[Students]State_ExcludeFromReporting" id="fieldExcludeState" value="~(State_ExcludeFromReporting)" class="psTextWidget" readonly /></td>
-          </tr> <!-- All "include/exclude" fields are in the same place so only need one edit button link -->
-          <tr id="trRace_IncludeSIMS" class="">
-            <td class="bold">Include in SIMS Report? &tilde;</td>
-            <td><input type="text" name="[Students.S_MA_STU_SIMS_X]IncludeInSIMSInd" id="fieldIncludeSIMS" value="~(IncludeInSIMSInd)" class="psTextWidget" readonly /></td>
-          </tr>
-          <tr id="trRace_IncludeSASID" class="">
-            <td class="bold">Include in SASID Report? &tilde;</td>
-            <td><input type="text" name="[Students.S_MA_STU_X]IncludeInSASIDMSRInd" id="fieldIncludeSASID" value="~(IncludeInSASIDMSRInd)" class="psTextWidget" readonly /></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
       
   <!--
     Copying Contacts page source and displaying it in Demographics 'Contacts' section.
@@ -404,92 +388,30 @@
     </div>
     <script> var _curSchoolNumber = 0; </script>
     <div class="hidden">
-      <input id="studentDcid" type="hidden" value="113601" />
-      <input id="schoolId" type="hidden" value="0" />
-      <input id="studentNumber" type="hidden" value="111308" />
+      <input id="studentDcid" type="hidden" value="~(rn)" />
+      <input id="schoolId" type="hidden" value="~(OverrideSchoolCode)" />
+      <input id="studentNumber" type="hidden" value="~(rn)" />
     </div>
   </div>
 
   <!-- Comment Form -->
   <div class="box-round" id="demoComments">
-    <div class="tlistCollectionTable tlistCollectionTableInitialized">
-      <div class="button-row">
-        <button type="button" id="addButton">Add</button>
-      </div>
-      <table class="grid">
-        <colgroup>
-          <col class="col-COMMENT_DATE">
-          <col class="col-COMMENT_REASON">
-          <col class="col-COMMENT_PERSON">
-          <col class="col-COMMENT_COMMENT">
-          <col class="col-delete">
-        </colgroup>
-        <thead>
-          <tr>
-            <th>Date of Comment</th>
-            <th>Reason for Comment</th>
-            <th>Person Making Change</th>
-            <th>Comment</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr id="rowId_52412">
-            <td id="COMMENT_DATE_52412" class="td-COMMENT_DATE">
-              <b class="dpWrapper">
-                <input type="text" class="COMMENT_DATE psDateWidget unvalidated hasDatepicker" value="03/26/2019"
-                       data-validation="{&quot;type&quot;:&quot;date&quot;,&quot;key&quot;:&quot;students.u_comment.comment_date&quot;}"
-                       name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_DATE$format=date" data-key="students.u_comment.comment_date" id="dp1625588312868" placeholder="MM/DD/YYYY">
-                <button type="button" class="ui-datepicker-trigger" aria-hidden="true" tabindex="-1"></button>
-              </b>
-            </td>
-            <td id="COMMENT_REASON_52412" class="td-COMMENT_REASON">
-              <input type="text" class="COMMENT_REASON psTextWidget" value="TransferFrom-Original" maxlength="25"
-                     data-validation="{&quot;maxlength&quot;:&quot;25&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_reason&quot;}"
-                     name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_REASON" data-key="students.u_comment.comment_reason" id="ldv_generatedID1">
-            </td>
-            <td id="COMMENT_PERSON_52412" class="td-COMMENT_PERSON">
-              <input type="text" class="COMMENT_PERSON psTextWidget unvalidated" value="DC" maxlength="2"
-                     data-validation="{&quot;maxlength&quot;:&quot;2&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_person&quot;}"
-                     name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_PERSON" data-key="students.u_comment.comment_person">
-            </td>
-            <td id="COMMENT_COMMENT_52412" class="td-COMMENT_COMMENT">
-              <input type="text" class="COMMENT_COMMENT psTextWidget unvalidated" value="GLCA" maxlength="500"
-                     data-validation="{&quot;maxlength&quot;:&quot;500&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_comment&quot;}"
-                     name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:52412]COMMENT_COMMENT" data-key="students.u_comment.comment_comment">
-            </td>
-            <td>
-              <input class="deleteCB hide" name="DC-STUDENTS:113601.U_COMMENT.U_COMMENT:52412" type="checkbox">
-              <button class="undoDelRow hide" type="button"><em>&nbsp;</em></button>
-              <button class="deleteRow" type="button"><em>&nbsp;</em></button>
-            </td>
-          </tr>
-          <tr class="new">
-            <td id="COMMENT_DATE_-{INSERT_COUNTER}" class="td-COMMENT_DATE">
-              <input type="text" class="COMMENT_DATE" data-addclass="psDateWidget" value=""
-                     data-validation-add="{&quot;type&quot;:&quot;date&quot;,&quot;key&quot;:&quot;students.u_comment.comment_date&quot;}"
-                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_DATE$format=date">
-            </td>
-            <td id="COMMENT_REASON_-{INSERT_COUNTER}" class="td-COMMENT_REASON">
-              <input type="text" class="COMMENT_REASON" data-addclass="psTextWidget" maxlength="25" value=""
-                     data-validation-add="{&quot;maxlength&quot;:&quot;25&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_reason&quot;}"
-                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_REASON">
-            </td>
-            <td id="COMMENT_PERSON_-{INSERT_COUNTER}" class="td-COMMENT_PERSON">
-              <input type="text" class="COMMENT_PERSON" data-addclass="psTextWidget" maxlength="2" value=""
-                     data-validation-add="{&quot;maxlength&quot;:&quot;2&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_person&quot;}"
-                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_PERSON">
-            </td>
-            <td id="COMMENT_COMMENT_-{INSERT_COUNTER}" class="td-COMMENT_COMMENT">
-              <input type="text" class="COMMENT_COMMENT" data-addclass="psTextWidget" maxlength="500" value=""
-                     data-validation-add="{&quot;maxlength&quot;:&quot;500&quot;,&quot;type&quot;:&quot;text&quot;,&quot;key&quot;:&quot;students.u_comment.comment_comment&quot;}"
-                     data-name="CF-[STUDENTS:113601.U_COMMENT.U_COMMENT:-{INSERT_COUNTER}]COMMENT_COMMENT">
-            </td>
-            <td class="deleteCol"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    ~[tlist_child:STUDENTS.U_COMMENT.U_COMMENT;displaycols:COMMENT_DATE,COMMENT_REASON,COMMENT_PERSON,COMMENT_COMMENT;fieldNames:Date of Comment,Reason for Comment,Person Making Change,Comment;type:html]
+    <script>  
+      var InstValues= {};
+      InstValues[' ']='';
+      InstValues['REG']='Registration';
+      InstValues['COA']='Change of Address';
+      InstValues['PCU']='Program Code Updates';
+      InstValues['HOME']='Homeless';
+      InstValues['TF']='TransferFrom-Original';
+      InstValues['WD']='Withdrawal';
+      InstValues['GC']='Grade Change';
+      InstValues['RE']='Re-Engaged';
+      InstValues['Other']='Other';
+      //tlistText2DropDown('COMMENT_REASON',InstValues);
+    </script>
+    <!-- <div class="button-row"><input type="hidden" name="ac" value="prim">~[submitbutton]</div> -->
   </div>
   
 </div>
