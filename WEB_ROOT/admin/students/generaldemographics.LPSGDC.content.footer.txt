@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- use jQuery to replace text -->
 <script src="/admin/javascript/LPSGDC.js"></script>
+<script src="/scripts/tlistCustomization.js"></script>
 <link rel="stylesheet" type="text/css" href="/admin/styles/LPSGDC.css" />
 <!--
   NOTES:
@@ -413,21 +414,21 @@
   <!-- Comment Form -->
   <div class="box-round" id="demoComments">
      ~[tlist_child:STUDENTS.U_COMMENT.U_COMMENT;displaycols:COMMENT_DATE,COMMENT_REASON,COMMENT_PERSON,COMMENT_COMMENT;fieldNames:Date of Comment,Reason for Comment,Person Making Change,Comment;type:html]
-<script>	
-		var InstValues= {};
-		InstValues[' ']='';
-		InstValues['REG']='Registration';
-		InstValues['COA']='Change of Address';
-		InstValues['PCU']='Program Code Updates';
-		InstValues['HOME']='Homeless';
-                InstValues['TF']='TransferFrom-Original';
-                InstValues['WD']='Withdrawal';
-                InstValues['GC']='Grade Change';
-                InstValues['RE']='Re-Engaged';
-		InstValues['Other']='Other';
-		//tlistText2DropDown('COMMENT_REASON',InstValues);
-				</script>
+    <script>
+        var InstValues= {};
+        InstValues[' ']='';
+        InstValues['REG']='Registration';
+        InstValues['COA']='Change of Address';
+        InstValues['PCU']='Program Code Updates';
+        InstValues['HOME']='Homeless';
+        InstValues['TF']='TransferFrom-Original';
+        InstValues['WD']='Withdrawal';
+        InstValues['GC']='Grade Change';
+        InstValues['RE']='Re-Engaged';
+        InstValues['Other']='Other';
+        tlistText2DropDown('COMMENT_REASON',InstValues);
+    </script>
         <!-- <div class="button-row"><input type="hidden" name="ac" value="prim">~[submitbutton]</div> -->
-	</div>
+    </div>
   
 </div>
