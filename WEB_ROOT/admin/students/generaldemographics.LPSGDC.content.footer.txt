@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <!-- use jQuery to replace text -->
 <script src="/admin/javascript/LPSGDC.js"></script>
 <script src="/scripts/tlistCustomization.js"></script>
