@@ -19,7 +19,7 @@
   min-height: 0;
   max-width: 100%;
   max-height: 100%;
-  background-color: #ed9f55;
+  background-color: rgb(163, 191, 204);
   z-index: 1;
 }
 #demoNavBar a {
@@ -36,13 +36,17 @@
   min-width: 0;
   min-height: 0;
   width: auto;
+  border-top: 2px solid rgb(143, 171, 284);
+  border-right: 2px solid rgb(183, 211, 224);
+  border-bottom: 2px solid rgb(183, 211, 224);
+  border-left: 2px solid rgb(143, 171, 284);
 }
 #demoNavBar a:hover {
-  background-color: #fdaf65;
+  background-color: rgb(183, 211, 224);
   color: white;
 }
 #demoNavBar .active {
-  background-color: #dd8f45;
+  background-color: rgb(143, 171, 284);
   color: white;
 }
 

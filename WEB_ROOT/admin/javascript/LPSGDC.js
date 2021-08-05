@@ -250,7 +250,7 @@ function showCollapsed() {
     if(window.pageYOffset > 50){
       $j("#demoNavBar, #demoNavBar > a").css( {'display':'inline-block'} );
       $j("#demoNavBar").css( {'position':'fixed','top':'0','left':'0','width':'100%'} );
-      $j("#demoNavBar > a").css( {'width':'8%'} )
+      $j("#demoNavBar > a").css( {'width':'8%','background-color':'rgb(163, 191, 204)'} ) //MAKE THE LINKS LOOK LIKE THEY ARE INSET, IDK HOW JUST FIGURE IT OUT!
     } else {
       $j("#demoNavBar, #demoNavBar > a").css( {'display':'inline-flex','width':'auto'} );
       $j("#demoNavBar").css( {'position':'initial','top':'initial'} );
