@@ -135,12 +135,6 @@
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]GradCompleteCoreCurriculum" id="fieldCoreCompletion" value="~(GradCompleteCoreCurriculum)" class="psTextWidget" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#gradstatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trLegal_Gender" class="row-legal">
-        <td class="bold">Legal Gender &tilde;</td>
-        <td width="75%"><input type="text" name="[Students]Gender" id="fieldLegalGender" value="~(gender)" class="psTextWidget" readonly /></td>
-        <!-- Gender on SIMS page doesn't have an ID to link to, should figure out how to get link to focus on it -->
-        <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#'" class="editButton" type="button">Edit</button></td>-->
-      </tr>
     <!-- Custom Fields: 'Other' (LPS)  -->
       <tr id="trOther_NCLB" class="row-other other-lps"> <!-- DOE020(?) *DOE020 is for 'Title 1 participation type', this is 'Title 1 School Choice status'. Don't know what the difference is. -->
         <td class="bold">NCLB/Title 1 School Choice &tilde;</td>
