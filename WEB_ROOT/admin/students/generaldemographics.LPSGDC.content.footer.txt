@@ -135,17 +135,6 @@
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]GradCompleteCoreCurriculum" id="fieldCoreCompletion" value="~(GradCompleteCoreCurriculum)" class="psTextWidget" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#gradstatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-    <!-- Custom Fields: 'Legal Info' -->
-      <tr id="trLegal_FullName" class="row-legal">
-        <td class="bold">Legal Name (Last, First Middle Suffix) &tilde;</td>
-        <td width="75%">
-          <input type="text" id="fieldLegalLast_temp" name="[Students.StudentCoreFields]PSCore_Legal_Last_Name" value="~(PSCore_Legal_Last_Name)" style="width:35%" placeholder="SMITH..." class="psTextWidget" readonly /> ,
-          <input type="text" id="fieldLegalFirst_temp" name="[Students.StudentCoreFields]PSCore_Legal_First_Name" value="~(PSCore_Legal_First_Name)" style="width:35%" placeholder="JOHN..." class="psTextWidget" readonly />
-          <input type="text" id="fieldLegalMiddle_temp" name="[Students.StudentCoreFields]PSCore_Legal_Middle_Name" value="~(PSCore_Legal_Middle_Name)" style="width:15%" placeholder="WILLIAM..." class="psTextWidget" readonly />
-          <input type="text" id="fieldLegalSuffix_temp" name="[Students.StudentCoreFields]PSCore_Legal_Suffix" value="~(PSCore_Legal_Suffix)" style="width:15%" placeholder="Sr., Jr., III, etc..." class="psTextWidget" readonly />
-          <button type="button" onclick="StudentCoreLegalModule.copyToLegalNameFields('lastName', 'firstName', 'middleName', 'fieldLegalLast_temp', 'fieldLegalFirst_temp', 'fieldLegalMiddle_temp', 'fieldLegalSuffix_temp');">Copy</button>
-        </td>
-      </tr>
       <tr id="trLegal_Gender" class="row-legal">
         <td class="bold">Legal Gender &tilde;</td>
         <td width="75%"><input type="text" name="[Students]Gender" id="fieldLegalGender" value="~(gender)" class="psTextWidget" readonly /></td>
