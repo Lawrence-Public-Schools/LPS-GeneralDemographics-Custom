@@ -22,8 +22,8 @@
     <a href="#LegalSection" class="sectLink">Legal</a>
     <a href="#OtherSection" class="sectLink">Other</a>
     <a href="#EverythingElseSection" class="sectLink">Everything Else</a>
-    <a href="javascript:void(0);" id="expandAll">Expand All</a>
-    <a href="javascript:void(0);" id="collapseAll">Collapse All</a>
+    <a href="javascript:void(0);" id="expandAll" class="sectLink">Expand All</a>
+    <a href="javascript:void(0);" id="collapseAll" class="sectLink">Collapse All</a>
   </nav>
   <div id="navToggleBox">
     <button type="button"><a href="javascript:void(0);" id="toggleNavBar">&#x1f845;</a></button>
@@ -67,7 +67,7 @@
         <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/emailconfig.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
-       <tr id="trRace_ExcludeState" class="row-ethRace ethrace-other">
+      <tr id="trRace_ExcludeState" class="row-ethRace ethrace-other">
         <td class="bold">Exclude from State Reporting? &tilde;</td>
         <td><input type="text" name="[Students]State_ExcludeFromReporting" id="fieldExcludeState" value="~(State_ExcludeFromReporting)" class="psTextWidget" readonly /></td>
       </tr>
