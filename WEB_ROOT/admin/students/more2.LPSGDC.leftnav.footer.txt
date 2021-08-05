@@ -1,0 +1,24 @@
+<style>
+  a.LPSGDC:link {
+    color: red;
+  }
+  a.LPSGDC:visited {
+    color: red;
+  }
+  a.LPSGDC:hover {
+    color: red;
+  }
+</style>
+<script type="text/javascript">
+$j(document).ready(function() {
+    var originalGD = $j( "ul#std_information > li > a[href^='generaldemographics.html?frn=']" );
+    originalGD.parent().after($j('<li ><a class="LPSGDC" href="generaldemographics.html?frn=~(studentfrn)#TabView">General Demographics - Tabs &tilde;</a></li>'));
+    originalGD.replaceWith( $j('<a class="LPSGDC" href="generaldemographics.html?frn=~(studentfrn)#CollapseView">General Demographics - Collapsed &tilde;</a>') );
+    
+    $j(".LPSGDC").on("click", function(event) { 
+      window.parent.frames[1].location.hash = event.target.hash;
+      window.parent.frames[1].location.reload();
+      
+    });
+});
+</script>

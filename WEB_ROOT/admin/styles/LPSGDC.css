@@ -1,0 +1,78 @@
+#pds-header > header {
+  flex: 1 0 25% !important;
+}
+.pds-app-header-bar-center {
+  flex: 1 1 50% !important;
+}
+.pds-app-actions {
+  flex: 1 0 25% !important;
+}
+
+/* Slide-down navigation bar for section anchors */
+#demoNavBar {
+  top: 0;
+  display: inline-flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-content: center;
+  width: auto;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: rgb(163, 191, 204);
+  z-index: 1;
+}
+#demoNavBar a {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0.5em;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  vertical-align: middle;
+  min-width: 0;
+  min-height: 0;
+  width: auto;
+  border-top: 2px solid rgb(143, 171, 284);
+  border-right: 2px solid rgb(183, 211, 224);
+  border-bottom: 2px solid rgb(183, 211, 224);
+  border-left: 2px solid rgb(143, 171, 284);
+}
+#demoNavBar a:hover {
+  background-color: rgb(183, 211, 224);
+  color: white;
+}
+#demoNavBar .active {
+  background-color: rgb(143, 171, 284);
+  color: white;
+}
+
+/* Make inputs look normal */
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea, select {
+  border-style: inset;
+  border-width: 2px;
+  border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+  padding: 3px;
+  background-color: rgb(255,255,255);
+  /*background-color: rgb(217,217,217); /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+}
+input:only-child { width: 99%; }
+
+.row > table {
+  margin: 0;
+  width: 100%;
+}
+
+/* Style headers to match other PS pages */
+.collapsed {
+  background-color: rgb(237, 237, 237);
+}
+.expanded {
+  background-color: rgb(163, 191, 204);
+}
+
+#demoContactsTable { border-style: none; }
+#studentContactsTable { width: calc(100% - 20px); }

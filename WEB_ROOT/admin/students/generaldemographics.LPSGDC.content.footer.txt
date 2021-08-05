@@ -1,39 +1,19 @@
+<!DOCTYPE html>
 <!-- use jQuery to replace text -->
 <script src="/admin/javascript/LPSGDC.js"></script>
-<style type="text/css">
-#demo-navbar {
-  overflow: hidden;
-  background-color: #333; /* will likely be changing this */
-  position: fixed;
-  top: -100px;
-  width: 100%;
-  transition: top 0.3s;
-  z-index: 1;
-}
-
-#demo-navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 15px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-#demo-navbar a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-#demo-navbar a.active {
-  background-color: #04AA6D;
-  color: white;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" href="/admin/styles/LPSGDC.css" />
+<!--
+  NOTES:
+  - In order to save input to database, <input> needs
+     Core Fields:      name="[Table_Name]Field_Name"
+     Extension Fields: name="[PrimaryTable.ExtensionGroupName]Field_Name"
+  - Using ~(Field_Name) applies default read-only format, ~([Table_Name]Field_Name) does not
+  - Apparently adding name="[Table_Name]Field_Name" to inputs auto-adds certain PS
+     validation attributes/classes and screws up formatting when you put a field into focus
+  - Im going to want to change the edit links to not specificially link to frn=001113601
+ -->
 <div id="LPS-GDCustomhiddentable" style="display: none;">
-  <nav id="demo-navbar"> <!-- Add contacts/legal sections when they are done -->
+  <nav id="demoNavBar">
     <a href="#StudentSection" class="sectLink">Student</a>
     <a href="#ContactsSection" class="sectLink">Contacts</a>
     <a href="#EthRaceSection" class="sectLink">Ethnicity & Race</a>
@@ -42,374 +22,396 @@
     <a href="#LegalSection" class="sectLink">Legal</a>
     <a href="#OtherSection" class="sectLink">Other</a>
     <a href="#EverythingElseSection" class="sectLink">Everything Else</a>
-    <a href="javascript:void(0)" id="expandAll">Expand All</a>
-    <a href="javascript:void(0)" id="collapseAll">Collapse All</a>
+    <a href="javascript:void(0);" id="expandAll" class="sectLink">Expand All</a>
+    <a href="javascript:void(0);" id="collapseAll" class="sectLink">Collapse All</a>
   </nav>
+  <div id="navToggleBox">
+    <button type="button"><a href="javascript:void(0);" id="toggleNavBar">&#x1f845;</a></button>
+  </div>
+  <div class="tabs" id="demoNavTabs">
+    <ul>
+      <li><a href="#StudentSection" class="sectTab">Student</a></li>
+      <li><a href="#ContactsSection" class="sectTab">Contacts</a></li>
+      <li><a href="#EthRaceSection" class="sectTab">Ethnicity & Race</a></li>
+      <li><a href="#OfficeSection" class="sectTab">Administration</a></li>
+      <li><a href="#GradSection" class="sectTab">Graduation</a></li>
+      <li><a href="#LegalSection" class="sectTab">Legal</a></li>
+      <li><a href="#OtherSection" class="sectTab">Other</a></li>
+      <li><a href="#EverythingElseSection" class="sectTab">Everything Else</a></li>
+    </ul>
+  </div>
   <table>
     <tbody>
     <!--  Custom Fields: 'Student Info' -->
-      <tr id="trfieldStudent_Mobile">
-        <td class="bold">Student Mobile &tilde;</td>
-        <td>
-          <input type="text" id="fieldStudent_Mobile" name="[Students.U_Students_Extension]student_mobile" value="" size="17" placeholder="123-456-7890">
-        </td>
+      <tr id="trStudent_Mobile" class="row-student student-contactInfo">
+        <td class="bold">Student Mobile &tilde;</td><!-- where is this info stored? -->
+        <td width="75%"><input type="tel" id="fieldStudentMobile" value="" placeholder="123-456-7890" class="psTextWidget" readonly /></td>
       </tr>
-      <tr id="trfieldStudent_Personalemail">
+      <tr id="trStudent_PersonalEmail" class="row-student student-contactInfo">
         <td class="bold">Student Personal Email &tilde;</td>
-        <td>
-          <input type="text" id="fieldStudent_Personalemail" name="[Students.U_Students_Extension]student_personalemail" value="" size="50" placeholder="student@example.com">
-        </td>
+        <td width="75%"><input type="email" id="fieldPersonalEmail" value="" placeholder="student@example.com" class="psTextWidget" readonly /></td>
       </tr>
-      <tr id="trfieldStudent_LPSemail">
+      <tr id="trStudent_LPSEmail" class="row-student student-contactInfo">
         <td class="bold">Student LPS Email &tilde;</td>
-        <td>  <!-- Can probably just have them enter the first part and make the '@student.lawrence.k12.ma.us' part automatic -->
-          ~[tlist_sql; SELECT
-	psc.email AS email
-FROM
-	PSM_STudentcontact psc
-	JOIN psm_studentcontacttype psct ON psc.studentcontacttypeid = psct.id
-	AND psct.name = 'Self'
-	JOIN sync_studentmap ssm ON psc.studentid = ssm.studentid
-	JOIN students stu ON ssm.studentsdcid = stu.dcid
-WHERE
-	stu.student_number =~([01]student_number)]~(email)[/tlist_sql]
+        <td width="75%"><input type="email" id="fieldLPSEmail" value="~[tlist_sql;
+          SELECT psc.Email AS email
+          FROM PSM_STudentcontact psc
+            JOIN PSM_StudentContactType psct ON psc.StudentContactTypeId = psct.id
+              AND psct.Name = 'Self'
+            JOIN SYNC_StudentMap ssm ON psc.StudentId = ssm.studentid
+            JOIN Students stu ON ssm.studentsdcid = stu.dcid
+          WHERE
+            stu.student_number = ~([Students]student_number)]~(email)[/tlist_sql]"
+          class="psTextWidget" readonly />
         </td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/emailconfig.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
-      <tr id="trcheckboxExcludeState">
+      <tr id="trRace_ExcludeState" class="row-ethRace ethrace-other">
         <td class="bold">Exclude from State Reporting? &tilde;</td>
-        <td>
-          <input type="checkbox" id="radioExcludeState" name="[Students.U_Students_Extension]race_excludestate" value="no_State">
-        </td>
+        <td><input type="text" name="[Students]State_ExcludeFromReporting" id="fieldExcludeState" value="~(State_ExcludeFromReporting)" class="psTextWidget" readonly /></td>
       </tr>
-      <tr id="trcheckboxIncludeSIMS">
+      <tr id="trRace_IncludeSIMS" class="row-ethRace ethrace-other">
         <td class="bold">Include in SIMS Report? &tilde;</td>
-        <td>
-          <input type="checkbox" id="checkboxIncludeSIMS" name="[Students.U_Students_Extension]race_includesims" value="yes_SIMS">
-        </td>
+        <td><input type="text" name="[Students.S_MA_STU_SIMS_X]IncludeInSIMSInd" id="fieldIncludeSIMS" value="~(IncludeInSIMSInd)" class="psTextWidget" readonly /></td>
       </tr>
-      <tr id="trcheckboxIncludeSASID">
+      <tr id="trRace_IncludeSASID" class="row-ethRace ethrace-other">
         <td class="bold">Include in SASID Report? &tilde;</td>
-        <td>
-          <input type="checkbox" id="checkboxIncludeSASID" name="[Students.U_Students_Extension]race_includesasid" value="yes_SASID">
-        </td>
+        <td><input type="text" name="[Students.S_MA_STU_X]IncludeInSASIDMSRInd" id="fieldIncludeSASID" value="~(IncludeInSASIDMSRInd)" class="psTextWidget" readonly /></td>
       </tr>
-      <tr id="trfieldBirthCity"> <!-- DOE008 *Needs to be converted to town code -->
+      <tr id="trRace_BirthCity" class="row-ethRace ethrace-other"> <!-- DOE008 *Must be converted to town code -->
         <td class="bold">City/Town of Birth &tilde;</td>
-        <td>
-          <input type="text" id="fieldBirthCity" name="[Students.U_Students_Extension]race_birthcity" value="" size="20">
-        </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]BirthCity" id="fieldBirthCity" value="~(BirthCity)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#ldv_generatedID2'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trselectMilitary"> <!-- DOE029 *add 'selected' to option '00'(No military relation)?-->
+      <tr id="trRace_Military" class="row-ethRace ethrace-other"> <!-- DOE029 -->
         <td class="bold">Family Military Status &tilde;</td>
-        <td>
-          <select id="selectMilitaryStatus" name="[Students.U_Students_Extension]race_militarystatus">
-            <option value="00">Not a member of a military family</option>
-            <option value="01">Yes, child of active duty member</option>
-            <option value="02">Yes, child of member who was medically discharged or retired in the last year</option>
-            <option value="03">Yes, child of member who perished in the line of duty in the last year</option>
-          </select>
-        </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]MilitaryStatus" id="fieldMilitaryStatus" value="~(MilitaryStatus)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#militaryStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Office Data' -->
-      <tr class="trfieldEntryDate">
-        <td class="bold">District Entry Date</td>
-        <td>
-          <b class="dpWrapper">
-            <input type="text" id="fieldEntryDate" name="[Students.U_Students_Extension]office_entrydate" value="" size="11" class="psDateWidget hasDatepicker" placeholder="MM/DD/YYYY">
-            <button type="button" class="ui-datepicker-trigger" tabindex="-1"></button>
-          </b>
-        </td>
+      <tr id="trOffice_EntryDate" class="row-office office-general">
+        <td class="bold">District Entry Date &tilde;</td>
+        <td width="75%"><input type="text" name="[Students]DistrictEntryDate" id="fieldEntryDate" value="~(DistrictEntryDate)" placeholder="~[short.date]" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/modifydata.html?frn=~(frn)#dp1626705387672" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trselectEntryGrade">
-        <td class="bold">District Entry Grade &tilde;</td>
-        <td>
-          <select id="selectEntryGrade" name="[Students.U_Students_Extension]office_entrygrade">
-            <option value></option>
-            <option value="-4">-4</option>
-            <option value="-3">-3</option>
-            <option value="PK3">PK3</option>
-            <option value="PK4">PK4</option>
-            <option value="K">K</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-          </select>
-        </td>
+      <tr id="trOffice_EntryGrade" class="row-office office-general">
+        <td class="bold">District Entry Grade &tilde;</td> <!-- Auto-formatting makes this want a number, so translating it to K/PK might cause issues?   -->
+        <td width="75%"><input type="text" name="[Students]DistrictEntryGradeLevel" id="fieldEntryGrade" value="~(DistrictEntryGradeLevel)" class="psTextWidget" readonly /></td>
+        <!-- Entry Grade has no ID to link to on target page so linking to Entry Date which is directly above it -->
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/modifydata.html?frn=~(frn)#dp1626705387672" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trfieldSchoolCode">
+      <tr id="trOffice_SchoolCode" class="row-office office-general">
         <td class="bold">School Code &tilde;</td> <!-- DOE015 *code = 0000000[1,2] for SPED (1:gradeLvl >12 or private preschool), (2:homeschooled) -->
-        <td> 
-          <input type="text" id="fieldSchoolCode" name="[Students.U_Students_Extension]office_schoolcode" value="" size="6" placeholder="12345678">
-        </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]OverrideSchoolCode" id="fieldSchoolCode" value="~(OverrideSchoolCode)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_SchoolCode'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trfieldELCode"> <!-- DOE027 or 24? maybe 41? -->
+      <tr id="trOffice_ELCode" class="row-office office-el"> <!-- DOE027 or 24? maybe 41? -->
         <td class="bold">EL Code &tilde;</td>
-        <td>
-          <input type="text" id="fieldELCode" name="[Students.U_Students_Extension]office_elcode" value="" size="8" placeholder="1234567890">
-        </td>
+        <td width="75%"><input type="text" name="[Students.U_Def_Ext_Students]EL" id="fieldELCode" value="~(EL)" placeholder="EL CODE ###..." class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/ellsims.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr class="trfieldFLEPDate">
-        <td class="bold">FLEP Date</td>
-        <td>
-          <b class="dpWrapper">
-            <input type="text" id="fieldFLEPDate" name="[Students.U_Students_Extension]office_flepdate" value="" size="11" class="psDateWidget hasDatepicker" placeholder="MM/DD/YYYY">
-            <button type="button" class="ui-datepicker-trigger" tabindex="-1"></button>
-          </b>
-        </td>
+      <tr id="trOffice_FLEPDate" class="row-office office-el">
+        <td class="bold">FLEP Date &tilde;</td> <!-- BUG: For some reason '~[short.date]' returns 'MM/DD/YYYY' here but gives the actual date in #fieldGradDate (I think because gradDate is a custom value) -->
+        <td width="75%"><input type="text" name="[Students.U_Def_Ext_Students]FLEPDate" id="fieldFLEPDate" value="~(FLEPDate)" placeholder="~[short.date]" class="psTextWidget" readonly /></td>
       </tr>
-      <tr id="trfieldSPEDCode"> <!-- DOE032, 34, 36, 38, or 40? -->
+      <tr id="trOffice_SPEDCode" class="row-office office-sped"> <!-- -->
         <td class="bold">SPED Code &tilde;</td>
-        <td>
-          <input type="text" id="fieldSPEDCode" name="[Students.U_Students_Extension]office_spedcode" value="" size="8" placeholder="1234567890">
-        </td>
+        <td width="75%"><input type="text" name="[Students.U_Students_Extension]SPED" id="fieldSPEDCode" value="~(SPED)" placeholder="SPED CODE ###..." class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/spe.html?frn=~(frn)'" class="editButton" type="button">View</button></td>-->
       </tr>
-      <tr id="trselect504">
-        <td class="bold">504 Plan &tilde;</td> <!-- DOE039 *add 'selected' to option '00'(Never on plan)?-->
-        <td>
-          <select id="select504" name="[Students.U_Students_Extension]office_504">
-            <option value="00">Has not been on a 504 plan at all this school year</option>
-            <option value="01">Currently on a 504 plan</option>
-            <option value="02">Student is not currently on a 504 plan, but was earlier this school year</option>
-          </select>
-        </td>
+      <tr id="trOffice_504Plan" class="row-office office-sped">
+        <td class="bold">504 Plan &tilde;</td> <!-- DOE039-->
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_SPED_X]Sec504PlanStatus" id="field504Plan" value="~(Sec504PlanStatus)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_504PlanStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Graduation Info' -->
-      <tr class="trfieldGradDate">
-        <td class="bold">Graduation Date</td>
-        <td>
-          <b class="dpWrapper">
-            <input type="text" id="fieldGradDate" name="[Students.U_Students_Extension]graduation_graddate" value="" size="11" class="psDateWidget hasDatepicker" placeholder="MM/DD/YYYY">
-            <button type="button" class="ui-datepicker-trigger" tabindex="-1"></button>
-          </b>
-        </td>
+      <tr id="trGrad_Date" class="row-grad">
+        <td class="bold">Graduation Date &tilde;</td>
+        <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]Grad_Date" id="fieldGradDate" value="~(Grad_Date)" placeholder="~[short.date]" class="psTextWidget" readonly /></td>
       </tr>
-      <tr id="trfieldCohort">
-        <td class="bold">DESE Cohort &tilde;</td>  <!-- Dont know what the cohort options are, could maybe be better as a dropdown? -->
-        <td>
-          <input type="text" id="fieldCohort" name="[Students.U_Students_Extension]graduation_cohort" value="" size="5" placeholder="########"> 
-        </td>
+      <tr id="trGrad_Cohort" class="row-grad">
+        <td class="bold">DESE Cohort &tilde;</td>
+        <td width="75%"><input type="text" name="[Students.U_Def_Ext_Students]cohort" id="fieldCohort" value="~(cohort)" placeholder="COHORT #..." class="psTextWidget" readonly /></td>
       </tr>
-      <tr id="trselectGradPlan"> <!-- DOE033 *PK-10 = '500', 11/12 = '500' until graduated/receive certificate/complete grade 12 -->
+      <tr id="trGrad_Plan" class="row-grad"> <!-- DOE033 *PK-10 = '500', 11/12 = '500' until graduated/receive certificate/complete grade 12 -->
         <td class="bold">Post-Graduation Plan &tilde;</td>
-        <td>
-          <select id="selectGradPlan" name="[Students.U_Students_Extension]graduation_gradplan">  <!-- DEPENDENCIES: If... -->
-            <option value="500">N/A</option>                                                      <!-- ...DOE012(Enrollment) = '04'(Graduate), then DOE033 != '500'(N/A) and DOE037(Core Completion) != '00'(Not a graduate) -->
-            <option value="01">4-Year Public College</option>                                     <!-- ...DOE033 does not = '500', then DOE12 must = '04', '10'(Certificate), or '11'(Completed Grade 12) -->
-            <option value="02">2-Year Public College</option>                                     
-            <option value="03">4-Year Private College</option>
-            <option value="04">2-Year Private College</option>
-            <option value="05">Other Post Secondary (e.g. Trade School)</option>
-            <option value="06">Work</option>
-            <option value="07">Military</option>
-            <option value="08">Other</option>
-            <option value="09">Unknown</option>
-            <option value="10">Registered Apprenticeship</option>
-          </select>
-        </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]PostGradPlans" id="fieldGradPlan" value="~(PostGradPlans)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#futureplans'" class="editButton" type="button">Edit</button></td>-->
+         <!-- DEPENDENCIES: If...
+              ...DOE012(Enrollment) = '04'(Graduate), then DOE033 != '500'(N/A) and DOE037(Core Completion) != '00'(Not a graduate)
+              ...DOE033 does not = '500', then DOE12 must = '04', '10'(Certificate), or '11'(Completed Grade 12) -->
       </tr>
-      <tr id="trselectGradCoreCompletion"> <!-- DOE037 *DOE033(GradPlan) dependencies includes all DOE037 dependencies  -->
+      <tr id="trGrad_CoreCompletion" class="row-grad"> <!-- DOE037 *DOE033(GradPlan) dependencies includes all DOE037 dependencies  -->
         <td class="bold">Massachusetts Core Curriculum Completion &tilde;</td>
-        <td>
-          <select id="selectCoreCompleted" name="[Students.U_Students_Extension]graduation_corecompleted">
-            <option value="00">Student is not a graduate</option>
-            <option value="01">Student graduated and successfully completed the Massachusetts Core Curriculum</option>
-            <option value="02">Student graduated without successfully completing the Massachusetts Core Curriculum</option>
-          </select>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]GradCompleteCoreCurriculum" id="fieldCoreCompletion" value="~(GradCompleteCoreCurriculum)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#gradstatus'" class="editButton" type="button">Edit</button></td>-->
+      </tr>
+    <!-- Custom Fields: 'Legal Info' -->
+      <tr id="trLegal_FullName" class="row-legal">
+        <td class="bold">Legal Name (Last, First Middle Suffix) &tilde;</td>
+        <td width="75%">
+          <input type="text" id="fieldLegalLast_temp" name="[Students.StudentCoreFields]PSCore_Legal_Last_Name" value="~(PSCore_Legal_Last_Name)" style="width:35%" placeholder="SMITH..." class="psTextWidget" readonly /> ,
+          <input type="text" id="fieldLegalFirst_temp" name="[Students.StudentCoreFields]PSCore_Legal_First_Name" value="~(PSCore_Legal_First_Name)" style="width:35%" placeholder="JOHN..." class="psTextWidget" readonly />
+          <input type="text" id="fieldLegalMiddle_temp" name="[Students.StudentCoreFields]PSCore_Legal_Middle_Name" value="~(PSCore_Legal_Middle_Name)" style="width:15%" placeholder="WILLIAM..." class="psTextWidget" readonly />
+          <input type="text" id="fieldLegalSuffix_temp" name="[Students.StudentCoreFields]PSCore_Legal_Suffix" value="~(PSCore_Legal_Suffix)" style="width:15%" placeholder="Sr., Jr., III, etc..." class="psTextWidget" readonly />
+          <button type="button" onclick="StudentCoreLegalModule.copyToLegalNameFields('lastName', 'firstName', 'middleName', 'fieldLegalLast_temp', 'fieldLegalFirst_temp', 'fieldLegalMiddle_temp', 'fieldLegalSuffix_temp');">Copy</button>
         </td>
       </tr>
-      <!-- Custom Fields: 'Other' (Built-In) -->
-      <tr id="trselectGradeLvl"> <!-- DOE016 -->
-        <td class="bold">Current Grade Level &tilde;</td>
-        <td>
-          <select id="selectGradeLvl" name="[Students.U_Students_Extension]other_gradelvl">
-            <option value="01">Grade 1</option>
-            <option value="02">Grade 2</option>
-            <option value="03">Grade 3</option>
-            <option value="04">Grade 4</option>
-            <option value="05">Grade 5</option>
-            <option value="06">Grade 6</option>
-            <option value="07">Grade 7</option>
-            <option value="08">Grade 8</option>
-            <option value="09">Grade 9</option>
-            <option value="10">Grade 10</option>
-            <option value="11">Grade 11</option>
-            <option value="12">Grade 12</option>
-            <option value="PK">Pre-K</option>
-            <option value="KP">Kindergarten (Part-time)</option>
-            <option value="KF">Kindergarten (Full-time)</option>
-            <option value="KT">Kindergarten (Tuitioned)</option>
-            <option value="SP">Special Education Beyond Grade 12</option>
-          </select>
-        </td>
+      <tr id="trLegal_Gender" class="row-legal">
+        <td class="bold">Legal Gender &tilde;</td>
+        <td width="75%"><input type="text" name="[Students]Gender" id="fieldLegalGender" value="~(gender)" class="psTextWidget" readonly /></td>
+        <!-- Gender on SIMS page doesn't have an ID to link to, should figure out how to get link to focus on it -->
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!-- Custom Fields: 'Other' (LPS)  -->
-      <tr id="trselectFirstYearEL"> <!-- DOE021 *DEPENDENCIES: Students with Grade Level(DOE016) = 'PK' or 'SP' should be given '00'(N/A)-->
+      <tr id="trOther_NCLB" class="row-other other-lps"> <!-- DOE020(?) *DOE020 is for 'Title 1 participation type', this is 'Title 1 School Choice status'. Don't know what the difference is. -->
+        <td class="bold">NCLB/Title 1 School Choice &tilde;</td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_SIMS_X]Title1SchoolChoice" id="fieldNCLB" value="~(Title1SchoolChoice)" class="psTextWidget" readonly /></td>
+      </tr>
+      <tr id="trOther_FirstYearEL" class="row-other other-lps"> <!-- DOE021 *DEPENDENCIES: Students with Grade Level(DOE016) = 'PK' or 'SP' should be given '00'(N/A)-->
         <td class="bold">First Year English Learner &tilde;</td>
-        <td>
-          <select id="selectFirstYearEL" name="[Students.U_Students_Extension]other_firstyearel">
-            <option value="00">N/A</option>
-            <option value="01">Student in first year of U.S. Schooling</option>
-            <option value="02">Student not in first year of U.S. Schooling</option>
-          </select>
-        </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LEP1stYrInUS" id="fieldFirstYearEL" value="~(LEP1stYrInUS)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_LEPinUS'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trcheckboxIsEL"> <!-- DOE025 *DEPENDENCIES: If DOE025 = '01'(yes_EL) then DOE024(Native Language) != '267'(English) -->
+      <tr id="trOther_IsEL" class="row-other other-lps"> <!-- DOE025 *DEPENDENCIES: If DOE025 = '01'(yes_EL) then DOE024(Native Language) != '267'(English) -->
         <td class="bold">English Learner &tilde;</td>
-        <td>
-          <input type="checkbox" id="checkboxIsEL" name="[Students.U_Students_Extension]other_isel" value="yes_EL">
-        </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LimitedEnglishProficiency" id="fieldIsEL" value="~(LimitedEnglishProficiency)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_EngProficiency'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trselectELStatus"> <!-- DOE026 *DEPENDENCIES: If DOE026 != '00'(Not Enrolled) then DOE025(isEL) = '01'(yes_EL)-->
+      <tr id="trOther_ELStatus" class="row-other other-lps"> <!-- DOE026 *DEPENDENCIES: If DOE026 != '00'(Not Enrolled) then DOE025(isEL) = '01'(yes_EL)-->
         <td class="bold">EL Program Status &tilde;</td>
-        <td>
-          <select id="selectELStatus" name="[Students.U_Students_Extension]other_elstatus">
-            <option value="00">Not Enrolled in EL Program</option>
-            <option value="01">Sheltered English Immersion</option>
-            <option value="02">Dual Language Education</option>
-            <option value="03">Other Bilingual Program</option>
-            <option value="04">Consented to opt out of all ELE programs offered in the district</option>
-            <option value="05">Transitional Bilingual Education</option>
-          </select>
-        </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LEPProgramStatus" id="fieldELStatus" value="~(LEPProgramStatus)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#BilingualStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trfieldSASID"> <!-- DOE002 *10 digits long, -->
+      <tr id="trOther_SASID" class="row-other other-lps"> <!-- DOE002 *10 digits long, -->
         <td class="bold">State Assigned Student Identifier (SASID) &tilde;</td>
-        <td>
-          <input type="text" id="fieldSASID" name="[Students.U_Students_Extension]other_sasid" value="" size="8" placeholder="0123456789">
-        </td>
+        <td width="75%"><input type="text" name="[Students]State_StudentNumber" id="fieldSASID" value="~(State_StudentNumber)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#ldv_generatedID2'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trcheckboxIsImmigrant"> <!-- DOE022 *DEPENDENCIES: If DOE022 = '01'(yes_immigrant) then DOE023(Origin Country) != '500'(not an immigrant) -->
+      <tr id="trOther_IsImmigrant" class="row-other other-lps"> <!-- DOE022 *DEPENDENCIES: If DOE022 = '01'(yes_immigrant) then DOE023(Origin Country) != '500'(not an immigrant) -->
         <td class="bold">Immigrant &tilde;</td>
-        <td>
-          <input type="checkbox" id="checkboxIsImmigrant" name="[Students.U_Students_Extension]other_isimmigrant" value="yes_immigrant">
-        </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]ImmigrantStatus" id="fieldImmigrantStatus" value="~(ImmigrantStatus)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_ImmgrStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trselectEnrollmentStatus"> <!-- DOE012 *DEPENDENCIES: Students reported with a code of 04 must be in grades 11, 12 or SP. See DOE033/Appendix I(in doc) for more -->
+      <tr id="trOther_EnrollmentStatus" class="row-other other-lps"> <!-- DOE012 *DEPENDENCIES: Students reported with a code of 04 must be in grades 11, 12 or SP. See DOE033/Appendix I(in doc) for more -->
         <td class="bold">Enrollment Status &tilde;</td>
-        <td>
-          <select id="selectEnrollmentStatus" name="[Students.U_Students_Extension]other_enrollmentstatus">
-            <option value="01">Enrolled</option>
-            <option value="04">Graduate with Competency Determination</option>
-            <option value="05">Expelled</option>
-            <option value="06">Deceased</option>
-            <option value="09">Reached max age, did not graduate or receive a Certificate of attainment</option>
-            <option value="10">Certificate of Attainment</option>
-            <option value="11">11	Completed grade 12 and district-approved program. (District does not offer a Certificate of Attainment)</option>
-            <option value="20">Transferred — In state public</option>
-            <option value="21">Transferred — In state private</option>
-            <option value="22">Transferred — Out-of-State (public or private)</option>
-            <option value="23">Transferred — Home-school</option>
-            <option value="24">Transferred — Adult diploma program, leading to MA diploma</option>
-            <option value="30">Dropout — Enrolled in a non-diploma granting adult education or HiSET program</option>
-            <option value="31">Dropout — Entered Job Corps</option>
-            <option value="32">Dropout — Entered the military</option>
-            <option value="33">Dropout — Incarcerated, district no longer providing educational services</option>
-            <option value="34">Dropout — Left due to employment</option>
-            <option value="35">Dropout — Confirmed Dropout, plans unknown</option>
-            <option value="36">Dropout — and/or student status/location unknown</option>
-            <option value="40">Not enrolled but receiving special education services only.</option>
-            <option value="41">Transferred — no longer receiving special education services only.</option>
-          </select>
-        </td>
-      <tr id="trfieldTransferFrom">
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]EnrollStatusTimeOfCollection" id="fieldEnrollmentStatus" value="~(EnrollStatusTimeOfCollection)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#enrollstatus'" class="editButton" type="button">Edit</button></td>-->
+      </tr>
+      <tr id="trOther_TransferFrom" class="row-other other-lps">
         <td class="bold">Transferring from &tilde;</td>
-        <td>
-          <input type="text" id="fieldTransferFrom" name="[Students.U_Students_Extension]other_transferfrom" value="" size="17" placeholder="School Name">
-        </td>
+        <td width="75%"><input type="text" id="fieldTransferFrom" value="" size="17" placeholder="SCHOOL NAME" class="psTextWidget" readonly /></td>
       </tr>
-      <tr id="trselectBirthState"> 
+      <tr id="trOther_BirthState" class="row-other other-lps">
         <td class="bold">Birth State &tilde;</td>
-        <td>
-          <select id="selectBirthState" name="[Students.U_Students_Extension]other_birthstate">
-            <option value=""></option>
-            <option value="AL">Alabama (AL)</option>
-            <option value="AK">Alaska (AK)</option>
-            <option value="AZ">Arizona (AZ)</option>
-            <option value="AR">Arkansas (AR)</option>
-            <option value="CA">California (CA)</option>
-            <option value="CO">Colorado (CO)</option>
-            <option value="CT">Connecticut (CT)</option>
-            <option value="DE">Delaware (DE)</option>
-            <option value="DC">District of Columbia (DC)</option>
-            <option value="FL">Florida (FL)</option>
-            <option value="GA">Georgia (GA)</option>
-            <option value="HI">Hawaii (HI)</option>
-            <option value="ID">Idaho (ID)</option>
-            <option value="IL">Illinois (IL)</option>
-            <option value="IN">Indiana (IN)</option>
-            <option value="IA">Iowa (IA)</option>
-            <option value="KS">Kansas (KS)</option>
-            <option value="KY">Kentucky (KY)</option>
-            <option value="LA">Louisiana (LA)</option>
-            <option value="ME">Maine (ME)</option>
-            <option value="MD">Maryland (MD)</option>
-            <option value="MA" selected>Massachusetts (MA)</option>
-            <option value="MI">Michigan (MI)</option>
-            <option value="MN">Minnesota (MN)</option>
-            <option value="MS">Mississippi (MS)</option>
-            <option value="MO">Missouri (MO)</option>
-            <option value="MT">Montana (MT)</option>
-            <option value="NE">Nebraska (NE)</option>
-            <option value="NV">Nevada (NV)</option>
-            <option value="NH">New Hampshire (NH)</option>
-            <option value="NJ">New Jersey (NJ)</option>
-            <option value="NM">New Mexico (NM)</option>
-            <option value="NY">New York (NY)</option>
-            <option value="NC">North Carolina (NC)</option>
-            <option value="ND">North Dakota (ND)</option>
-            <option value="OH">Ohio (OH)</option>
-            <option value="OK">Oklahoma (OK)</option>
-            <option value="OR">Oregon (OR)</option>
-            <option value="PA">Pennsylvania (PA)</option>
-            <option value="RI">Rhode Island (RI)</option>
-            <option value="SC">South Carolina (SC)</option>
-            <option value="SD">South Dakota (SD)</option>
-            <option value="TN">Tennessee (TN)</option>
-            <option value="TX">Texas (TX)</option>
-            <option value="UT">Utah (UT)</option>
-            <option value="VT">Vermont (VT)</option>
-            <option value="VA">Virginia (VA)</option>
-            <option value="WA">Washington (WA)</option>
-            <option value="WV">West Virginia (WV)</option>
-            <option value="WI">Wisconsin (WI)</option>
-            <option value="WY">Wyoming (WY)</option>
-            <option value="AS">American Samoa (AS)</option>
-            <option value="GU">Guam (GU)</option>
-            <option value="MP">Northern Mariana Islands (MP)</option>
-            <option value="PR">Puerto Rico (PR)</option>
-            <option value="VI">U.S. Virgin Islands (VI)</option>
-          </select>
-        </td>
+        <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]MA_BirthState" id="fieldBirthState" value="~(MA_BirthState)" class="psTextWidget" readonly /></td>
       </tr>
-      <tr id="trselectOriginCountry"> <!-- DOE023 *Surely there's a better way to do this than list every country here -->
-        <td class="bold">Country of Origin &tilde;</td>
-        <td>
-          <select id="selectOriginCountry" name="[Students.U_Students_Extension]other_origincountry"> <!-- Required if student is immigrant -->
-            <option value=""></option>
-            <option value="500">Not an immigrant student</option>
-          </select>
-        </td>
+      <tr id="trOther_OriginCountry" class="row-other other-lps"> <!-- DOE023 *Surely there's a better way to do this than list every country here -->
+        <td class="bold">Country of Origin &tilde;</td> <!-- value="500" > not an immigrant student (US Origin) -->
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]CountryOfOrigin" id="fieldOriginCountry" value="~(CountryOfOrigin)" class="psTextWidget" readonly /></td>
+        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_Country'" class="editButton" type="button">Edit</button></td>-->
       </tr>
-      <tr id="trselectTeamFlag">
+      <tr id="trOther_TeamFlag" class="row-other other-lps">
         <td class="bold">Team Flag &tilde;</td>
-        <td>
-          <select id="selectTeamFlag" name="[Students.U_Students_Extension]other_teamflag">
-            <option value=""></option>
-            <option value="test">*Pretend this is a flag*</option>            
-          </select>
-        </td>  
+        <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]TeamFlag" id="fieldTeamFlag" value="~(TeamFlag)"  placeholder="TEAM FLAG..." class="psTextWidget" readonly /></td>
       </tr>
     </tbody>
   </table>
+      
+  <!--
+    Copying Contacts page source and displaying it in Demographics 'Contacts' section.
+    -Omitted <script> code from Contacts that is not relevant to Demographics
+    -Removed unnecessary form elements (Add/Delete/Edit)
+    -Assuming Contacts form was properly validated when filled out, simply retrieve & display data
+  --> 
+  <!-- Start of Content & Bounding box <div controller = "studentPageContactsController"> : *Required* - used by Angular -->
+  <div class="box-round" data-ng-controller="studentPageContactsController"
+       data-require-path="components/contacts/index,components/widgets/dirtyInputHelper/index"
+       data-module-name="contactsModule" data-ng-cloak id="demoContactsTable">
+    <!-- Start of <div controller = "contactStudentController"> : Context container for Contacts table -->
+    <div data-ng-controller="contactStudentController">
+      <p class="feedback-info" data-ng-if="!context.contacts.length" >This student does not have any associated contacts.</p>
+      <!--============================================|STUDENT_CONTACTS_TABLE|============================================-->
+      <table id="studentContactsTable" class="grid" data-ng-if="context.contacts.length" >
+        <colgroup>
+     <!-- <col style="width: auto"> - Removed -->
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+     <!-- <col style="width: 1%"> - Removed -->
+        </colgroup>
+        <tr>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.name_email]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.relationship]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.phone_type]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.phone]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.address]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.custody]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.lives_with]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.school_pickup]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.emergency_contact]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.original_contact_type]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.start_date]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.end_date]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.data_access]</th>
+        </tr>
+        <!-- Uses AngularJS to create <tr> element for each contact -->
+        <tr data-ng-repeat="contact in context.contacts | filter: !context.showAllStudentContacts ? {contactStudents: {current: true}} : {} | 
+            orderBy:'contactStudents[0].sequence'"
+            class="center" data-ng-style="!contact.contactStudents[0].current && {'font-style':'italic'}">
+          <!-- ~ "Order" column has been removed for demographics ~ -->
+          <!-- "Name / Email" : Contact's full name + email address  -->
+          <td class="nowrap left" >
+          
+            <!--============================================|LINK TO "EDIT_CONTACTS" PAGE : BOOKMARKING FOR LATER|============================================-->
+            <!-- Has Name: let FLS do it's thing --> 
+            <a data-ng-href="/admin/contacts/edit.html#?contactid={{contact.contactId}}" target="_blank" data-ng-if="contact.firstName || contact.lastName">
+              <span id="contact-first-name-{{$index}}" data-ng-bind="contact.firstName" ></span>
+              <span id="contact-last-name-{{$index}}" data-ng-bind="contact.lastName" ></span>
+            </a>
+            <!--============================================|LINK TO "EDIT_CONTACTS" PAGE : BOOKMARKING FOR LATER|============================================-->
+            
+            <span data-ng-if="!contact.firstName && !contact.lastName">
+              <!-- No Name: distinguish between no access and some access -->
+              ~[if#FNACCESS.security.fieldLevel=PERSON.FIRSTNAME=NOACCESS]
+                ~[if#LNACCESS.security.fieldLevel=PERSON.LASTNAME=NOACCESS]
+                  <!-- No Access: print fls mask with out anchor-->
+                  <span>~[text:psx.html.admin_students.unlimitedcontacts.fls_mask]</span>
+                [else#LNACCESS]
+                  <!-- Some Access: print no name with anchor -->
+                  <a data-ng-href="/admin/contacts/edit.html#?contactid={{contact.contactId}}" target="_blank">
+                    ~[text:psx.html.admin_students.unlimitedcontacts.no_name]{{contact.contactId}}
+                  </a>
+                [/if#LNACCESS]
+              [else#FNACCESS]
+                <!-- Some Access: print no name with anchor -->
+                <a data-ng-href="/admin/contacts/edit.html#?contactid={{contact.contactId}}" target="_blank">
+                  ~[text:psx.html.admin_students.unlimitedcontacts.no_name]{{contact.contactId}}
+                </a>
+              [/if#FNACCESS]
+            </span>
+            <br />
+            <input id="personemailaddressassocid-{{$index}}" name="personemailaddressassocid[{{$index}}]" type="hidden" value="{{contact.view.preferredEmail.contactEmailId}}">
+            <input id="emailaddresid-{{$index}}" name="emailaddressid[{{$index}}]" type="hidden" value="{{contact.view.preferredEmail.emailId}}">
+            <span id="contact-email-{{$index}}" data-ng-if="contact.view.preferredEmail.address" data-ng-bind="'<' + contact.view.preferredEmail.address + '>'" ></span>
+          </td>
+          <!-- "Relationship" : How Contact is related to Student -->
+          <td>
+            <span id="contact-relationshiptype-{{$index}}" data-ng-bind="relationshipTypeCodeSetLookup[contact.contactStudents[0].activeDetail.relationship].value" ></span>
+          </td>
+          <!-- "Phone Type" : Mobile, Home, Work... -->
+          <td>
+            <span id="contact-phonetype-{{$index}}" data-ng-bind="phoneTypeCodeSetLookup[contact.view.firstPhone.phoneType].value" ></span>
+          </td>
+          <!-- "Phone" : Phone number for Contact -->
+          <td class="nowrap">
+            <span id="contact-phone-{{$index}}" data-ng-bind="contact.view.firstPhone.phoneNumber" ></span>
+            <span id="contact-phoneext-{{$index}}" data-ng-bind="contact.view.firstPhone.extension !== '' && contact.view.firstPhone.extension != null ?
+                  ' x' + contact.view.firstPhone.extension : ''" ></span>
+          </td>
+          <!-- "Address" : Home Address of Contact -->
+          <td class="nowrap left" >
+            <div id="contact-physical-address-{{$index}}">
+              <span data-ng-bind="contact.view.firstAddress.street" ></span>
+              <span data-ng-if="contact.view.firstAddress.unit.length" data-ng-bind="' ' + contact.view.firstAddress.unit"></span>
+              <br/>
+              <div data-ng-if="contact.view.firstAddress.linetwo.length">
+                <span data-ng-bind="contact.view.firstAddress.linetwo" ></span>
+                <br/>
+              </div>
+              <div data-ng-if="contact.view.firstAddress.city || stateCodesetDisplayMap[contact.view.firstAddress.state].code || contact.view.firstAddress.postalcode">
+                <!-- only append comma if both city and state are present. -->
+                <span data-ng-if="contact.view.firstAddress.city && stateCodesetDisplayMap[contact.view.firstAddress.state].code">
+                  <span data-ng-bind="contact.view.firstAddress.city"></span>,
+                </span>
+                <span data-ng-if="!contact.view.firstAddress.city || !stateCodesetDisplayMap[contact.view.firstAddress.state].code">
+                  <span data-ng-bind="contact.view.firstAddress.city"></span>
+                </span>
+                <span data-ng-bind="stateCodesetDisplayMap[contact.view.firstAddress.state].code"></span>
+                <span data-ng-bind="contact.view.firstAddress.postalcode"></span>
+              </div>
+            </div>
+            <input id="personaddressassocid-{{$index}}" name="personaddressassocid[{{$index}}]" type="hidden" value="{{contact.view.firstAddress.contactsAddressId}}">
+            <input id="personaddresid-{{$index}}" name="personaddressid[{{$index}}]" type="hidden" value="{{contact.view.firstAddress.addressId}}">
+          </td>
+          <!-- "Custody" : Does Contact have legal Custody? [x] => Y, [ ] => N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.custodial}">
+            <center><em id="contact-custody-{{$index}}"></em></center>
+          </td>
+          <!-- "Lives With" : Does Student currently live with Contact? [ ] => Y, [ ] => N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.livesWith}">
+            <center><em id="contact-livesWith-{{$index}}"></em></center>
+          </td>
+          <!-- 
+            "School Pickup" : Is Contact allowed(?) to pickup Student from school? [ ] = Y, [x] = N   
+             -I assume since no flags are set that it only gets set if there is an issue
+          -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.schoolPickup}">
+            <center><em id="contact-schoolPickup-{{$index}}"></em></center>
+          </td>
+          <!-- "Emerg. Contact" : Is Contact an Emerg. Contact? [x] = Y, [ ] = N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.emergency}">
+            <center><em id="contact-emergency-{{$index}}"></em></center>
+          </td>
+          <!-- "Original Contact Type" column : Idk what this is for but it does what it says -->
+          <td>
+            <span id="contact-originalcontacttype-{{$index}}" data-ng-bind="contact.contactStudents[0].originalContactType.value" 
+                  name="relationship-originalcontacttype-display-{{$index}}" ></span>
+          </td>
+          <!-- "Start Date" : Field is empty for most Contacts, presumably for temp Contacts -->
+          <td>
+            <span id="contact-startDate-{{$index}}" data-ng-bind="localizedDate(contact.contactStudents[0].activeDetail.startDate)"></span>
+          </td>
+          <!-- "End Date" : Field is empty for most Contacts, presumably for temp Contacts -->
+          <td>
+            <span id="contact-endDate-{{$index}}" data-ng-bind="localizedDate(contact.contactStudents[0].activeDetail.endDate)"></span>
+          </td>
+          <!-- "Data Access" : Does Contact have access Student data? [x] => Y, [ ] => N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].canAccessData}">
+            <center><em id="contact-data-access-{{$index}}" ></em></center>
+          </td>
+          <!-- ~ "Actions" column has been removed for demographics ~ -->
+        </tr>
+      </table>
+      <!--============================================|STUDENT_CONTACTS_TABLE_END|============================================-->
+    </div>
+    <script> var _curSchoolNumber = 0; </script>
+    <div class="hidden">
+      <input id="studentDcid" type="hidden" value="~(rn)" />
+      <input id="schoolId" type="hidden" value="~(OverrideSchoolCode)" />
+      <input id="studentNumber" type="hidden" value="~(rn)" />
+    </div>
+  </div>
+
+  <!-- Comment Form -->
+  <div class="box-round" id="demoComments">
+    ~[tlist_child:STUDENTS.U_COMMENT.U_COMMENT;displaycols:COMMENT_DATE,COMMENT_REASON,COMMENT_PERSON,COMMENT_COMMENT;fieldNames:Date of Comment,Reason for Comment,Person Making Change,Comment;type:html]
+    <script>  
+      var InstValues= {};
+      InstValues[' ']='';
+      InstValues['REG']='Registration';
+      InstValues['COA']='Change of Address';
+      InstValues['PCU']='Program Code Updates';
+      InstValues['HOME']='Homeless';
+      InstValues['TF']='TransferFrom-Original';
+      InstValues['WD']='Withdrawal';
+      InstValues['GC']='Grade Change';
+      InstValues['RE']='Re-Engaged';
+      InstValues['Other']='Other';
+      //tlistText2DropDown('COMMENT_REASON',InstValues);
+    </script>
+    <!-- <div class="button-row"><input type="hidden" name="ac" value="prim">~[submitbutton]</div> -->
+  </div>
+  
 </div>
