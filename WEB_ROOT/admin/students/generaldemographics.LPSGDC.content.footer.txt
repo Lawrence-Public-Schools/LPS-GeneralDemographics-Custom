@@ -404,9 +404,9 @@
     </div>
     <script> var _curSchoolNumber = 0; </script>
     <div class="hidden">
-      <input id="studentDcid" type="hidden" value="113601" />
-      <input id="schoolId" type="hidden" value="0" />
-      <input id="studentNumber" type="hidden" value="111308" />
+      <input id="studentDcid" type="hidden" value="~(rn)" />
+      <input id="schoolId" type="hidden" value="~(OverrideSchoolCode)" />
+      <input id="studentNumber" type="hidden" value="~(rn)" />
     </div>
   </div>
 
