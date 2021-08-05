@@ -67,18 +67,6 @@
         <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/emailconfig.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
-      <tr id="trRace_ExcludeState" class="row-ethRace ethrace-other">
-        <td class="bold">Exclude from State Reporting? &tilde;</td>
-        <td><input type="text" name="[Students]State_ExcludeFromReporting" id="fieldExcludeState" value="~(State_ExcludeFromReporting)" class="psTextWidget" readonly /></td>
-      </tr>
-      <tr id="trRace_IncludeSIMS" class="row-ethRace ethrace-other">
-        <td class="bold">Include in SIMS Report? &tilde;</td>
-        <td><input type="text" name="[Students.S_MA_STU_SIMS_X]IncludeInSIMSInd" id="fieldIncludeSIMS" value="~(IncludeInSIMSInd)" class="psTextWidget" readonly /></td>
-      </tr>
-      <tr id="trRace_IncludeSASID" class="row-ethRace ethrace-other">
-        <td class="bold">Include in SASID Report? &tilde;</td>
-        <td><input type="text" name="[Students.S_MA_STU_X]IncludeInSASIDMSRInd" id="fieldIncludeSASID" value="~(IncludeInSASIDMSRInd)" class="psTextWidget" readonly /></td>
-      </tr>
       <tr id="trRace_BirthCity" class="row-ethRace ethrace-other"> <!-- DOE008 *Must be converted to town code -->
         <td class="bold">City/Town of Birth &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]BirthCity" id="fieldBirthCity" value="~(BirthCity)" class="psTextWidget" readonly /></td>
@@ -198,6 +186,7 @@
         <td class="bold">Enrollment Status &tilde;</td>
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]EnrollStatusTimeOfCollection" id="fieldEnrollmentStatus" value="~(EnrollStatusTimeOfCollection)" class="psTextWidget" readonly /></td>
         <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#enrollstatus'" class="editButton" type="button">Edit</button></td>-->
+      </tr>
       <tr id="trOther_TransferFrom" class="row-other other-lps">
         <td class="bold">Transferring from &tilde;</td>
         <td width="75%"><input type="text" id="fieldTransferFrom" value="" size="17" placeholder="SCHOOL NAME" class="psTextWidget" readonly /></td>
