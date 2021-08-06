@@ -1,6 +1,6 @@
-<!DOCTYPE html>
 <!-- use jQuery to replace text -->
 <script src="/admin/javascript/LPSGDC.js"></script>
+<script src="/scripts/tlistCustomization.js"></script>
 <link rel="stylesheet" type="text/css" href="/admin/styles/LPSGDC.css" />
 <!--
   NOTES:
@@ -64,7 +64,7 @@
             stu.student_number = ~([Students]student_number)]~(email)[/tlist_sql]"
            readonly />
         </td>
-        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/emailconfig.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>-->
+        <!--<td><button onclick="location.href='/admin/students/emailconfig.html?frn=~(frn)'" class="editButton" type="button">Edit</button></td>-->
       </tr>
   <!-- Custom Fields: Contacts - Old -->
       <tr style="vertical-align: bottom;" id="trContactsLivesWith" class="row-contacts contacts-guardiansOld">
@@ -334,7 +334,7 @@
         <td class="bold">District Entry Grade &tilde;</td> <!-- Auto-formatting makes this want a number, so translating it to K/PK might cause issues?   -->
         <td width="75%"><input type="text" name="[Students]DistrictEntryGradeLevel" id="fieldEntryGrade" value="~(DistrictEntryGradeLevel)"  readonly /></td>
         <!-- Entry Grade has no ID to link to on target page so linking to Entry Date which is directly above it -->
-        <!--<td><button onclick="location.href='https://pstest.lawrence.k12.ma.us/admin/students/modifydata.html?frn=~(frn)#dp1626705387672" class="editButton" type="button">Edit</button></td>-->
+        <!--<td><button onclick="location.href='/admin/students/modifydata.html?frn=~(frn)#dp1626705387672" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOffice_SchoolCode" class="row-office office-general">
         <td class="bold">School Code &tilde;</td> <!-- DOE015 *code = 0000000[1,2] for SPED (1:gradeLvl >12 or private preschool), (2:homeschooled) -->
@@ -453,6 +453,35 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- Grouping these 3 fields in a box-round to communicate that the "Edit" button functions the same for each -->
+  <div id="stateIncludeWrapper" class="row-ethRace ethrace-other">
+    <div class="button-row" style="margin:0px;padding-bottom:0px;">
+      <!--<button onclick="location.href='/admin/students/state/stateMA.html?frn=~(frn)'" id="editStateIncludeBtn" type="button">Edit</button>-->
+    </div>
+    <div class="box-round" id="stateIncludeBox">
+      <table class="linkDescList" style="margin-top:0px;width:100%;">
+        <colgroup>
+          <col style="width: auto">
+          <col style="width: 100%">
+        </colgroup>
+        <tbody width="100%">
+          <tr id="trRace_ExcludeState" class="">
+            <td class="bold">Exclude from State Reporting? &tilde;</td>
+            <td><input type="text" name="[Students]State_ExcludeFromReporting" id="fieldExcludeState" value="~(State_ExcludeFromReporting)" class="psTextWidget" readonly /></td>
+          </tr> <!-- All "include/exclude" fields are in the same place so only need one edit button link -->
+          <tr id="trRace_IncludeSIMS" class="">
+            <td class="bold">Include in SIMS Report? &tilde;</td>
+            <td><input type="text" name="[Students.S_MA_STU_SIMS_X]IncludeInSIMSInd" id="fieldIncludeSIMS" value="~(IncludeInSIMSInd)" class="psTextWidget" readonly /></td>
+          </tr>
+          <tr id="trRace_IncludeSASID" class="">
+            <td class="bold">Include in SASID Report? &tilde;</td>
+            <td><input type="text" name="[Students.S_MA_STU_X]IncludeInSASIDMSRInd" id="fieldIncludeSASID" value="~(IncludeInSASIDMSRInd)" class="psTextWidget" readonly /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
       
   <!--
     Copying Contacts page source and displaying it in Demographics 'Contacts' section.
@@ -467,6 +496,7 @@
     <!-- Start of <div controller = "contactStudentController"> : Context container for Contacts table -->
     <div data-ng-controller="contactStudentController">
       <p class="feedback-info" data-ng-if="!context.contacts.length" >This student does not have any associated contacts.</p>
+	  <p  >( To add/edit, go to to Contacts on the Menu on the left.)</p>
       <!--============================================|STUDENT_CONTACTS_TABLE|============================================-->
       <table id="studentContactsTable" class="grid" data-ng-if="context.contacts.length" >
         <colgroup>
@@ -631,22 +661,22 @@
 
   <!-- Comment Form -->
   <div class="box-round" id="demoComments">
-    ~[tlist_child:STUDENTS.U_COMMENT.U_COMMENT;displaycols:COMMENT_DATE,COMMENT_REASON,COMMENT_PERSON,COMMENT_COMMENT;fieldNames:Date of Comment,Reason for Comment,Person Making Change,Comment;type:html]
-    <script>  
-      var InstValues= {};
-      InstValues[' ']='';
-      InstValues['REG']='Registration';
-      InstValues['COA']='Change of Address';
-      InstValues['PCU']='Program Code Updates';
-      InstValues['HOME']='Homeless';
-      InstValues['TF']='TransferFrom-Original';
-      InstValues['WD']='Withdrawal';
-      InstValues['GC']='Grade Change';
-      InstValues['RE']='Re-Engaged';
-      InstValues['Other']='Other';
-      //tlistText2DropDown('COMMENT_REASON',InstValues);
+     ~[tlist_child:STUDENTS.U_COMMENT.U_COMMENT;displaycols:COMMENT_DATE,COMMENT_REASON,COMMENT_PERSON,COMMENT_COMMENT;fieldNames:Date of Comment,Reason for Comment,Person Making Change,Comment;type:html]
+    <script>
+        var InstValues= {};
+        InstValues[' ']='';
+        InstValues['REG']='Registration';
+        InstValues['COA']='Change of Address';
+        InstValues['PCU']='Program Code Updates';
+        InstValues['HOME']='Homeless';
+        InstValues['TF']='TransferFrom-Original';
+        InstValues['WD']='Withdrawal';
+        InstValues['GC']='Grade Change';
+        InstValues['RE']='Re-Engaged';
+        InstValues['Other']='Other';
+        tlistText2DropDown('COMMENT_REASON',InstValues);
     </script>
-    <!-- <div class="button-row"><input type="hidden" name="ac" value="prim">~[submitbutton]</div> -->
-  </div>
+        <!-- <div class="button-row"><input type="hidden" name="ac" value="prim">~[submitbutton]</div> -->
+    </div>
   
 </div>

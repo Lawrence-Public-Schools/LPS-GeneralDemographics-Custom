@@ -48,6 +48,9 @@ function LPSGDRestyle() {
   /* Student
   -----------------Name--------------- */
   stdFieldRow("#lastName", "row-student student-name" );
+  stdFieldRow("#studentAge", "row-student student-name" );
+  stdFieldRow("#fieldDOB", "row-student student-name" );
+  stdFieldRow("#selectGender", "row-student student-name" );
   /* ----------Home_Address----------- */
   $j( "form td:contains('Home Address')" ).not("td:contains('Mailing Address')").parent().addClass( "row-student student-address" );
   stdFieldRow("#pstreet, #papt, #pcity, #pstate, #pzip, #pgeocode, #validatePrimaryAddress", "row-student student-address");
