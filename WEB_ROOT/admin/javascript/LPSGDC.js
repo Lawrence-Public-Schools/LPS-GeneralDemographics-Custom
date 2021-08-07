@@ -13,11 +13,11 @@ $j(document).ready(function() {
 
 /* Insert custom fields & comment box into Demographics page */
 function addLPSGDFields() {
-  var $trHomePhone =  $j("#fieldHomePhone").parent().parent();
-  var $trRaceCode = $j( "form td:contains('MA Race Code')" ).parent();
-  var $trGradYear = $j("#fieldGradYear").parent().parent();
-  var $trStuNum = $j("#fieldStuNum").parent().parent();
-  var $trMomHomePhone = $j("#fieldMotherHomePhone").parent().parent();
+  const $trHomePhone =  $j("#fieldHomePhone").parent().parent();
+  const $trRaceCode = $j( "form td:contains('MA Race Code')" ).parent();
+  const $trGradYear = $j("#fieldGradYear").parent().parent();
+  const $trStuNum = $j("#fieldStuNum").parent().parent();
+  const $trMomHomePhone = $j("#fieldMotherHomePhone").parent().parent();
 
   /*================NOTES:======================================================
    -Sections of entirely custom fields are inserted after MA Race Code, need
@@ -27,6 +27,7 @@ function addLPSGDFields() {
       certain features.
   ============================================================================*/
   $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-student") ); /* Student          */
+  $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-contacts") ); /* Student          */
   $trHomePhone.after( $j("#demoContactsTable") );                      /* Contacts         */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-ethRace") );  /* Ethnicity & Race */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-office") );   /* Adminstration    */
@@ -140,9 +141,13 @@ function LPSGDRestyle() {
   $j("form tr.row-contacts").wrapAll('<div id="ContactsSection" class=""><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("#ContactsSection").insertAfter( $j("form div#StudentSection") );
   /* Subsections */
+  $j("form tr.contacts-guardiansOld:first").before('<tr class="headerrow row-contacts contacts-guardiansOld"> <td colspan="2" class="bold" width="100%">Guardians - Old (will be phased out)</td> </tr>');
+  $j("form tr.contacts-guardian1:first").before('<tr class="headerrow row-contacts contacts-guardiansOld contacts-guardian1"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Guardian 1 - Old</td> </tr>');
+  $j("form tr.contacts-guardian2:first").before('<tr class="headerrow row-contacts contacts-guardiansOld contacts-guardian2"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Guardian 2 - Old</td> </tr>');
+  $j("form tr.contacts-emergencyOld:first").before('<tr class="headerrow row-contacts contacts-emergencyOld"> <td colspan="2" class="bold" width="100%">Emergency Contacts - Old (will be phased out)</td> </tr>');
   $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');
-  $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Father - Old</td> </tr>');
-  $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Mother - Old</td> </tr>');
+  $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Father - Old</td> </tr>');
+  $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Mother - Old</td> </tr>');
   
   /* Remove Original Table */
   $j("#StudentSection").unwrap().unwrap();
@@ -230,6 +235,8 @@ function showCollapsed() {
       var scrollDest = $sectionAnchor.offset().top - 50;
       $j('html, body').animate( { scrollTop: scrollDest}, 600);
     }
+    $j("a.sectLink").css("border", "2px outset #00629c");
+    $j(this).css("border", "2px inset #00629c");
   });
   /* Navbar - Expand All */
   $j("#expandAll").on('click', function(event) {
@@ -251,11 +258,11 @@ function showCollapsed() {
   });
   $j(window).on("scroll", function(event) {
     if(window.pageYOffset > 50){
-      $j("#demoNavBar, #demoNavBar > a").css( {'display':'inline-block'} );
+      $j("#demoNavBar, a.sectLink").css( {'display':'inline-block'} );
       $j("#demoNavBar").css( {'position':'fixed','top':'0','left':'0','width':'100%'} );
-      $j("#demoNavBar > a").css( {'width':'8%','background-color':'rgb(163, 191, 204)'} ) //MAKE THE LINKS LOOK LIKE THEY ARE INSET, IDK HOW JUST FIGURE IT OUT!
+      $j("a.sectLink").css( {'width':'8%'} ) //MAKE THE LINKS LOOK LIKE THEY ARE INSET, IDK HOW JUST FIGURE IT OUT!
     } else {
-      $j("#demoNavBar, #demoNavBar > a").css( {'display':'inline-flex','width':'auto'} );
+      $j("#demoNavBar, a.sectLink").css( {'display':'inline-flex','width':'auto'} );
       $j("#demoNavBar").css( {'position':'initial','top':'initial'} );
     }
   })
