@@ -28,6 +28,7 @@ function addLPSGDFields() {
   ============================================================================*/
   $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-student") ); /* Student          */
   $trHomePhone.after( $j("#demoContactsTable") );                      /* Contacts         */
+  $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.contacts-ECOld") );/* Emerg Contacts   */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-ethRace") );  /* Ethnicity & Race */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-office") );   /* Adminstration    */
   $trGradYear.after( $j("#LPS-GDCustomhiddentable tr.row-grad") );     /* Graduation       */
@@ -143,6 +144,11 @@ function LPSGDRestyle() {
   $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');
   $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Father - Old</td> </tr>');
   $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Mother - Old</td> </tr>');
+  
+  /* Subsections */
+  $j("tr.contacts-ECOld:first").before('<tr class="headerrow row-contacts contacts-ECOld"> <td colspan="2" class="bold" width="100%">Emergency Contacts - Old (will be phased out)</td> </tr>');
+  $j("form tr.contacts-EC1Old:first").before('<tr class="headerrow row-contacts ontacts-ECOld contacts-EC1Old"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Emergency Contact 1 - Old</td> </tr>');
+  $j("form tr.contacts-EC2Old:first").before('<tr class="headerrow row-contacts ontacts-ECOld contacts-EC2Old"> <td colspan="2" class="bold" style="background-color:#7ba4b7">Emergency Contact 2 - Old</td> </tr>');
   
   /* Remove Original Table */
   $j("#StudentSection").unwrap().unwrap();

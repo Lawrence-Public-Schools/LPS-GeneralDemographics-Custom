@@ -187,67 +187,72 @@
         <td class="bold">Team Flag &tilde;</td>
         <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]TeamFlag" id="fieldTeamFlag" value="~(TeamFlag)"  placeholder="TEAM FLAG..." class="psTextWidget" readonly /></td>
       </tr>
-      <tr class="~[evenoddrow]">
-        <td class="bold"> Emergency Contact #1</td>
-        <td>
-            <input name="[01]emerg_contact_1" type="text" id="emerg_contact_1" value="" size="25"> <b>Phone</b>
-            <input name="[01]emerg_phone_1" type="text" id="emerg_phone_1" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_1)');">
+      <tr id="tremerg_contact_1" class="row-Econtacts contacts-ECOld contacts-EC1Old">
+        <td class="bold"> Emergency Contact #1 Name ~</td>
+        <td width="75%"><input name="[01]emerg_contact_1" type="text" id="emerg_contact_1" value="" size="25"></td>
+      </tr>
+      <tr id="tremerg_phone_1" class="row-contacts contacts-ECOld contacts-EC1Old">
+        <td class="bold"> Emergency Contact #1 Phone~</td>
+        <td width="75%"><input name="[01]emerg_phone_1" type="text" id="emerg_phone_1" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_1)');"></td>
+      </tr>
+      <tr id="tremerg_1_rel" class="row-contacts contacts-ECOld contacts-EC1Old">
+        <td class="bold"> Emergency Contact #1 Relationship~</td>
+        <td width="75%"><select name="[01]emerg_1_rel" id="emerg_1_rel">
+            <option value=" "></option>
+            <option value="Mother">Mother</option>
+            <option value="Father">Father</option>
+            <option value="Grandmother">Grandmother</option>
+            <option value="Grandfather">Grandfather</option>
+            <option value="Sibling">Sibling</option>
+            <option value="Step-Parent">Step-Parent</option>
+            <option value="Foster-Parent">Foster-Parent</option>
+            <option value="Aunt">Aunt</option>
+            <option value="Uncle">Uncle</option>
+            <option value="Cousin">Cousin</option>
+            <option value="Social Worker">Social Worker</option>
+            <option value="Legal Guardian">Legal Guardian</option>
+            <option value="Self">Self</option>
+            <option value="In-Law">In-Law</option>
+            <option value="Husband">Husband</option>
+            <option value="Wife">Wife</option>
+            <option value="Friend">Friend</option>
+            <option value="Other">Other</option>
+            </select>
         </td>
-    </tr>
-        <tr class="~[evenoddrow]">
-            <td class="bold">Relationship</td>
-            <td colspan="3"><select name="[01]emerg_1_rel" id="emerg_1_rel">
-                <option value=" "></option>
-                <option value="Mother">Mother</option>
-                <option value="Father">Father</option>
-                <option value="Grandmother">Grandmother</option>
-                <option value="Grandfather">Grandfather</option>
-                <option value="Sibling">Sibling</option>
-                <option value="Step-Parent">Step-Parent</option>
-                <option value="Foster-Parent">Foster-Parent</option>
-                <option value="Aunt">Aunt</option>
-                <option value="Uncle">Uncle</option>
-                <option value="Cousin">Cousin</option>
-                <option value="Social Worker">Social Worker</option>
-                <option value="Legal Guardian">Legal Guardian</option>
-                <option value="Self">Self</option>
-                <option value="In-Law">In-Law</option>
-                <option value="Husband">Husband</option>
-                <option value="Wife">Wife</option>
-                <option value="Friend">Friend</option>
-                <option value="Other">Other</option>
-            </select></td>
+      </tr>
+     <tr id="tremerg_contact_2" class="row-contacts contacts-ECOld contacts-EC2Old">
+         <td class="bold"> Emergency Contact #2 Name ~</td>
+         <td width="75%"><input name="[01]emerg_contact_2" type="text" id="emerg_contact_2" value="" size="25"></td>
+     </tr>
+        <tr id="tremerg_phone_2" class="row-contacts contacts-ECOld contacts-EC2Old">
+            <td class="bold"> Emergency Contact #2 Phone~</td>
+            <td width="75%"><input name="[01]emerg_phone_2" type="text" id="emerg_phone_2" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_2)');"></td></td>
         </tr>
-        <tr class="~[evenoddrow]">
-            <td class="bold">Emergency Contact #2</td>
-            <td>
-                <input name="[01]emerg_contact_2" type="text" id="emerg_contact_2" value="" size="25"> <b>Phone</b>
-                <input name="[01]emerg_phone_2" type="text" id="emerg_phone_2" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_2)');"></td>
-        </tr>
-        <tr class="~[evenoddrow]">
-            <td class="bold">&nbsp;Relationship</td>
-            <td colspan="3"><select name="[01]emerg_2_rel" id="emerg_2_rel">
-                <option value=" "></option>
-                <option value="Mother">Mother</option>
-                <option value="Father">Father</option>
-                <option value="Grandmother">Grandmother</option>
-                <option value="Grandfather">Grandfather</option>
-                <option value="Sibling">Sibling</option>
-                <option value="Step-Parent">Step-Parent</option>
-                <option value="Foster-Parent">Foster-Parent</option>
-                <option value="Aunt">Aunt</option>
-                <option value="Uncle">Uncle</option>
-                <option value="Cousin">Cousin</option>
-                <option value="Social Worker">Social Worker</option>
-                <option value="Legal Guardian">Legal Guardian</option>
-                <option value="Self">Self</option>
-                <option value="In-Law">In-Law</option>
-                <option value="Husband">Husband</option>
-                <option value="Wife">Wife</option>
-                <option value="Friend">Friend</option>
-                <option value="Other">Other</option>
-            </select></td>
-        </tr>
+      <tr id="tremerg_2_rel" class="row-contacts contacts-ECOld contacts-EC2Old">
+        <td class="bold"> Emergency Contact #2 Relationship~</td>
+        <td width="75%"><select name="[01]emerg_2_rel" id="emerg_2_rel">
+            <option value=" "></option>
+            <option value="Mother">Mother</option>
+            <option value="Father">Father</option>
+            <option value="Grandmother">Grandmother</option>
+            <option value="Grandfather">Grandfather</option>
+            <option value="Sibling">Sibling</option>
+            <option value="Step-Parent">Step-Parent</option>
+            <option value="Foster-Parent">Foster-Parent</option>
+            <option value="Aunt">Aunt</option>
+            <option value="Uncle">Uncle</option>
+            <option value="Cousin">Cousin</option>
+            <option value="Social Worker">Social Worker</option>
+            <option value="Legal Guardian">Legal Guardian</option>
+            <option value="Self">Self</option>
+            <option value="In-Law">In-Law</option>
+            <option value="Husband">Husband</option>
+            <option value="Wife">Wife</option>
+            <option value="Friend">Friend</option>
+            <option value="Other">Other</option>
+            </select>
+        </td>
+      </tr>
     </tbody>
   </table>
 
