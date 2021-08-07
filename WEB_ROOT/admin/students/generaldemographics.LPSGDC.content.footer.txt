@@ -448,7 +448,7 @@
       </table>
       <!--============================================|STUDENT_CONTACTS_TABLE_END|============================================-->
     </div>
-    <script> var _curSchoolNumber = 0; </script>
+    <script>  var _curSchoolNumber = ~(curschoolid); </script>
     <div class="hidden">
       <input id="studentDcid" type="hidden" value="~(rn)" />
       <input id="schoolId" type="hidden" value="~(OverrideSchoolCode)" />
