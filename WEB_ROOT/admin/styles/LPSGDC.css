@@ -1,3 +1,6 @@
+#pds-header {
+  background-color: #00427c !important; /* Testing w/ main PS Site header color */
+}
 #pds-header > header {
   flex: 1 0 25% !important;
 }
