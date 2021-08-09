@@ -113,48 +113,48 @@
             <option value="Mr">Mr</option>
             <option value="Dr">Dr</option>
           </select>
-          <input name="[01]guardian_LN" id="guardian_LN" value="" type="text">
-          <input name="[01]guardian_FN" id="guardian_FN" value="" type="text">
+          <input name="[01]guardian_LN" id="guardian_LN" value="" type="text" readonly>
+          <input name="[01]guardian_FN" id="guardian_FN" value="" type="text" readonly>
         </td>
       </tr>
       <tr id="g1Address" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Address</td>
-        <td><input size="30" name="[01]guardianstreet" id="guardianstreet" value="" type="text"></td>
+        <td><input size="30" name="[01]guardianstreet" id="guardianstreet" value="" type="text" readonly></td>
       </tr>
       <tr id="g1CopyAddr" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td></td>
         <td>
-          <input name="[01]guardiancity" id="guardiancity" size="15" value="" type="text">
-          <input maxlength="2" name="[01]guardianstate" id="guardianstate" size="2" value="" type="text">
-          <input name="[01]guardianzip" value="" id="guardianzip" size="10" type="text">
+          <input name="[01]guardiancity" id="guardiancity" size="15" value="" type="text" readonly>
+          <input maxlength="2" name="[01]guardianstate" id="guardianstate" size="2" value="" type="text" readonly>
+          <input name="[01]guardianzip" value="" id="guardianzip" size="10" type="text" readonly>
         </td>
       </tr>
       <tr id="g1HomePhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Home Phone </td>
-        <td><input name="[01]guardianhomephone" value="" id="guardianhomephone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardianhomephone)');"></td>
+        <td><input name="[01]guardianhomephone" value="" id="guardianhomephone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardianhomephone)');" readonly></td>
       </tr>
       <tr id="g1CellPhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Cell Phone </td>
-        <td><input name="[01]guardian_cell_phone" value="" id="guardian_cell_phone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian_cell_phone)');"></td>
+        <td><input name="[01]guardian_cell_phone" value="" id="guardian_cell_phone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian_cell_phone)');" readonly></td>
       </tr>
       <tr id="g1Email" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Email</td>
-        <td><input name="[01]guardianemail" value="" size="30" id="guardianemail" type="text"></td>
+        <td><input name="[01]guardianemail" value="" size="30" id="guardianemail" type="text" readonly></td>
       </tr>
       <tr id="g1Employe" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Employer</td>
-        <td> <input size="30" name="[01]guardian_employer" value="" id="guardian_employer" type="text"> </td>
+        <td> <input size="30" name="[01]guardian_employer" value="" id="guardian_employer" type="text" readonly> </td>
       </tr>
       <tr id="g1Occupation" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Occupation</td>
-        <td><input size="30" name="[01]guardian_occupation" id="guardian_occupation" value="" type="text"></td>
+        <td><input size="30" name="[01]guardian_occupation" id="guardian_occupation" value="" type="text" readonly></td>
       </tr>
       <tr id="g1DayPhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Day Phone</td>
         <td class="bold">
-          <input name="[01]guardiandayphone" value="" type="text" id="guardiandayphone" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardiandayphone)');">
+          <input name="[01]guardiandayphone" value="" type="text" id="guardiandayphone" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardiandayphone)');" readonly>
           Ext. 
-          <input size="5" name="[01]guardiandayphoneext" value="" type="text" id="guardiandayphoneext">
+          <input size="5" name="[01]guardiandayphoneext" value="" type="text" id="guardiandayphoneext" readonly>
         </td>
       </tr>
       <tr style="vertical-align: top;" id="g2Header" class="row-contacts contacts-guardiansOld contacts-guardian2">
@@ -195,56 +195,56 @@
           <option value="Mr">Mr</option>
           <option value="Dr">Dr</option>
         </select>
-        <input name="[01]guardian2_LN" id="guardian2_LN" type="text" value=""> <input name="[01]guardian2_FN" id="guardian2_FN" type="text" value="">
+        <input name="[01]guardian2_LN" id="guardian2_LN" type="text" value=""> <input name="[01]guardian2_FN" id="guardian2_FN" type="text" value="" readonly>
         </td>
       </tr>
       <tr id="g2Address" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Address</td>
-        <td><input size="30" name="[01]guardian2street" id="guardian2street" value="" type="text"></td>
+        <td><input size="30" name="[01]guardian2street" id="guardian2street" value="" type="text" readonly></td>
       </tr>
       <tr id="g2CopyAddr" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td></td>
         <td>
-          <input name="[01]guardian2city" value="" id="guardian2city" size="15" type="text">
-          <input maxlength="2" name="[01]guardian2state" value="" id="guardian2state" size="2" type="text">
-          <input name="[01]guardian2zip" value="" id="guardian2zip" size="10" type="text">
+          <input name="[01]guardian2city" value="" id="guardian2city" size="15" type="text" readonly>
+          <input maxlength="2" name="[01]guardian2state" value="" id="guardian2state" size="2" type="text" readonly>
+          <input name="[01]guardian2zip" value="" id="guardian2zip" size="10" type="text" readonly>
         </td>
       </tr>
       <tr id="g2HomePhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Home Phone </td>
-        <td><input name="[01]guardian2homephone" value="" id="guardian2homephone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2homephone)');"></td>
+        <td><input name="[01]guardian2homephone" value="" id="guardian2homephone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2homephone)');" readonly></td>
       </tr>
       <tr id="g2CellPhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Cell Phone </td>
-        <td><input name="[01]guardian2_cell_phone" value="" id="guardian2_cell_phone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2_cell_phone)');"></td>
+        <td><input name="[01]guardian2_cell_phone" value="" id="guardian2_cell_phone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2_cell_phone)');" readonly></td>
       </tr>
       <tr id="g2Email" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Email</td>
-        <td><input name="[01]guardian2email" value="" id="guardian2email" size="30" type="text"></td>
+        <td><input name="[01]guardian2email" value="" id="guardian2email" size="30" type="text" readonly></td>
       </tr>
       <tr id="g2Employer" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Employer</td>
-        <td><input size="30" name="[01]guardian2_employer" value="" id="guardian2_employer" type="text"></td>
+        <td><input size="30" name="[01]guardian2_employer" value="" id="guardian2_employer" type="text" readonly></td>
       </tr>
       <tr id="g2Occupation" class="row-contacts contacts-guardiansOld contacts-guardian2">
           <td class="bold">Occupation</td>
-          <td><input size="30" name="[01]guardian2_occupation" id="[01]guardian2_occupation" value="" type="text"></td>
+          <td><input size="30" name="[01]guardian2_occupation" id="[01]guardian2_occupation" value="" type="text" readonly></td>
       </tr>
       <tr id="g2DayPhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Day Phone</td>
         <td class="bold">
-          <input name="[01]guardian2dayphone" value="" type="text" id="guardian2dayphone" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2dayphone)');">
+          <input name="[01]guardian2dayphone" value="" type="text" id="guardian2dayphone" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2dayphone)');" readonly>
            Ext. 
-          <input size="5" name="[01]guardian2dayphoneext" value="" type="text" id="guardian2dayphoneext">
+          <input size="5" name="[01]guardian2dayphoneext" value="" type="text" id="guardian2dayphoneext" readonly>
         </td>
       </tr>
       <tr id="tremerg_contact_1" class="row-contacts contacts-ECOld contacts-EC1Old">
         <td class="bold"> Emergency Contact #1 Name ~</td>
-        <td width="75%"><input name="[01]emerg_contact_1" type="text" id="emerg_contact_1" value="" size="25"></td>
+        <td width="75%"><input name="[01]emerg_contact_1" type="text" id="emerg_contact_1" value="" size="25" readonly></td>
       </tr>
       <tr id="tremerg_phone_1" class="row-contacts contacts-ECOld contacts-EC1Old">
         <td class="bold"> Emergency Contact #1 Phone~</td>
-        <td width="75%"><input name="[01]emerg_phone_1" type="text" id="emerg_phone_1" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_1)');"></td>
+        <td width="75%"><input name="[01]emerg_phone_1" type="text" id="emerg_phone_1" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_1)');" readonly></td>
       </tr>
       <tr id="tremerg_1_rel" class="row-contacts contacts-ECOld contacts-EC1Old">
         <td class="bold"> Emergency Contact #1 Relationship~</td>
@@ -273,11 +273,11 @@
       </tr>
      <tr id="tremerg_contact_2" class="row-contacts contacts-ECOld contacts-EC2Old">
          <td class="bold"> Emergency Contact #2 Name ~</td>
-         <td width="75%"><input name="[01]emerg_contact_2" type="text" id="emerg_contact_2" value="" size="25"></td>
+         <td width="75%"><input name="[01]emerg_contact_2" type="text" id="emerg_contact_2" value="" size="25" readonly></td>
      </tr>
         <tr id="tremerg_phone_2" class="row-contacts contacts-ECOld contacts-EC2Old">
             <td class="bold"> Emergency Contact #2 Phone~</td>
-            <td width="75%"><input name="[01]emerg_phone_2" type="text" id="emerg_phone_2" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_2)');"></td>
+            <td width="75%"><input name="[01]emerg_phone_2" type="text" id="emerg_phone_2" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_2)');" readonly></td>
         </tr>
       <tr id="tremerg_2_rel" class="row-contacts contacts-ECOld contacts-EC2Old">
         <td class="bold"> Emergency Contact #2 Relationship~</td>

@@ -9,9 +9,9 @@ $j(document).ready(function() {
   
   /* Event Listeners */
   $j(window.location).on("hashchange", selectViewStyle());
-  window.setTimeout(addLegal, 3000);
+  window.setTimeout(addLegalandDOB, 3000);
 });
-function addLegal() {
+function addLegalandDOB() {
   $legalFields = $j("#legalLastName, #legalGenderSelect").parent().parent().addClass("row-legal");
   $legalFields.insertAfter("#trLegal_Gender");
   $j("#trLegal_Gender, #trLegal_FullName").remove();
@@ -53,10 +53,10 @@ function LPSGDRestyle() {
 
   /* Student
   -----------------Name--------------- */
-  stdFieldRow("#lastName", "row-student student-name" );
-  stdFieldRow("#studentAge", "row-student student-name" );
-  stdFieldRow("#fieldDOB", "row-student student-name" );
-  stdFieldRow("#selectGender", "row-student student-name" );
+  $trStuName = stdFieldRow("#lastName", "row-student student-general" );
+  $j("#studentAge").parent().addClass( "row-student student-general" ).insertAfter($trStuName); 
+  stdFieldRow("#fieldDOB", "row-student student-general" ).insertAfter($trStuName);
+  stdFieldRow("#selectGender", "row-student student-general" ).insertAfter($trStuName);
   /* ----------Home_Address----------- */
   $j( "form td:contains('Home Address')" ).not("td:contains('Mailing Address')").parent().addClass( "row-student student-address" );
   stdFieldRow("#pstreet, #papt, #pcity, #pstate, #pzip, #pgeocode, #validatePrimaryAddress", "row-student student-address");
@@ -69,10 +69,11 @@ function LPSGDRestyle() {
 
   /* Contacts */
   $j( "#father" ).parent().addClass("row-contacts contacts-parentsOld contacts-fatherOld");
-  stdFieldRow("form input[id^='fieldFather']", "row-contacts contacts-parentsOld contacts-fatherOld");
+  stdFieldRow("input[id^='fieldFather']", "row-contacts contacts-parentsOld contacts-fatherOld");
   $j( "#mother" ).parent().addClass("row-contacts contacts-parentsOld contacts-motherOld");
-  stdFieldRow("form input[id^='fieldMother']", "row-contacts contacts-parentsOld contacts-motherOld");
-
+  stdFieldRow("input[id^='fieldMother']", "row-contacts contacts-parentsOld contacts-motherOld");
+  stdFieldRow("#fieldGuardianEmail", "row-contacts contacts-guardiansOld").insertAfter("#trContactsLivesWith");
+  
   /* Ethnicity & Race */
   $j( "form td:contains('Federal Ethnicity and Race')" ).parent().addClass( "row-ethRace ethrace-select" );
   $j( "form td:contains('Massachusetts State Information')" ).parent().addClass( "row-ethRace ethrace-select" );
@@ -81,11 +82,12 @@ function LPSGDRestyle() {
   $j( "form td:contains('MA Race Code')" ).parent().addClass( "row-ethRace ethrace-select" );
 
   /* Administration - All fields are initialized in LPS-GDCustomhiddentable */
+  $j('form td:contains("days of membership")').parent().addClass("row-office office-general");
 
   /* Graduation */
   stdFieldRow("#fieldGradYear", "row-grad");
 
-  /* Legal : USING BUILT-IN | Not working (fields are made after page is loaded?) */
+  /* Legal : CREATES TEMPORARY SECTION */
   stdFieldRow("#legalLastName, #legalGenderSelect", "row-legal");
 
   /* Other */
@@ -100,7 +102,7 @@ function LPSGDRestyle() {
   $j("form tr.row-student").wrapAll('<div id="StudentSection" style="margin:0"><div class="row" style="margin:0"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>'); /* Starts at top */
   /* Subsections */
   $j("form tr.student-contactInfo:first").before('<tr class="headerrow row-student student-contactInfo"><td colspan="2" class="bold" width="100%">Phone & Email</td></tr>');
-  $j("form tr.student-name:first").before('<tr class="headerrow row-student student-name" style="width:100%"><td colspan="2" class="bold" width="100%">Name</td></tr>');
+  $j("form tr.student-general:first").before('<tr class="headerrow row-student student-general" style="width:100%"><td colspan="2" class="bold" width="100%">Personal</td></tr>');
   
   /* Wrap 'Everything Else' (fields exist but don't have a section) */
   $VarEverythingElse.wrapAll('<div id="EverythingElseSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>'); /* Stack under Student Section */
