@@ -451,6 +451,72 @@
         <td class="bold">Team Flag &tilde;</td>
         <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]TeamFlag" id="fieldTeamFlag" value="~(TeamFlag)"  placeholder="TEAM FLAG..."  readonly /></td>
       </tr>
+      <tr id="tremerg_contact_1" class="row-EC contacts-ECOld contacts-EC1Old">
+        <td class="bold"> Emergency Contact #1 Name ~</td>
+        <td width="75%"><input name="[01]emerg_contact_1" type="text" id="emerg_contact_1" value="" size="25"></td>
+      </tr>
+      <tr id="tremerg_phone_1" class="row-EC contacts-ECOld contacts-EC1Old">
+        <td class="bold"> Emergency Contact #1 Phone~</td>
+        <td width="75%"><input name="[01]emerg_phone_1" type="text" id="emerg_phone_1" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_1)');"></td>
+      </tr>
+      <tr id="tremerg_1_rel" class="row-EC contacts-ECOld contacts-EC1Old">
+        <td class="bold"> Emergency Contact #1 Relationship~</td>
+        <td width="75%"><select name="[01]emerg_1_rel" id="emerg_1_rel">
+            <option value=" "></option>
+            <option value="Mother">Mother</option>
+            <option value="Father">Father</option>
+            <option value="Grandmother">Grandmother</option>
+            <option value="Grandfather">Grandfather</option>
+            <option value="Sibling">Sibling</option>
+            <option value="Step-Parent">Step-Parent</option>
+            <option value="Foster-Parent">Foster-Parent</option>
+            <option value="Aunt">Aunt</option>
+            <option value="Uncle">Uncle</option>
+            <option value="Cousin">Cousin</option>
+            <option value="Social Worker">Social Worker</option>
+            <option value="Legal Guardian">Legal Guardian</option>
+            <option value="Self">Self</option>
+            <option value="In-Law">In-Law</option>
+            <option value="Husband">Husband</option>
+            <option value="Wife">Wife</option>
+            <option value="Friend">Friend</option>
+            <option value="Other">Other</option>
+            </select>
+        </td>
+      </tr>
+     <tr id="tremerg_contact_2" class="row-EC contacts-ECOld contacts-EC2Old">
+         <td class="bold"> Emergency Contact #2 Name ~</td>
+         <td width="75%"><input name="[01]emerg_contact_2" type="text" id="emerg_contact_2" value="" size="25"></td>
+     </tr>
+        <tr id="tremerg_phone_2" class="row-EC contacts-ECOld contacts-EC2Old">
+            <td class="bold"> Emergency Contact #2 Phone~</td>
+            <td width="75%"><input name="[01]emerg_phone_2" type="text" id="emerg_phone_2" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_2)');"></td></td>
+        </tr>
+      <tr id="tremerg_2_rel" class="row-EC contacts-ECOld contacts-EC2Old">
+        <td class="bold"> Emergency Contact #2 Relationship~</td>
+        <td width="75%"><select name="[01]emerg_2_rel" id="emerg_2_rel">
+            <option value=" "></option>
+            <option value="Mother">Mother</option>
+            <option value="Father">Father</option>
+            <option value="Grandmother">Grandmother</option>
+            <option value="Grandfather">Grandfather</option>
+            <option value="Sibling">Sibling</option>
+            <option value="Step-Parent">Step-Parent</option>
+            <option value="Foster-Parent">Foster-Parent</option>
+            <option value="Aunt">Aunt</option>
+            <option value="Uncle">Uncle</option>
+            <option value="Cousin">Cousin</option>
+            <option value="Social Worker">Social Worker</option>
+            <option value="Legal Guardian">Legal Guardian</option>
+            <option value="Self">Self</option>
+            <option value="In-Law">In-Law</option>
+            <option value="Husband">Husband</option>
+            <option value="Wife">Wife</option>
+            <option value="Friend">Friend</option>
+            <option value="Other">Other</option>
+            </select>
+        </td>
+      </tr>
     </tbody>
   </table>
       
@@ -622,7 +688,7 @@
       </table>
       <!--============================================|STUDENT_CONTACTS_TABLE_END|============================================-->
     </div>
-    <script> var _curSchoolNumber = 0; </script>
+    <script>  var _curSchoolNumber = ~(curschoolid); </script>
     <div class="hidden">
       <input id="studentDcid" type="hidden" value="~(rn)" />
       <input id="schoolId" type="hidden" value="~(OverrideSchoolCode)" />
@@ -632,20 +698,20 @@
 
   <!-- Comment Form -->
   <div class="box-round" id="demoComments">
-    ~[tlist_child:STUDENTS.U_COMMENT.U_COMMENT;displaycols:COMMENT_DATE,COMMENT_REASON,COMMENT_PERSON,COMMENT_COMMENT;fieldNames:Date of Comment,Reason for Comment,Person Making Change,Comment;type:html]
-    <script>
-      var InstValues= {};
-      InstValues[' ']='';
-      InstValues['REG']='Registration';
-      InstValues['COA']='Change of Address';
-      InstValues['PCU']='Program Code Updates';
-      InstValues['HOME']='Homeless';
-      InstValues['TF']='TransferFrom-Original';
-      InstValues['WD']='Withdrawal';
-      InstValues['GC']='Grade Change';
-      InstValues['RE']='Re-Engaged';
-      InstValues['Other']='Other';
-      tlistText2DropDown('COMMENT_REASON',InstValues);
+     ~[tlist_child:STUDENTS.U_COMMENT.U_COMMENT;displaycols:COMMENT_DATE,COMMENT_REASON,COMMENT_PERSON,COMMENT_COMMENT;fieldNames:Date of Comment,Reason for Comment,Person Making Change,Comment;type:html]
+    <script type="text/javascript">
+        var InstValues= [];
+        InstValues.push([' ','']);
+        InstValues.push(['REG','Registration']);
+        InstValues.push(['COA','Change of Address']);
+        InstValues.push(['PCU','Program Code Updates']);
+        InstValues.push(['HOME','Homeless']);
+        InstValues.push(['TF','TransferFrom-Original']);
+        InstValues.push(['WD','Withdrawal']);
+        InstValues.push(['GC','Grade Change']);
+        InstValues.push(['RE','Re-Engaged']);
+        InstValues.push(['Other','Other']);
+        tlistText2DropDownValNamePair('COMMENT_REASON',InstValues);
     </script>
         <!-- <div class="button-row"><input type="hidden" name="ac" value="prim">~[submitbutton]</div> -->
     </div>
