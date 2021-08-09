@@ -442,7 +442,6 @@
         <td class="bold">Team Flag &tilde;</td>
         <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]TeamFlag" id="fieldTeamFlag" value="~(TeamFlag)"  placeholder="TEAM FLAG..." class="psTextWidget" readonly /></td>
       </tr>
-      
     </tbody>
   </table>
       
