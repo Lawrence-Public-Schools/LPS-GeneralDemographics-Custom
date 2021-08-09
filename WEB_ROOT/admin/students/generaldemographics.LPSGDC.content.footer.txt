@@ -451,15 +451,15 @@
         <td class="bold">Team Flag &tilde;</td>
         <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]TeamFlag" id="fieldTeamFlag" value="~(TeamFlag)"  placeholder="TEAM FLAG..."  readonly /></td>
       </tr>
-      <tr id="tremerg_contact_1" class="row-contacts contacts-ECOld contacts-EC1Old">
+      <tr id="tremerg_contact_1" class="row-EC contacts-ECOld contacts-EC1Old">
         <td class="bold"> Emergency Contact #1 Name ~</td>
         <td width="75%"><input name="[01]emerg_contact_1" type="text" id="emerg_contact_1" value="" size="25"></td>
       </tr>
-      <tr id="tremerg_phone_1" class="row-contacts contacts-ECOld contacts-EC1Old">
+      <tr id="tremerg_phone_1" class="row-EC contacts-ECOld contacts-EC1Old">
         <td class="bold"> Emergency Contact #1 Phone~</td>
         <td width="75%"><input name="[01]emerg_phone_1" type="text" id="emerg_phone_1" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_1)');"></td>
       </tr>
-      <tr id="tremerg_1_rel" class="row-contacts contacts-ECOld contacts-EC1Old">
+      <tr id="tremerg_1_rel" class="row-EC contacts-ECOld contacts-EC1Old">
         <td class="bold"> Emergency Contact #1 Relationship~</td>
         <td width="75%"><select name="[01]emerg_1_rel" id="emerg_1_rel">
             <option value=" "></option>
@@ -484,15 +484,15 @@
             </select>
         </td>
       </tr>
-     <tr id="tremerg_contact_2" class="row-contacts contacts-ECOld contacts-EC2Old">
+     <tr id="tremerg_contact_2" class="row-EC contacts-ECOld contacts-EC2Old">
          <td class="bold"> Emergency Contact #2 Name ~</td>
          <td width="75%"><input name="[01]emerg_contact_2" type="text" id="emerg_contact_2" value="" size="25"></td>
      </tr>
-        <tr id="tremerg_phone_2" class="row-contacts contacts-ECOld contacts-EC2Old">
+        <tr id="tremerg_phone_2" class="row-EC contacts-ECOld contacts-EC2Old">
             <td class="bold"> Emergency Contact #2 Phone~</td>
             <td width="75%"><input name="[01]emerg_phone_2" type="text" id="emerg_phone_2" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_2)');"></td></td>
         </tr>
-      <tr id="tremerg_2_rel" class="row-contacts contacts-ECOld contacts-EC2Old">
+      <tr id="tremerg_2_rel" class="row-EC contacts-ECOld contacts-EC2Old">
         <td class="bold"> Emergency Contact #2 Relationship~</td>
         <td width="75%"><select name="[01]emerg_2_rel" id="emerg_2_rel">
             <option value=" "></option>

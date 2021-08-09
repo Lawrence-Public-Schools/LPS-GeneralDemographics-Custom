@@ -27,9 +27,9 @@ function addLPSGDFields() {
       certain features.
   ============================================================================*/
   $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-student") ); /* Student          */
+  $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-EC") );/* Emerg Contacts   */
   $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-contacts") ); /* Student          */
   $trHomePhone.after( $j("#demoContactsTable") );                      /* Contacts         */
-  $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.contacts-ECOld") );/* Emerg Contacts   */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-ethRace") );  /* Ethnicity & Race */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-office") );   /* Adminstration    */
   $trGradYear.after( $j("#LPS-GDCustomhiddentable tr.row-grad") );     /* Graduation       */
