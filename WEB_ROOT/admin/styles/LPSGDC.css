@@ -66,6 +66,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="tel
 }
 input:only-child { width: 99%; }
 
+tr:not(.headerrow) > td:first-child {
+  text-indent: 10px;
+}
+
 .row > table {
   margin: 0;
   width: 100%;
