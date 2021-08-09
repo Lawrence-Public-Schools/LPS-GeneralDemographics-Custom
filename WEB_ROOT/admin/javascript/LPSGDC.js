@@ -3,14 +3,20 @@ $j(document).ready(function() {
   LPSGDRestyle();
   selectViewStyle();
 
-  $j( "div#LPS-GDCustomhiddentable" ).remove(); /* Remove hidden LPSGDC templates */
+  $j( "#LPS-GDCustomhiddentable" ).remove(); /* Remove hidden LPSGDC templates */
   $j( "input" ).val(function( index, value ) { return value.trim(); }); /* Remove extra whitespace from field values */
   decodeDemoVals(); /* Translate DOE Codes - 'fieldName_DOE###' (Moved to seperate function for readability) */
   
   /* Event Listeners */
   $j(window.location).on("hashchange", selectViewStyle());
+  window.setTimeout(addLegal, 3000);
 });
-
+function addLegal() {
+  $legalFields = $j("#legalLastName, #legalGenderSelect").parent().parent().addClass("row-legal");
+  $legalFields.insertAfter("#trLegal_Gender");
+  $j("#trLegal_Gender, #trLegal_FullName").remove();
+  
+}
 /* Insert custom fields & comment box into Demographics page */
 function addLPSGDFields() {
   const $trHomePhone =  $j("#fieldHomePhone").parent().parent();
@@ -27,7 +33,7 @@ function addLPSGDFields() {
       certain features.
   ============================================================================*/
   $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-student") ); /* Student          */
-  $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-contacts") ); /* Student          */
+  $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-contacts") );/* Contacts - Old   */
   $trHomePhone.after( $j("#demoContactsTable") );                      /* Contacts         */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-ethRace") );  /* Ethnicity & Race */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-office") );   /* Adminstration    */
@@ -104,25 +110,25 @@ function LPSGDRestyle() {
   
   /* Wrap Other Section */
   $j("form tr.row-other").wrapAll('<div id="OtherSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("#OtherSection").insertAfter( $j("form div#StudentSection") );
+  $j("#OtherSection").insertAfter( $j("#StudentSection") );
   /* Subsections */
   $j("form tr.row-other:first").before('<tr class="headerrow row-other"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Legal Section */
-  $j("form tr.row-legal").wrapAll('<div id="LegalSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("#LegalSection").insertAfter( $j("form div#StudentSection") );
+   $j("form tr.row-legal").wrapAll('<div id="LegalSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
+  $j("#LegalSection").insertAfter( $j("#StudentSection") );
   /* Subsections */
   $j("form tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Grad Section */
   $j("form tr.row-grad").wrapAll('<div id="GradSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("#GradSection").insertAfter( $j("form div#StudentSection") );
+  $j("#GradSection").insertAfter( $j("#StudentSection") );
   /* Subsections */
   $j("form tr.row-grad:first").before('<tr class="headerrow row-grad"><td colspan="2" class="bold" width="100%">Information</td></tr>');
   
   /* Wrap Office Section*/
   $j("form tr.row-office").wrapAll('<div id="OfficeSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("#OfficeSection").insertAfter( $j("form div#StudentSection") );
+  $j("#OfficeSection").insertAfter( $j("#StudentSection") );
   /* Subsections */
   $j("form tr.office-general:first").before('<tr class="headerrow row-office office-general"><td colspan="2" class="bold" width="100%">District Information</td></tr>');
   $j("form tr.office-el:first").before('<tr class="headerrow row-office office-el"><td colspan="2" class="bold" width="100%">EL Information</td></tr>');
@@ -131,7 +137,7 @@ function LPSGDRestyle() {
   /* Wrap Race Section */
   $j("form div#stateIncludeWrapper").wrapAll('<tr class="row-ethRace ethrace-other" width="100%"><td colspan="2"></td></tr>');
   $j("form tr.row-ethRace").wrapAll('<div id="EthRaceSection" class=""><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("#EthRaceSection").insertAfter( $j("form div#StudentSection") );
+  $j("#EthRaceSection").insertAfter( $j("#StudentSection") );
   /* Subsections */
   $j("form tr.ethrace-select:first").before('<tr class="headerrow row-ethRace ethrace-select"><td colspan="2" class="bold" width="100%">Ethnicity & Race</td></tr>');
   $j("form tr.ethrace-other:first").before('<tr class="headerrow row-ethRace ethrace-other"><td colspan="2" class="bold" width="100%">Other State General</td></tr>');
@@ -148,6 +154,9 @@ function LPSGDRestyle() {
   $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');
   $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Father - Old</td> </tr>');
   $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Mother - Old</td> </tr>');
+  $j("tr.contacts-ECOld:first").before('<tr class="headerrow row-contacts contacts-ECOld"> <td colspan="2" class="bold" width="100%">Emergency Contacts - Old (will be phased out)</td> </tr>');
+  $j("form tr.contacts-EC1Old:first").before('<tr class="headerrow row-contacts ontacts-ECOld contacts-EC1Old"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Emergency Contact 1 - Old</td> </tr>');
+  $j("form tr.contacts-EC2Old:first").before('<tr class="headerrow row-contacts ontacts-ECOld contacts-EC2Old"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Emergency Contact 2 - Old</td> </tr>');
   
   /* Remove Original Table */
   $j("#StudentSection").unwrap().unwrap();
@@ -260,7 +269,7 @@ function showCollapsed() {
     if(window.pageYOffset > 50){
       $j("#demoNavBar, a.sectLink").css( {'display':'inline-block'} );
       $j("#demoNavBar").css( {'position':'fixed','top':'0','left':'0','width':'100%'} );
-      $j("a.sectLink").css( {'width':'8%'} ) //MAKE THE LINKS LOOK LIKE THEY ARE INSET, IDK HOW JUST FIGURE IT OUT!
+      $j("a.sectLink").css( {'width':'8%'} );
     } else {
       $j("#demoNavBar, a.sectLink").css( {'display':'inline-flex','width':'auto'} );
       $j("#demoNavBar").css( {'position':'initial','top':'initial'} );
