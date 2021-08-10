@@ -93,10 +93,6 @@ function LPSGDRestyle() {
   /* Other */
   stdFieldRow("#fieldArea, #primaryethnicity, #fieldGuardianship, #fieldPrevStuId, #fieldSSN, #fieldStuNum", "row-other other-builtIn");
   $j( "form td:contains('Grade Level')" ).parent().addClass( "row-other other-builtIn" );  /* DOE016 */
-   
-  /*============'EVERYTHING ELSE' Catcher============*/
-  $VarEverythingElse = $j("form > div.box-round > table.linkDescList > tbody > tr").not(".row-student, .row-contacts, .row-ethrace, .row-office, .row-grad, .row-legal, row-other");
-  $VarEverythingElse.addClass( "row-everythingElse" );
   
   /* Wrap Student Section */
   $j("form tr.row-student").wrapAll('<div id="StudentSection" style="margin:0"><div class="row" style="margin:0"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>'); /* Starts at top */

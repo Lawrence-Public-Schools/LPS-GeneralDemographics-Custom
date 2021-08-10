@@ -70,6 +70,10 @@ tr:not(.headerrow) > td:first-child {
   text-indent: 10px;
 }
 
+td.subhead {
+  font-weight: bold;
+}
+
 .row > table {
   margin: 0;
   width: 100%;
