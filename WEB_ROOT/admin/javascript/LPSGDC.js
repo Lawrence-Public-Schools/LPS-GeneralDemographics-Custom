@@ -193,7 +193,7 @@ function selectViewStyle() {
 /* Add toggle-collapse headers to sections & activate navbar functions */
 function showCollapsed() {
 
-  const createCollapseHeader = (title) => { return '<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">' + title + '</h2>' };
+  const createCollapseHeader = (title) => { return '<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">' + title + ' <small>(Click to Expand/Collapse)</small></h2>' };
 
   $j("#StudentSection").before( createCollapseHeader("Student Information") );
   $j("#OtherSection").before( createCollapseHeader("Other") );
