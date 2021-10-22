@@ -456,7 +456,7 @@
     <!-- Start of <div controller = "contactStudentController"> : Context container for Contacts table -->
     <div data-ng-controller="contactStudentController">
       <p class="feedback-info" data-ng-if="!context.contacts.length" >This student does not have any associated contacts.</p>
-    <p  >( To add/edit, go to to Contacts on the Menu on the left.)</p>
+    <p><i>(To add/edit; visit <u>Contacts</u> on the Menu to the left, or click on the name of the contact you wish to edit.)</i></p>
       <!--============================================|STUDENT_CONTACTS_TABLE|============================================-->
       <table id="studentContactsTable" class="grid" data-ng-if="context.contacts.length" >
         <colgroup>
