@@ -13,11 +13,5 @@
 $j(document).ready(function() {
     var originalGD = $j( "ul#std_information > li > a[href^='generaldemographics.html?frn=']" );
     originalGD.replaceWith( $j('<a class="LPSGDC" href="generaldemographics.html?frn=~(studentfrn)">Demographics - Updated &tilde;</a>') );
-
-    $j(".LPSGDC").on("click", function(event) {
-      window.parent.frames[1].location.hash = event.target.hash;
-      window.parent.frames[1].location.reload();
-
-    });
 });
 </script>
