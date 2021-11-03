@@ -1,7 +1,9 @@
 $j(document).ready(function() {
   addLPSGDFields();
   LPSGDRestyle();
-  selectViewStyle();
+  if( $j(".collapseHeader").length < 1 ) {
+    makeCollapsible();
+  }
 
   $j( "#LPS-GDCustomhiddentable" ).remove(); /* Remove hidden LPSGDC templates */
   $j( "input" ).val(function( index, value ) { return value.trim(); }); /* Remove extra whitespace from field values */
@@ -154,44 +156,8 @@ function LPSGDRestyle() {
   $j("#StudentSection").prev("colgroup").remove();
 }
 
-/*
-  Check URL for view tag and edit accordingly
-    -Try using html template files to dynamically add/remove the navbar and tabs instead of hiding them?
-*/
-function selectViewStyle() {
-  switch( window.location.hash.replace('#/','#') ) {
-    case "#TabView":
-      /* Remove Collapsible Headers & NavBar */
-      $j(".collapseHeader").remove();
-      $j("#demoNavBar").css("display", "none");
-      $j("#demoNavBar").off();
-
-      /* re-enable tab display */
-      $j('form div[id$="Section"]').removeClass("hide").css("display", "none");
-      $j("#demoNavTabs > ul").prop("hidden", false);
-
-      /*
-        -Section <div>s don't receive PS 'ui-tabs' classes until clicked, simulate click
-          on each tab when page loads then return to default ('#StudentSection')
-      */
-      $j("a.sectTab").click();
-      $j('a.sectTab[href="#StudentSection"]').click();
-      break;
-    case "#CollapseView":
-      /* Remove NavTabs */
-      $j("#demoNavTabs > ul").prop("hidden", true);
-      if( $j(".collapseHeader").length < 1 ) {
-        showCollapsed();
-      }break;
-    default:
-      window.location.hash = "CollapseView";
-      window.location.reload();
-      break;
-  }
-}
-
-/* Add toggle-collapse headers to sections & activate navbar functions */
-function showCollapsed() {
+/* Add collapsible headers + activate navBar */
+function makeCollapsible() {
 
   const createCollapseHeader = (title) => { return '<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">' + title + ' <small>(Click to Expand/Collapse)</small></h2>' };
 
@@ -207,7 +173,7 @@ function showCollapsed() {
   $j("form div.row").parent().css("margin", "0 11px 0 11px");
   $j("form div.row").css("margin", "0");
 
-  /* Load page with all sections collapsed */
+  /* Sections start collapsed */
   $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
     hideCollapseClasses($j(this));
     hideCollapseText($j(this));

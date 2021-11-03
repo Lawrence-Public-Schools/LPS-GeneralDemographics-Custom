@@ -24,20 +24,6 @@
     <a href="javascript:void(0);" id="expandAll" class="sectLink">Expand All</a>
     <a href="javascript:void(0);" id="collapseAll" class="sectLink">Collapse All</a>
   </nav>
-  <div id="navToggleBox">
-    <button type="button"><a href="javascript:void(0);" id="toggleNavBar">&#x1f845;</a></button>
-  </div>
-  <div class="tabs" id="demoNavTabs">
-    <ul>
-      <li><a href="#StudentSection" class="sectTab">Student</a></li>
-      <li><a href="#ContactsSection" class="sectTab">Contacts</a></li>
-      <li><a href="#EthRaceSection" class="sectTab">Ethnicity & Race</a></li>
-      <li><a href="#OfficeSection" class="sectTab">Administration</a></li>
-      <li><a href="#GradSection" class="sectTab">Graduation</a></li>
-      <li><a href="#LegalSection" class="sectTab">Legal</a></li>
-      <li><a href="#OtherSection" class="sectTab">Other</a></li>
-    </ul>
-  </div>
   <table>
     <tbody>
     <!--  Custom Fields: 'Student Info' -->
