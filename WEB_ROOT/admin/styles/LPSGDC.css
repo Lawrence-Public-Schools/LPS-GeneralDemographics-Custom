@@ -53,6 +53,7 @@
   color: lightgray;
   outline: none;
 }
+
 /* Make inputs look normal */
 #content-main > input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea, select {
   border-style: inset;
@@ -141,13 +142,16 @@
 #content-main > tr:not(.headerrow) > td:first-child {
   text-indent: 10px;
 }
+
 #content-main .subhead {
   font-weight: bold;
 }
+
 #content-main .row > table {
   margin: 0;
   width: 100%;
 }
+
 /* Style headers to match other PS pages */
 #content-main .collapsed {
   background-color: rgb(237, 237, 237);
