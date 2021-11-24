@@ -7,7 +7,7 @@ $j(document).ready(function() {
 
   $j( "#LPS-GDCustomhiddentable" ).remove(); /* Remove hidden LPSGDC templates */
   $j( "input" ).val(function( index, value ) { return value.trim(); }); /* Remove extra whitespace from field values */
-  decodeDemoVals(); /* Translate DOE Codes - 'fieldName_DOE###' (Moved to seperate function for readability) */
+  //decodeDemoVals(); /* Translate DOE Codes - 'fieldName_DOE###' (Moved to seperate function for readability) */
 
   /* Event Listeners */
   $j(window.location).on("hashchange", selectViewStyle());
