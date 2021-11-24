@@ -309,7 +309,7 @@
       </tr>
       <tr id="trRace_Military" class="row-ethRace ethrace-other"> <!-- DOE029 -->
         <td class="bold">Family Military Status </td>
-        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]MilitaryStatus" id="fieldMilitaryStatus" value="~(MilitaryStatus)"/></td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]MilitaryStatus" id="fieldMilitaryStatus" value="~(MilitaryStatus)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#militaryStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Office Data' -->
@@ -345,7 +345,7 @@
       </tr>
       <tr id="trOffice_504Plan" class="row-office office-sped">
         <td class="bold">504 Plan </td> <!-- DOE039-->
-        <td width="75%"><input type="text" name="[Students.S_MA_STU_SPED_X]Sec504PlanStatus" id="field504Plan" value="~(Sec504PlanStatus)"/></td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_SPED_X]Sec504PlanStatus" id="field504Plan" value="~(Sec504PlanStatus)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_504PlanStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
     <!--  Custom Fields: 'Graduation Info' -->
@@ -359,7 +359,7 @@
       </tr>
       <tr id="trGrad_Plan" class="row-grad"> <!-- DOE033 *PK-10 = '500', 11/12 = '500' until graduated/receive certificate/complete grade 12 -->
         <td class="bold">Post-Graduation Plan </td>
-        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]PostGradPlans" id="fieldGradPlan" value="~(PostGradPlans)"/></td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]PostGradPlans" id="fieldGradPlan" value="~(PostGradPlans)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#futureplans'" class="editButton" type="button">Edit</button></td>-->
          <!-- DEPENDENCIES: If...
               ...DOE012(Enrollment) = '04'(Graduate), then DOE033 != '500'(N/A) and DOE037(Core Completion) != '00'(Not a graduate)
@@ -367,7 +367,7 @@
       </tr>
       <tr id="trGrad_CoreCompletion" class="row-grad"> <!-- DOE037 *DOE033(GradPlan) dependencies includes all DOE037 dependencies  -->
         <td class="bold">Massachusetts Core Curriculum Completion </td>
-        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]GradCompleteCoreCurriculum" id="fieldCoreCompletion" value="~(GradCompleteCoreCurriculum)"/></td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]GradCompleteCoreCurriculum" id="fieldCoreCompletion" value="~(GradCompleteCoreCurriculum)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#gradstatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <!-- Custom Fields: 'Legal Info' -->
