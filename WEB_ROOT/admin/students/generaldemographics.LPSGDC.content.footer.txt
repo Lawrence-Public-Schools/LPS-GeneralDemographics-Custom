@@ -394,32 +394,32 @@
       </tr>
       <tr id="trOther_FirstYearEL" class="row-other other-lps"> <!-- DOE021 *DEPENDENCIES: Students with Grade Level(DOE016) = 'PK' or 'SP' should be given '00'(N/A)-->
         <td class="bold">First Year English Learner </td>
-        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LEP1stYrInUS" id="fieldFirstYearEL" value="~(LEP1stYrInUS)"/></td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LEP1stYrInUS" id="fieldFirstYearEL" value="~(LEP1stYrInUS)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_LEPinUS'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_IsEL" class="row-other other-lps"> <!-- DOE025 *DEPENDENCIES: If DOE025 = '01'(yes_EL) then DOE024(Native Language) != '267'(English) -->
         <td class="bold">English Learner </td>
-        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LimitedEnglishProficiency" id="fieldIsEL" value="~(LimitedEnglishProficiency)"/></td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LimitedEnglishProficiency" id="fieldIsEL" value="~(LimitedEnglishProficiency)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_EngProficiency'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_ELStatus" class="row-other other-lps"> <!-- DOE026 *DEPENDENCIES: If DOE026 != '00'(Not Enrolled) then DOE025(isEL) = '01'(yes_EL)-->
         <td class="bold">EL Program Status </td>
-        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LEPProgramStatus" id="fieldELStatus" value="~(LEPProgramStatus)"/></td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LEPProgramStatus" id="fieldELStatus" value="~(LEPProgramStatus)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#BilingualStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_SASID" class="row-other other-lps"> <!-- DOE002 *10 digits long, -->
         <td class="bold">State Assigned Student Identifier (SASID) </td>
-        <td width="75%"><input type="text" name="[Students]State_StudentNumber" id="fieldSASID" value="~(State_StudentNumber)"/></td>
+        <td width="75%"><input type="text" name="[Students]State_StudentNumber" id="fieldSASID" value="~(State_StudentNumber)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#ldv_generatedID2'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_IsImmigrant" class="row-other other-lps"> <!-- DOE022 *DEPENDENCIES: If DOE022 = '01'(yes_immigrant) then DOE023(Origin Country) != '500'(not an immigrant) -->
         <td class="bold">Immigrant </td>
-        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]ImmigrantStatus" id="fieldImmigrantStatus" value="~(ImmigrantStatus)"/></td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]ImmigrantStatus" id="fieldImmigrantStatus" value="~(ImmigrantStatus)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_ImmgrStatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_EnrollmentStatus" class="row-other other-lps"> <!-- DOE012 *DEPENDENCIES: Students reported with a code of 04 must be in grades 11, 12 or SP. See DOE033/Appendix I(in doc) for more -->
         <td class="bold">Enrollment Status </td>
-        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]EnrollStatusTimeOfCollection" id="fieldEnrollmentStatus" value="~(EnrollStatusTimeOfCollection)"/></td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]EnrollStatusTimeOfCollection" id="fieldEnrollmentStatus" value="~(EnrollStatusTimeOfCollection)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#enrollstatus'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_TransferFrom" class="row-other other-lps">
@@ -432,7 +432,7 @@
       </tr>
       <tr id="trOther_OriginCountry" class="row-other other-lps"> <!-- DOE023 *Surely there's a better way to do this than list every country here -->
         <td class="bold">Country of Origin </td> <!-- value="500" > not an immigrant student (US Origin) -->
-        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]CountryOfOrigin" id="fieldOriginCountry" value="~(CountryOfOrigin)"/></td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]CountryOfOrigin" id="fieldOriginCountry" value="~(CountryOfOrigin)" readonly /></td>
         <!--<td><button onclick="location.href='/admin/students/state/USA_MA/stateMA-SIMS.html?frn=~(frn)#MA_Country'" class="editButton" type="button">Edit</button></td>-->
       </tr>
       <tr id="trOther_TeamFlag" class="row-other other-lps">
