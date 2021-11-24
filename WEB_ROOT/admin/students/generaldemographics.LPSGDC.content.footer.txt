@@ -1,6 +1,6 @@
 <!-- use jQuery to replace text -->
-<script src="/admin/javascript/LPSGDC.js"></script>
-<script src="/scripts/tlistCustomization.js"></script>
+<script defer src="/admin/javascript/LPSGDC.js"></script>
+<script defer src="/scripts/tlistCustomization.js"></script>
 <link rel="stylesheet" type="text/css" href="/admin/styles/LPSGDC.css" />
 <!--
   NOTES:
