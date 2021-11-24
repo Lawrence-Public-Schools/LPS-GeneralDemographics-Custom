@@ -53,36 +53,106 @@
   color: lightgray;
   outline: none;
 }
-
 /* Make inputs look normal */
-input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea, select {
+#content-main > input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea, select {
   border-style: inset;
   border-width: 2px;
   border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
   padding: 3px;
   background-color: rgb(255,255,255);
-  /*background-color: rgb(217,217,217); /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+    /*background-color: rgb(217,217,217);*/
+    /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
 }
-input:only-child { width: 99%; }
-
-tr:not(.headerrow) > td:first-child {
+#content-main > input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea, select {
+  border-style: inset;
+  border-width: 2px;
+  border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+  padding: 3px;
+  background-color: rgb(255,255,255);
+    /*background-color: rgb(217,217,217);*/
+    /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+}
+#content-main > input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea, select {
+  border-style: inset;
+  border-width: 2px;
+  border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+  padding: 3px;
+  background-color: rgb(255,255,255);
+    /*background-color: rgb(217,217,217);*/
+    /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+}
+#content-main > input[type="text"] {
+  border-style: inset;
+  border-width: 2px;
+  border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+  padding: 3px;
+  background-color: rgb(255,255,255);
+    /*background-color: rgb(217,217,217);*/
+    /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+}
+#content-main > input[type="email"] {
+  border-style: inset;
+  border-width: 2px;
+  border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+  padding: 3px;
+  background-color: rgb(255,255,255);
+    /*background-color: rgb(217,217,217);*/
+    /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+}
+#content-main > input[type="password"] {
+  border-style: inset;
+  border-width: 2px;
+  border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+  padding: 3px;
+  background-color: rgb(255,255,255);
+    /*background-color: rgb(217,217,217);*/
+    /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+}
+#content-main > input[type="tel"] {
+  border-style: inset;
+  border-width: 2px;
+  border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+  padding: 3px;
+  background-color: rgb(255,255,255);
+    /*background-color: rgb(217,217,217);*/
+    /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+}
+#content-main > textarea{
+  border-style: inset;
+  border-width: 2px;
+  border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+  padding: 3px;
+  background-color: rgb(255,255,255);
+    /*background-color: rgb(217,217,217);*/
+    /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+}
+#content-main > select {
+  border-style: inset;
+  border-width: 2px;
+  border-color: rgb(118,118,118) rgb(133,133,133) rgb(133,133,133) rgb(118,118,118);
+  padding: 3px;
+  background-color: rgb(255,255,255);
+    /*background-color: rgb(217,217,217);*/
+    /* highlight custom fields grey !!FOR BUG-FINDING/FIXING ONLY!! */
+}
+#content-main > input:only-child {
+  width: 99%;
+}
+#content-main > tr:not(.headerrow) > td:first-child {
   text-indent: 10px;
 }
-
-.subhead {
+#content-main .subhead {
   font-weight: bold;
 }
-
-.row > table {
+#content-main .row > table {
   margin: 0;
   width: 100%;
 }
-
 /* Style headers to match other PS pages */
-.collapsed {
+#content-main .collapsed {
   background-color: rgb(237, 237, 237);
 }
-.expanded {
+#content-main .expanded {
   background-color: rgb(163, 191, 204);
 }
 
