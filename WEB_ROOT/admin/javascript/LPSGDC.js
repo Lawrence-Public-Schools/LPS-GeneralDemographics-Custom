@@ -59,6 +59,7 @@ function LPSGDRestyle() {
   $j("#studentAge").parent().addClass( "row-student student-general" ).insertAfter($trStuName);
   stdFieldRow("#fieldDOB", "row-student student-general" ).insertAfter($trStuName);
   stdFieldRow("#selectGender", "row-student student-general" ).insertAfter($trStuName);
+  stdFieldRow("#fieldname_suffix", "row-student student-general" ).insertAfter($trStuName);
   /* ----------Home_Address----------- */
   $j( "form td:contains('Home Address')" ).not("td:contains('Mailing Address')").parent().addClass( "row-student student-address" );
   stdFieldRow("#pstreet, #papt, #pcity, #pstate, #pzip, #pgeocode, #validatePrimaryAddress", "row-student student-address");

@@ -27,6 +27,19 @@
   <table>
     <tbody>
     <!--  Custom Fields: 'Student Info' -->
+      <tr id="trStudent_suffix" class="row-student student-general">
+        <td class="bold">Suffix</td>
+        <td width="75%"><select id="fieldname_suffix" name="[Students.U_StudentsUserFields]name_suffix">
+          <option>None</option>
+          <option value="SR">Senoir</option>
+          <option value="JR">Junior</option>
+          <option value="I">I</option>
+          <option value="II">II</option>
+          <option value="III">III</option>
+          <option value="IV">IV</option>
+          <option value="VI">VI</option>
+        </select></td>
+      </tr>
       <tr id="trStudent_Mobile" class="row-student student-contactInfo">
         <td class="bold">Student Mobile</td><!-- where is this info stored? -->
         <td width="75%"><input type="tel" id="fieldStudentMobile" name="[U_Students_Extension]student_mobile" value="~(student_mobile)" placeholder="123-456-7890"/></td>
