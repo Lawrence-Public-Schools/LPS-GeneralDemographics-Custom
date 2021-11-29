@@ -346,7 +346,7 @@
       </tr>
       <tr id="trGrad_Cohort" class="row-grad">
         <td class="bold">DESE Cohort </td>
-        <td width="75%"><input type="text" name="[Students.U_Def_Ext_Students]cohort" id="fieldCohort" value="~(cohort)" placeholder="COHORT #..."/></td>
+        <td width="75%"><input type="text" name="[Students.U_Students_Extension]cohort" id="fieldCohort" value="~(cohort)" placeholder="COHORT #..."/></td>
       </tr>
       <tr id="trGrad_Plan" class="row-grad"> <!-- DOE033 *PK-10 = '500', 11/12 = '500' until graduated/receive certificate/complete grade 12 -->
         <td class="bold">Post-Graduation Plan </td>
