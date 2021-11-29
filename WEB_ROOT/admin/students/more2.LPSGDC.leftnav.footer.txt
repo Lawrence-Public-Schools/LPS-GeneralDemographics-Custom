@@ -1,14 +1,3 @@
-<style>
-  a.LPSGDC:link {
-    color: red;
-  }
-  a.LPSGDC:visited {
-    color: red;
-  }
-  a.LPSGDC:hover {
-    color: red;
-  }
-</style>
 <script type="text/javascript">
 $j(document).ready(function() {
     var originalGD = $j( "ul#std_information > li > a[href^='generaldemographics.html?frn=']" );
