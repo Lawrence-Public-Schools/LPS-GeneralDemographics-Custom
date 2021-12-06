@@ -158,7 +158,7 @@ function LPSGDRestyle() {
 /* Add collapsible headers + activate navBar */
 function makeCollapsible() {
 
-  const createCollapseHeader = (title) => { return '<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">' + title + ' <small>(Click to Expand/Collapse)</small></h2>' };
+  const createCollapseHeader = (title) => { return '<h2 pss-expand-collapse-item="Section" class="collapsed" title="Click here to expand or collapse">' + title + ' <small>(Click to Expand/Collapse)</small></h2>' };
 
   $j("#StudentSection").before( createCollapseHeader("Student Information") );
   $j("#OtherSection").before( createCollapseHeader("Other") );
@@ -173,11 +173,11 @@ function makeCollapsible() {
   $j("form div.row").css("margin", "0");
 
   /* Sections start collapsed */
-  $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
-    hideCollapseClasses($j(this));
-    hideCollapseText($j(this));
-    hideCollapseTarget($j(this));
-  });
+  // $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
+  //   hideCollapseClasses($j(this));
+  //   hideCollapseText($j(this));
+  //   hideCollapseTarget($j(this));
+  // });
 
   /* Navbar Event Listeners */
   $j(".sectLink").on('click', function(event) {
