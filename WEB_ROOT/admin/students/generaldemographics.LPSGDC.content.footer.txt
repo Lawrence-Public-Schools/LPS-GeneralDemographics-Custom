@@ -42,11 +42,11 @@
       </tr>
       <tr id="trStudent_Mobile" class="row-student student-contactInfo">
         <td class="bold">Student Mobile</td><!-- where is this info stored? -->
-        <td width="75%"><input type="tel" id="fieldStudentMobile" name="[U_Students_Extension]student_mobile" value="~(student_mobile)" placeholder="123-456-7890"/></td>
+        <td width="75%"><input type="tel" id="fieldStudentMobile" name="[students.U_Students_Extension]STUDENT_MOBILE" value="" ></td>
       </tr>
       <tr id="trStudent_PersonalEmail" class="row-student student-contactInfo">
         <td class="bold">Student Personal Email </td>
-        <td width="75%"><input type="email" id="fieldPersonalEmail" name="[U_Students_Extension]STUDENT_PERSONALEMAIL" value="~(STUDENT_PERSONALEMAIL)" placeholder="student@example.com"/></td>
+        <td width="75%"><input type="email" id="fieldPersonalEmail" name="[students.U_Students_Extension]STUDENT_PERSONALEMAIL" value="" ></td>
       </tr>
       <tr id="trStudent_LPSEmail" class="row-student student-contactInfo">
         <td class="bold">Student LPS Email </td>
