@@ -4,7 +4,6 @@ $j(document).ready(function() {
   if ( $j(".collapseHeader").length < 1 ) { makeCollapsible() }
 
   $j( "#LPS-GDCustomhiddentable" ).remove(); /* Remove hidden LPSGDC templates */
-  //$j( "input" ).val(function( index, value ) { return value.trim(); }); /* Remove extra whitespace from field values */
   
   window.setTimeout(addLegalandDOB, 3000);
 
@@ -172,6 +171,13 @@ function makeCollapsible() {
   $j("form div.row").parent().css("margin", "0 11px 0 11px");
   $j("form div.row").css("margin", "0");
 
+  /* Sections start collapsed */
+  // $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
+  //   hideCollapseClasses($j(this));
+  //   hideCollapseText($j(this));
+  //   hideCollapseTarget($j(this));
+  // });
+
   /* Navbar Event Listeners */
   $j(".sectLink").on('click', function(event) {
     /* Check for hash(anchor link) value NOTE: this.hash returns part of URL beginning with '#' aka the id of the linked element */
@@ -226,7 +232,7 @@ function makeCollapsible() {
 }
 
 
-/* Decode DOE fields + fields w/ ambiguous values ~ DEPRECATED (breaks form validation) */
+/* Decode DOE fields + fields w/ ambiguous values */
 // function decodeDemoVals() {
 //   var $enrollmentStatus_012 = $j("#fieldEnrollmentStatus");
 //   var $firstYearEL_021 = $j("#fieldFirstYearEL");
