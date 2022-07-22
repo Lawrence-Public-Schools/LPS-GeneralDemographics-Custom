@@ -33,7 +33,7 @@ function addLPSGDFields() {
       certain features.
   ============================================================================*/
   $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-student") ); /* Student          */
-  $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-contacts") );/* Contacts - Old   */
+  /*$trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-contacts") ); Contacts - Old   */
   $trHomePhone.after( $j("#demoContactsTable") );                      /* Contacts         */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-ethRace") );  /* Ethnicity & Race */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-office") );   /* Adminstration    */
@@ -74,6 +74,7 @@ function LPSGDRestyle() {
   $j( "#mother" ).parent().addClass("row-contacts contacts-parentsOld contacts-motherOld");
   stdFieldRow("input[id^='fieldMother']", "row-contacts contacts-parentsOld contacts-motherOld");
   stdFieldRow("#fieldGuardianEmail", "row-contacts contacts-guardiansOld").insertAfter("#trContactsLivesWith");
+  
 
   /* Ethnicity & Race */
   $j( "form td:contains('Federal Ethnicity and Race')" ).parent().addClass( "row-ethRace ethrace-select" );
@@ -100,7 +101,8 @@ function LPSGDRestyle() {
   /* Subsections */
   $j("form tr.student-contactInfo:first").before('<tr class="headerrow row-student student-contactInfo"><td colspan="2" class="bold" width="100%">Phone & Email</td></tr>');
   $j("form tr.student-general:first").before('<tr class="headerrow row-student student-general" style="width:100%"><td colspan="2" class="bold" width="100%">Personal</td></tr>');
-
+//me
+  $j("tr.contacts-parentsOld").addClass("hide")
   /* Wrap Other Section */
   $j("form tr.row-other").wrapAll('<div id="OtherSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("#OtherSection").insertAfter( $j("#StudentSection") );
@@ -109,9 +111,12 @@ function LPSGDRestyle() {
 
   /* Wrap Legal Section */
    $j("form tr.row-legal").wrapAll('<div id="LegalSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("#LegalSection").insertAfter( $j("#StudentSection") );
+  
+  
+  
   /* Subsections */
-  $j("form tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="100%">Information</td></tr>');
+  //$j("form tr.student-mail:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="100%">Legal Information</td></tr>');
+  $j("#LegalSection").insertAfter( $j("#StudentSection") );
 
   /* Wrap Grad Section */
   $j("form tr.row-grad").wrapAll('<div id="GradSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
@@ -140,15 +145,15 @@ function LPSGDRestyle() {
   $j("form tr.row-contacts").wrapAll('<div id="ContactsSection" class=""><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("#ContactsSection").insertAfter( $j("form div#StudentSection") );
   /* Subsections */
-  $j("form tr.contacts-guardiansOld:first").before('<tr class="headerrow row-contacts contacts-guardiansOld"> <td colspan="2" class="bold" width="100%">Guardians - Old (will be phased out)</td> </tr>');
+  /*$j("form tr.contacts-guardiansOld:first").before('<tr class="headerrow row-contacts contacts-guardiansOld"> <td colspan="2" class="bold" width="100%">Guardians - Old (will be phased out)</td> </tr>');*/ 
   $j("form tr.contacts-guardian1:first").before('<tr class="headerrow row-contacts contacts-guardiansOld contacts-guardian1"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Guardian 1 - Old</td> </tr>');
   $j("form tr.contacts-guardian2:first").before('<tr class="headerrow row-contacts contacts-guardiansOld contacts-guardian2"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Guardian 2 - Old</td> </tr>');
-  $j("tr.contacts-ECOld:first").before('<tr class="headerrow row-contacts contacts-ECOld"> <td colspan="2" class="bold" width="100%">Emergency Contacts - Old (will be phased out)</td> </tr>');
+  /*$j("tr.contacts-ECOld:first").before('<tr class="headerrow row-contacts contacts-ECOld"> <td colspan="2" class="bold" width="100%">Emergency  Contacts - Old (will be phased out)</td> </tr>'); */
   $j("form tr.contacts-EC1Old:first").before('<tr class="headerrow row-contacts ontacts-ECOld contacts-EC1Old"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Emergency Contact 1 - Old</td> </tr>');
   $j("form tr.contacts-EC2Old:first").before('<tr class="headerrow row-contacts ontacts-ECOld contacts-EC2Old"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Emergency Contact 2 - Old</td> </tr>');
-  $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');
-  $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Father - Old</td> </tr>');
-  $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Mother - Old</td> </tr>');
+  /* $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');*/
+  /*$j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Father - Old</td> </tr>'); */
+  /*$j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Mother - Old</td> </tr>'); */
 
   /* Remove Original Table */
   $j("#StudentSection").unwrap().unwrap();
@@ -161,8 +166,8 @@ function makeCollapsible() {
   const createCollapseHeader = (title) => { return '<h2 pss-expand-collapse-item="Section" class="collapsed" title="Click here to expand or collapse">' + title + ' <small>(Click to Expand/Collapse)</small></h2>' };
 
   $j("#StudentSection").before( createCollapseHeader("Student Information") );
-  $j("#OtherSection").before( createCollapseHeader("Other") );
   $j("#LegalSection").before( createCollapseHeader("Legal Information") );
+  $j("#OtherSection").before( createCollapseHeader("Other") );
   $j("#GradSection").before( createCollapseHeader("Graduation Information") );
   $j("#OfficeSection").before( createCollapseHeader("Administrative Information") );
   $j("#EthRaceSection").before( createCollapseHeader("Ethnicity/Race Information") );
@@ -171,6 +176,13 @@ function makeCollapsible() {
   $j("#demoNavBar").css("display", "inline-flex");
   $j("form div.row").parent().css("margin", "0 11px 0 11px");
   $j("form div.row").css("margin", "0");
+
+  /* Sections start collapsed */
+  // $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
+  //   hideCollapseClasses($j(this));
+  //   hideCollapseText($j(this));
+  //   hideCollapseTarget($j(this));
+  // });
 
   /* Navbar Event Listeners */
   $j(".sectLink").on('click', function(event) {
@@ -226,7 +238,7 @@ function makeCollapsible() {
 }
 
 
-/* Decode DOE fields + fields w/ ambiguous values ~ DEPRECATED (breaks form validation) */
+/* Decode DOE fields + fields w/ ambiguous values */
 // function decodeDemoVals() {
 //   var $enrollmentStatus_012 = $j("#fieldEnrollmentStatus");
 //   var $firstYearEL_021 = $j("#fieldFirstYearEL");
