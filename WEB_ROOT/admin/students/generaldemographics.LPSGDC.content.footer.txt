@@ -19,7 +19,7 @@
     <a href="#EthRaceSection" class="sectLink">Ethnicity & Race</a>
     <a href="#OfficeSection" class="sectLink">Administration</a>
     <a href="#GradSection" class="sectLink">Graduation</a>
-    <a href="#LegalSection" class="sectLink">Legal</a>
+    <a href="#LegalSection" class="sectLink hide">Legal</a>
     <a href="#OtherSection" class="sectLink">Other</a>
     <a href="javascript:void(0);" id="expandAll" class="sectLink">Expand All</a>
     <a href="javascript:void(0);" id="collapseAll" class="sectLink">Collapse All</a>
@@ -42,11 +42,11 @@
       </tr>
       <tr id="trStudent_Mobile" class="row-student student-contactInfo">
         <td class="bold">Student Mobile</td><!-- where is this info stored? -->
-        <td width="75%"><input type="tel" id="fieldStudentMobile" name="[students.U_Students_Extension]STUDENT_MOBILE" value="" ></td>
+        <td width="75%"><input type="tel" id="fieldStudentMobile" name="[Students.U_Students_Extension]student_mobile" value="~(student_mobile)" placeholder="123-456-7890"/></td>
       </tr>
       <tr id="trStudent_PersonalEmail" class="row-student student-contactInfo">
         <td class="bold">Student Personal Email </td>
-        <td width="75%"><input type="email" id="fieldPersonalEmail" name="[students.U_Students_Extension]STUDENT_PERSONALEMAIL" value="" ></td>
+        <td width="75%"><input type="email" id="fieldPersonalEmail" name="[Students.U_Students_Extension]STUDENT_PERSONALEMAIL" value="~(STUDENT_PERSONALEMAIL)" placeholder="student@example.com"/></td>
       </tr>
       <tr id="trStudent_LPSEmail" class="row-student student-contactInfo">
         <td class="bold">Student LPS Email </td>
@@ -63,6 +63,7 @@
         </td>
       </tr>
     <!-- Custom Fields: 'Contacts' -->
+   <!--
     <tr style="vertical-align: bottom;" id="trContactsLivesWith" class="row-contacts contacts-guardiansOld">
         <td class="bold">Lives with</td>
         <td>
@@ -73,6 +74,7 @@
       <tr style="vertical-align: top;" id="g1Header" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td colspan="2" class="bold" align="center">Guardian 1's Information </td>
       </tr>
+      
       <tr id="g1Relation" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Relationship</td>
         <td><select name="[Students]guardian_relationship" id="guardian_relationship" >
@@ -300,6 +302,7 @@
             </select>
         </td>
       </tr>
+      -->
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
       <tr id="trRace_BirthCity" class="row-ethRace ethrace-other"> <!-- DOE008 *Must be converted to town code -->
         <td class="bold">City/Town of Birth </td>
@@ -360,6 +363,7 @@
         <td width="75%"><input type="text" name="[Students.S_MA_STU_X]GradCompleteCoreCurriculum" id="fieldCoreCompletion" value="~(GradCompleteCoreCurriculum)" readonly /></td>
       </tr>
       <!-- Custom Fields: 'Legal Info' -->
+      
       <tr id="trLegal_FullName" class="row-legal">
         <td class="bold">Legal Name (Last, First Middle Suffix) </td>
         <td width="75%">
