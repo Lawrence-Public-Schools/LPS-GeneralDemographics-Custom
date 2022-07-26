@@ -183,8 +183,10 @@ function makeCollapsible() {
   //   hideCollapseText($j(this));
   //   hideCollapseTarget($j(this));
   // });
-
+  //disable legal section
+  $j(".psTextWidget, .legalNameSuffix, #legalGenderSelect").attr('disabled', 'disabled');
   /* Navbar Event Listeners */
+
   $j(".sectLink").on('click', function(event) {
     /* Check for hash(anchor link) value NOTE: this.hash returns part of URL beginning with '#' aka the id of the linked element */
     if (this.hash !== "") {
