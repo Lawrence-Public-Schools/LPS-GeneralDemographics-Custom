@@ -1,31 +1,625 @@
 <!-- use jQuery to replace text -->
+<script defer src="/admin/javascript/LPSGDC.js"></script>
+<script defer src="/scripts/tlistCustomization.js"></script>
+<link rel="stylesheet" type="text/css" href="/admin/styles/LPSGDC.css" />
+<!--
+  NOTES:
+  - In order to save input to database, <input> needs
+     Core Fields:      name="[Table_Name]Field_Name"
+     Extension Fields: name="[PrimaryTable.ExtensionGroupName]Field_Name"
+  - Using ~(Field_Name) applies default read-only format, ~([Table_Name]Field_Name) does not
+  - Apparently adding name="[Table_Name]Field_Name" to inputs auto-adds certain PS
+     validation attributes/classes and screws up formatting when you put a field into focus
+  - Im going to want to change the edit links to not specificially link to frn=001113601
+ -->
 <div id="LPS-GDCustomhiddentable" style="display: none;">
-<table>
-<tbody>
-<tr id="trfieldStudent_Mobile">
-    <td class="bold">Student Mobile &tilde;</td>
-                    <td>
-                        <input type="text" id="fieldStudent_Mobile" name="[Students.U_Students_Extension]student_mobile" value="" size="17">
-                    </td>
-</tr>
-<tr id="trfieldStudent_Personalemail">
-    <td class="bold">Student Personal Email &tilde;</td>
-                    <td>
-                        <input type="text" id="fieldStudent_Personalemail" name="[Students.U_Students_Extension]student_personalemail" value="" size="17">
-                    </td>
-</tr>
-</tbody>
-</table>
+  <nav id="demoNavBar">
+    <a href="#StudentSection" class="sectLink">Student</a>
+    <a href="#ContactsSection" class="sectLink">Contacts</a>
+    <a href="#EthRaceSection" class="sectLink">Ethnicity & Race</a>
+    <a href="#OfficeSection" class="sectLink">Administration</a>
+    <a href="#GradSection" class="sectLink">Graduation</a>
+    <a href="#LegalSection" class="sectLink hide">Legal</a>
+    <a href="#OtherSection" class="sectLink">Other</a>
+    <a href="javascript:void(0);" id="expandAll" class="sectLink">Expand All</a>
+    <a href="javascript:void(0);" id="collapseAll" class="sectLink">Collapse All</a>
+  </nav>
+  <table>
+    <tbody>
+    <!--  Custom Fields: 'Student Info' -->
+      <tr id="trStudent_suffix" class="row-student student-general">
+        <td class="bold">Suffix</td>
+        <td width="75%"><select id="fieldname_suffix" name="[Students.U_StudentsUserFields]name_suffix">
+          <option>None</option>
+          <option value="SR">Senoir</option>
+          <option value="JR">Junior</option>
+          <option value="I">I</option>
+          <option value="II">II</option>
+          <option value="III">III</option>
+          <option value="IV">IV</option>
+          <option value="VI">VI</option>
+        </select></td>
+      </tr>
+      <tr id="trStudent_Mobile" class="row-student student-contactInfo">
+        <td class="bold">Student Mobile</td><!-- where is this info stored? -->
+        <td width="75%"><input type="tel" id="fieldStudentMobile" name="[Students.U_Students_Extension]student_mobile" value="~(student_mobile)" placeholder="123-456-7890"/></td>
+      </tr>
+      <tr id="trStudent_PersonalEmail" class="row-student student-contactInfo">
+        <td class="bold">Student Personal Email </td>
+        <td width="75%"><input type="email" id="fieldPersonalEmail" name="[Students.U_Students_Extension]STUDENT_PERSONALEMAIL" value="~(STUDENT_PERSONALEMAIL)" placeholder="student@example.com"/></td>
+      </tr>
+      <tr id="trStudent_LPSEmail" class="row-student student-contactInfo">
+        <td class="bold">Student LPS Email </td>
+        <td width="75%"><input type="email" id="fieldLPSEmail" value="~[tlist_sql;
+          SELECT psc.Email AS email
+          FROM PSM_STudentcontact psc
+            JOIN PSM_StudentContactType psct ON psc.StudentContactTypeId = psct.id
+              AND psct.Name = 'Self'
+            JOIN SYNC_StudentMap ssm ON psc.StudentId = ssm.studentid
+            JOIN Students stu ON ssm.studentsdcid = stu.dcid
+          WHERE
+            stu.student_number = ~([Students]student_number)]~(email)[/tlist_sql]"
+           readonly />
+        </td>
+      </tr>
+    <!-- Custom Fields: 'Contacts' -->
+   <!--
+    <tr style="vertical-align: bottom;" id="trContactsLivesWith" class="row-contacts contacts-guardiansOld">
+        <td class="bold">Lives with</td>
+        <td>
+          Guardian 1: <input name="[Students]guardian_lives_with" value="1" type="radio">
+          Guardian 2: <input name="[Students]guardian_lives_with" value="2" type="radio">
+        </td>
+      </tr>
+      <tr style="vertical-align: top;" id="g1Header" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td colspan="2" class="bold" align="center">Guardian 1's Information </td>
+      </tr>
+      
+      <tr id="g1Relation" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Relationship</td>
+        <td><select name="[Students]guardian_relationship" id="guardian_relationship" >
+          <option value=" "></option>
+          <option value="Mother">Mother</option>
+          <option value="Father">Father</option>
+          <option value="Grandmother">Grandmother</option>
+          <option value="Grandfather">Grandfather</option>
+          <option value="Sibling">Sibling</option>
+          <option value="Step-Parent">Step-Parent</option>
+          <option value="Foster-Parent">Foster-Parent</option>
+          <option value="Aunt">Aunt</option>
+          <option value="Uncle">Uncle</option>
+          <option value="Cousin">Cousin</option>
+          <option value="Social Worker">Social Worker</option>
+          <option value="Legal Guardian">Legal Guardian</option>
+          <option value="Self">Self</option>
+          <option value="In-Law">In-Law</option>
+          <option value="Husband">Husband</option>
+          <option value="Wife">Wife</option>
+          <option value="Friend">Friend</option>
+          <option value="GAL">GAL</option>
+          <option value="Other">Other</option>
+        </select></td>
+      </tr>
+      <tr id="g1FullName" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Last Name, First Name</td>
+        <td>
+          <select name="[Students]guardian_title" id="guardian_title">
+            <option value=""></option>
+            <option value="Ms">Ms</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Miss">Miss</option>
+            <option value="Mr">Mr</option>
+            <option value="Dr">Dr</option>
+          </select>
+          <input name="[Students]guardian_LN" id="guardian_LN" value="" type="text" >
+          <input name="[Students]guardian_FN" id="guardian_FN" value="" type="text" >
+        </td>
+      </tr>
+      <tr id="g1Address" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Address</td>
+        <td><input size="30" name="[Students]guardianstreet" id="guardianstreet" value="" type="text" ></td>
+      </tr>
+      <tr id="g1CopyAddr" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td></td>
+        <td>
+          <input name="[Students]guardiancity" id="guardiancity" size="15" value="" type="text" >
+          <input maxlength="2" name="[Students]guardianstate" id="guardianstate" size="2" value="" type="text" >
+          <input name="[Students]guardianzip" value="" id="guardianzip" size="10" type="text" >
+        </td>
+      </tr>
+      <tr id="g1HomePhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Home Phone </td>
+        <td><input name="[Students]guardianhomephone" value="" id="guardianhomephone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardianhomephone)');" ></td>
+      </tr>
+      <tr id="g1CellPhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Cell Phone </td>
+        <td><input name="[Students]guardian_cell_phone" value="" id="guardian_cell_phone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian_cell_phone)');" ></td>
+      </tr>
+      <tr id="g1Email" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Email</td>
+        <td><input name="[Students]guardianemail" value="" size="30" id="guardianemail" type="text" ></td>
+      </tr>
+      <tr id="g1Employe" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Employer</td>
+        <td> <input size="30" name="[Students]guardian_employer" value="" id="guardian_employer" type="text" > </td>
+      </tr>
+      <tr id="g1Occupation" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Occupation</td>
+        <td><input size="30" name="[Students]guardian_occupation" id="guardian_occupation" value="" type="text" ></td>
+      </tr>
+      <tr id="g1DayPhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Day Phone</td>
+        <td class="bold">
+          <input name="[Students]guardiandayphone" value="" type="text" id="guardiandayphone" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardiandayphone)');" >
+          Ext.
+          <input size="5" name="[Students]guardiandayphoneext" value="" type="text" id="guardiandayphoneext" >
+        </td>
+      </tr>
+      <tr style="vertical-align: top;" id="g2Header" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td colspan="2" class="bold" align="center">Guardian 2's Information </td>
+      </tr>
+      <tr id="g2Relation" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Relationship</td>
+        <td><select name="[Students]guardian2_relationship" id="guardian2_relationship">
+          <option value=" "></option>
+          <option value="Mother">Mother</option>
+          <option value="Father">Father</option>
+          <option value="Grandmother">Grandmother</option>
+          <option value="Grandfather">Grandfather</option>
+          <option value="Sibling">Sibling</option>
+          <option value="Step-Parent">Step-Parent</option>
+          <option value="Foster-Parent">Foster-Parent</option>
+          <option value="Aunt">Aunt</option>
+          <option value="Uncle">Uncle</option>
+          <option value="Cousin">Cousin</option>
+          <option value="Social Worker">Social Worker</option>
+          <option value="Legal Guardian">Legal Guardian</option>
+          <option value="Self">Self</option>
+          <option value="In-Law">In-Law</option>
+          <option value="Husband">Husband</option>
+          <option value="Wife">Wife</option>
+          <option value="Friend">Friend</option>
+          <option value="GAL">GAL</option>
+          <option value="Other">Other</option>
+        </select></td>
+      </tr>
+      <tr id="g2FullName" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Last Name, First Name</td>
+        <td><select name="[Students]guardian2_title" id="guardian2_title">
+          <option value=""></option>
+          <option value="Ms">Ms</option>
+          <option value="Mrs">Mrs</option>
+          <option value="Miss">Miss</option>
+          <option value="Mr">Mr</option>
+          <option value="Dr">Dr</option>
+        </select>
+        <input name="[Students]guardian2_LN" id="guardian2_LN" type="text" value=""> <input name="[Students]guardian2_FN" id="guardian2_FN" type="text" value="" >
+        </td>
+      </tr>
+      <tr id="g2Address" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Address</td>
+        <td><input size="30" name="[Students]guardian2street" id="guardian2street" value="" type="text" ></td>
+      </tr>
+      <tr id="g2CopyAddr" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td></td>
+        <td>
+          <input name="[Students]guardian2city" value="" id="guardian2city" size="15" type="text" >
+          <input maxlength="2" name="[Students]guardian2state" value="" id="guardian2state" size="2" type="text" >
+          <input name="[Students]guardian2zip" value="" id="guardian2zip" size="10" type="text" >
+        </td>
+      </tr>
+      <tr id="g2HomePhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Home Phone </td>
+        <td><input name="[Students]guardian2homephone" value="" id="guardian2homephone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2homephone)');" ></td>
+      </tr>
+      <tr id="g2CellPhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Cell Phone </td>
+        <td><input name="[Students]guardian2_cell_phone" value="" id="guardian2_cell_phone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2_cell_phone)');" ></td>
+      </tr>
+      <tr id="g2Email" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Email</td>
+        <td><input name="[Students]guardian2email" value="" id="guardian2email" size="30" type="text" ></td>
+      </tr>
+      <tr id="g2Employer" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Employer</td>
+        <td><input size="30" name="[Students]guardian2_employer" value="" id="guardian2_employer" type="text" ></td>
+      </tr>
+      <tr id="g2Occupation" class="row-contacts contacts-guardiansOld contacts-guardian2">
+          <td class="bold">Occupation</td>
+          <td><input size="30" name="[Students]guardian2_occupation" id="[01]guardian2_occupation" value="" type="text" ></td>
+      </tr>
+      <tr id="g2DayPhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Day Phone</td>
+        <td class="bold">
+          <input name="[Students]guardian2dayphone" value="" type="text" id="guardian2dayphone" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2dayphone)');" >
+           Ext.
+          <input size="5" name="[Students]guardian2dayphoneext" value="" type="text" id="guardian2dayphoneext" >
+        </td>
+      </tr>
+      <tr id="tremerg_contact_1" class="row-contacts contacts-ECOld contacts-EC1Old">
+        <td class="bold">Contact's Name</td>
+        <td width="75%"><input name="[Students]emerg_contact_1" type="text" id="emerg_contact_1" value="" size="25" ></td>
+      </tr>
+      <tr id="tremerg_phone_1" class="row-contacts contacts-ECOld contacts-EC1Old">
+        <td class="bold">Contact's Phone</td>
+        <td width="75%"><input name="[Students]emerg_phone_1" type="text" id="emerg_phone_1" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_1)');" ></td>
+      </tr>
+      <tr id="tremerg_1_rel" class="row-contacts contacts-ECOld contacts-EC1Old">
+        <td class="bold">Relation to Student</td>
+        <td width="75%"><select name="[Students]emerg_1_rel" id="emerg_1_rel">
+            <option value=" "></option>
+            <option value="Mother">Mother</option>
+            <option value="Father">Father</option>
+            <option value="Grandmother">Grandmother</option>
+            <option value="Grandfather">Grandfather</option>
+            <option value="Sibling">Sibling</option>
+            <option value="Step-Parent">Step-Parent</option>
+            <option value="Foster-Parent">Foster-Parent</option>
+            <option value="Aunt">Aunt</option>
+            <option value="Uncle">Uncle</option>
+            <option value="Cousin">Cousin</option>
+            <option value="Social Worker">Social Worker</option>
+            <option value="Legal Guardian">Legal Guardian</option>
+            <option value="Self">Self</option>
+            <option value="In-Law">In-Law</option>
+            <option value="Husband">Husband</option>
+            <option value="Wife">Wife</option>
+            <option value="Friend">Friend</option>
+            <option value="Other">Other</option>
+            </select>
+        </td>
+      </tr>
+     <tr id="tremerg_contact_2" class="row-contacts contacts-ECOld contacts-EC2Old">
+         <td class="bold">Contact's Name</td>
+         <td width="75%"><input name="[Students]emerg_contact_2" type="text" id="emerg_contact_2" value="" size="25" ></td>
+     </tr>
+        <tr id="tremerg_phone_2" class="row-contacts contacts-ECOld contacts-EC2Old">
+            <td class="bold">Contact's Phone</td>
+            <td width="75%"><input name="[Students]emerg_phone_2" type="text" id="emerg_phone_2" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_2)');" ></td>
+        </tr>
+      <tr id="tremerg_2_rel" class="row-contacts contacts-ECOld contacts-EC2Old">
+        <td class="bold">Relation to Student</td>
+        <td width="75%"><select name="[Students]emerg_2_rel" id="emerg_2_rel">
+            <option value=" "></option>
+            <option value="Mother">Mother</option>
+            <option value="Father">Father</option>
+            <option value="Grandmother">Grandmother</option>
+            <option value="Grandfather">Grandfather</option>
+            <option value="Sibling">Sibling</option>
+            <option value="Step-Parent">Step-Parent</option>
+            <option value="Foster-Parent">Foster-Parent</option>
+            <option value="Aunt">Aunt</option>
+            <option value="Uncle">Uncle</option>
+            <option value="Cousin">Cousin</option>
+            <option value="Social Worker">Social Worker</option>
+            <option value="Legal Guardian">Legal Guardian</option>
+            <option value="Self">Self</option>
+            <option value="In-Law">In-Law</option>
+            <option value="Husband">Husband</option>
+            <option value="Wife">Wife</option>
+            <option value="Friend">Friend</option>
+            <option value="Other">Other</option>
+            </select>
+        </td>
+      </tr>
+      -->
+    <!--  Custom Fields: 'Ethnicity & Race Info' -->
+      <tr id="trRace_BirthCity" class="row-ethRace ethrace-other"> <!-- DOE008 *Must be converted to town code -->
+        <td class="bold">City/Town of Birth </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]BirthCity" id="fieldBirthCity" value="~(BirthCity)"/></td>
+      </tr>
+      <tr id="trRace_Military" class="row-ethRace ethrace-other"> <!-- DOE029 -->
+        <td class="bold">Family Military Status </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]MilitaryStatus" id="fieldMilitaryStatus" value="~(MilitaryStatus)" readonly /></td>
+      </tr>
+    <!--  Custom Fields: 'Office Data' -->
+      <tr id="trOffice_EntryDate" class="row-office office-general">
+        <td class="bold">District Entry Date </td>
+        <td width="75%"><input type="text" name="[Students]DistrictEntryDate" id="fieldEntryDate" value="~(DistrictEntryDate)" placeholder="~[short.date]"/></td>
+      </tr>
+      <tr id="trOffice_EntryGrade" class="row-office office-general">
+        <td class="bold">District Entry Grade </td> <!-- Auto-formatting makes this want a number, so translating it to K/PK might cause issues?   -->
+        <td width="75%"><input type="text" name="[Students]DistrictEntryGradeLevel" id="fieldEntryGrade" value="~(DistrictEntryGradeLevel)"/></td>
+        <!-- Entry Grade has no ID to link to on target page so linking to Entry Date which is directly above it -->
+      </tr>
+      <tr id="trOffice_SchoolCode" class="row-office office-general">
+        <td class="bold">School Code </td> <!-- DOE015 *code = 0000000[1,2] for SPED (1:gradeLvl >12 or private preschool), (2:homeschooled) -->
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]OverrideSchoolCode" id="fieldSchoolCode" value="~(OverrideSchoolCode)"/></td>
+      </tr>
+      <tr id="trOffice_ELCode" class="row-office office-el">
+        <td class="bold">EL Code </td>
+        <td width="75%"><input type="text" name="[Students.U_Students_Extension]EL" id="fieldELCode" value="~(EL)" placeholder="EL CODE ###..."  readonly /></td>
+      </tr>
+      <tr id="trOffice_FLEPDate" class="row-office office-el">
+        <td class="bold">FLEP Date </td> <!-- BUG: For some reason '~[short.date]' returns 'MM/DD/YYYY' here but gives the actual date in #fieldGradDate (I think because gradDate is a custom value) -->
+        <td width="75%"><input type="text" name="[Students.U_Students_Extension]FLEPDate" id="fieldFLEPDate" value="~(FLEPDate)" placeholder="~[short.date]"  readonly /></td>
+      </tr>
+      <tr id="trOffice_SPEDCode" class="row-office office-sped"> <!-- -->
+        <td class="bold">SPED Code </td>
+        <td width="75%"><input type="text" name="[Students.U_Students_Extension]SPED" id="fieldSPEDCode" value="~(SPED)" placeholder="SPED CODE ###..."/></td>
+      </tr>
+      <tr id="trOffice_504Plan" class="row-office office-sped">
+        <td class="bold">504 Plan </td> <!-- DOE039-->
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_SPED_X]Sec504PlanStatus" id="field504Plan" value="~(Sec504PlanStatus)" readonly /></td>
+      </tr>
+    <!--  Custom Fields: 'Graduation Info' -->
+      <tr id="trGrad_Date" class="row-grad">
+        <td class="bold">Graduation Date </td>
+        <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]Grad_Date" id="fieldGradDate" value="~(Grad_Date)" placeholder="~[short.date]"/></td>
+      </tr>
+      <tr id="trGrad_Cohort" class="row-grad">
+        <td class="bold">DESE Cohort </td>
+        <td width="75%"><input type="text" name="[Students.U_Students_Extension]cohort" id="fieldCohort" value="~(cohort)" placeholder="COHORT #..."/></td>
+      </tr>
+      <tr id="trGrad_Plan" class="row-grad"> <!-- DOE033 *PK-10 = '500', 11/12 = '500' until graduated/receive certificate/complete grade 12 -->
+        <td class="bold">Post-Graduation Plan </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]PostGradPlans" id="fieldGradPlan" value="~(PostGradPlans)" readonly /></td>
+         <!-- DEPENDENCIES: If...
+              ...DOE012(Enrollment) = '04'(Graduate), then DOE033 != '500'(N/A) and DOE037(Core Completion) != '00'(Not a graduate)
+              ...DOE033 does not = '500', then DOE12 must = '04', '10'(Certificate), or '11'(Completed Grade 12) -->
+      </tr>
+      <tr id="trGrad_CoreCompletion" class="row-grad"> <!-- DOE037 *DOE033(GradPlan) dependencies includes all DOE037 dependencies  -->
+        <td class="bold">Massachusetts Core Curriculum Completion </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]GradCompleteCoreCurriculum" id="fieldCoreCompletion" value="~(GradCompleteCoreCurriculum)" readonly /></td>
+      </tr>
+      <!-- Custom Fields: 'Legal Info' -->
+      
+      <tr id="trLegal_FullName" class="row-legal">
+        <td class="bold">Legal Name (Last, First Middle Suffix) </td>
+        <td width="75%">
+          <input type="text" id="fieldLegalLast_temp" name="[Students.StudentCoreFields]PSCore_Legal_Last_Name" value="~(PSCore_Legal_Last_Name)" style="width:35%" placeholder="SMITH..." /> ,
+          <input type="text" id="fieldLegalFirst_temp" name="[Students.StudentCoreFields]PSCore_Legal_First_Name" value="~(PSCore_Legal_First_Name)" style="width:35%" placeholder="JOHN..." />
+          <input type="text" id="fieldLegalMiddle_temp" name="[Students.StudentCoreFields]PSCore_Legal_Middle_Name" value="~(PSCore_Legal_Middle_Name)" style="width:15%" placeholder="WILLIAM..." />
+          <input type="text" id="fieldLegalSuffix_temp" name="[Students.StudentCoreFields]PSCore_Legal_Suffix" value="~(PSCore_Legal_Suffix)" style="width:15%" placeholder="Sr., Jr., III, etc..." />
+          <button type="button" onclick="StudentCoreLegalModule.copyToLegalNameFields('lastName', 'firstName', 'middleName', 'fieldLegalLast_temp', 'fieldLegalFirst_temp', 'fieldLegalMiddle_temp', 'fieldLegalSuffix_temp');">Copy</button>
+        </td>
+      </tr>
+      <tr id="trLegal_Gender" class="row-legal">
+        <td class="bold">Legal Gender </td>
+        <td width="75%"><input type="text" name="[Students]Gender" id="fieldLegalGender" value="~(gender)"/></td>
+      </tr>
+    <!-- Custom Fields: 'Other' (LPS)  -->
+      <tr id="trOther_NCLB" class="row-other other-lps"> <!-- DOE020(?) *DOE020 is for 'Title 1 participation type', this is 'Title 1 School Choice status'. Don't know what the difference is. -->
+        <td class="bold">NCLB/Title 1 School Choice </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_SIMS_X]Title1SchoolChoice" id="fieldNCLB" value="~(Title1SchoolChoice)"/></td>
+      </tr>
+      <tr id="trOther_FirstYearEL" class="row-other other-lps"> <!-- DOE021 *DEPENDENCIES: Students with Grade Level(DOE016) = 'PK' or 'SP' should be given '00'(N/A)-->
+        <td class="bold">First Year English Learner </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LEP1stYrInUS" id="fieldFirstYearEL" value="~(LEP1stYrInUS)" readonly /></td>
+      </tr>
+      <tr id="trOther_IsEL" class="row-other other-lps"> <!-- DOE025 *DEPENDENCIES: If DOE025 = '01'(yes_EL) then DOE024(Native Language) != '267'(English) -->
+        <td class="bold">English Learner </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LimitedEnglishProficiency" id="fieldIsEL" value="~(LimitedEnglishProficiency)" readonly /></td>
+      </tr>
+      <tr id="trOther_ELStatus" class="row-other other-lps"> <!-- DOE026 *DEPENDENCIES: If DOE026 != '00'(Not Enrolled) then DOE025(isEL) = '01'(yes_EL)-->
+        <td class="bold">EL Program Status </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]LEPProgramStatus" id="fieldELStatus" value="~(LEPProgramStatus)" readonly /></td>
+      </tr>
+      <tr id="trOther_SASID" class="row-other other-lps"> <!-- DOE002 *10 digits long, -->
+        <td class="bold">State Assigned Student Identifier (SASID) </td>
+        <td width="75%"><input type="text" name="[Students]State_StudentNumber" id="fieldSASID" value="~(State_StudentNumber)" readonly /></td>
+      </tr>
+      <tr id="trOther_IsImmigrant" class="row-other other-lps"> <!-- DOE022 *DEPENDENCIES: If DOE022 = '01'(yes_immigrant) then DOE023(Origin Country) != '500'(not an immigrant) -->
+        <td class="bold">Immigrant </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]ImmigrantStatus" id="fieldImmigrantStatus" value="~(ImmigrantStatus)" readonly /></td>
+      </tr>
+      <tr id="trOther_EnrollmentStatus" class="row-other other-lps"> <!-- DOE012 *DEPENDENCIES: Students reported with a code of 04 must be in grades 11, 12 or SP. See DOE033/Appendix I(in doc) for more -->
+        <td class="bold">Enrollment Status </td>
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_X]EnrollStatusTimeOfCollection" id="fieldEnrollmentStatus" value="~(EnrollStatusTimeOfCollection)" readonly /></td>
+      </tr>
+      <tr id="trOther_TransferFrom" class="row-other other-lps">
+        <td class="bold">Transferring from </td>
+        <td width="75%"><input type="text" id="fieldTransferFrom" value="" size="17" placeholder="SCHOOL NAME"/></td>
+      </tr>
+      <tr id="trOther_BirthState" class="row-other other-lps">
+        <td class="bold">Birth State </td>
+        <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]MA_BirthState" id="fieldBirthState" value="~(MA_BirthState)"/></td>
+      </tr>
+      <tr id="trOther_OriginCountry" class="row-other other-lps"> <!-- DOE023 *Surely there's a better way to do this than list every country here -->
+        <td class="bold">Country of Origin </td> <!-- value="500" > not an immigrant student (US Origin) -->
+        <td width="75%"><input type="text" name="[Students.S_MA_STU_Demographic_X]CountryOfOrigin" id="fieldOriginCountry" value="~(CountryOfOrigin)" readonly /></td>
+      </tr>
+      <tr id="trOther_TeamFlag" class="row-other other-lps">
+        <td class="bold">Team Flag </td>
+        <td width="75%"><input type="text" name="[Students.U_StudentsUserFields]TeamFlag" id="fieldTeamFlag" value="~(TeamFlag)"  placeholder="TEAM FLAG..."/></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!--
+    Copying Contacts page source and displaying it in Demographics 'Contacts' section.
+    -Omitted <script> code from Contacts that is not relevant to Demographics
+    -Removed unnecessary form elements (Add/Delete/Edit)
+    -Assuming Contacts form was properly validated when filled out, simply retrieve & display data
+  -->
+  <!-- Start of Content & Bounding box <div controller = "studentPageContactsController"> : *Required* - used by Angular -->
+  <div class="box-round" data-ng-controller="studentPageContactsController"
+       data-require-path="components/contacts/index,components/widgets/dirtyInputHelper/index"
+       data-module-name="contactsModule" data-ng-cloak id="demoContactsTable">
+    <!-- Start of <div controller = "contactStudentController"> : Context container for Contacts table -->
+    <div data-ng-controller="contactStudentController">
+      <p class="feedback-info" data-ng-if="!context.contacts.length" >This student does not have any associated contacts.</p>
+    <p><i>(To add/edit; visit <u>Contacts</u> on the Menu to the left, or click on the name of the contact you wish to edit.)</i></p>
+      <!--============================================|STUDENT_CONTACTS_TABLE|============================================-->
+      <table id="studentContactsTable" class="grid" data-ng-if="context.contacts.length" >
+        <colgroup>
+     <!-- <col style="width: auto"> - Removed -->
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+          <col style="width: auto">
+     <!-- <col style="width: 1%"> - Removed -->
+        </colgroup>
+        <tr>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.name_email]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.relationship]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.phone_type]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.phone]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.address]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.custody]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.lives_with]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.school_pickup]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.emergency_contact]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.original_contact_type]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.start_date]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.end_date]</th>
+          <th>~[text:psx.html.admin_students.unlimitedcontacts.data_access]</th>
+        </tr>
+        <!-- Uses AngularJS to create <tr> element for each contact -->
+        <tr data-ng-repeat="contact in context.contacts | filter: !context.showAllStudentContacts ? {contactStudents: {current: true}} : {} |
+            orderBy:'contactStudents[0].sequence'"
+            class="center" data-ng-style="!contact.contactStudents[0].current && {'font-style':'italic'}">
+          <!-- ~ "Order" column has been removed for demographics ~ -->
+          <!-- "Name / Email" : Contact's full name + email address  -->
+          <td class="nowrap left" >
+
+            <!--============================================|LINK TO "EDIT_CONTACTS" PAGE : BOOKMARKING FOR LATER|============================================-->
+            <!-- Has Name: let FLS do it's thing -->
+            <a data-ng-href="/admin/contacts/edit.html#?contactid={{contact.contactId}}" target="_blank" data-ng-if="contact.firstName || contact.lastName">
+              <span id="contact-first-name-{{$index}}" data-ng-bind="contact.firstName" ></span>
+              <span id="contact-last-name-{{$index}}" data-ng-bind="contact.lastName" ></span>
+            </a>
+            <!--============================================|LINK TO "EDIT_CONTACTS" PAGE : BOOKMARKING FOR LATER|============================================-->
+
+            <span data-ng-if="!contact.firstName && !contact.lastName">
+              <!-- No Name: distinguish between no access and some access -->
+              ~[if#FNACCESS.security.fieldLevel=PERSON.FIRSTNAME=NOACCESS]
+                ~[if#LNACCESS.security.fieldLevel=PERSON.LASTNAME=NOACCESS]
+                  <!-- No Access: print fls mask with out anchor-->
+                  <span>~[text:psx.html.admin_students.unlimitedcontacts.fls_mask]</span>
+                [else#LNACCESS]
+                  <!-- Some Access: print no name with anchor -->
+                  <a data-ng-href="/admin/contacts/edit.html#?contactid={{contact.contactId}}" target="_blank">
+                    ~[text:psx.html.admin_students.unlimitedcontacts.no_name]{{contact.contactId}}
+                  </a>
+                [/if#LNACCESS]
+              [else#FNACCESS]
+                <!-- Some Access: print no name with anchor -->
+                <a data-ng-href="/admin/contacts/edit.html#?contactid={{contact.contactId}}" target="_blank">
+                  ~[text:psx.html.admin_students.unlimitedcontacts.no_name]{{contact.contactId}}
+                </a>
+              [/if#FNACCESS]
+            </span>
+            <br />
+            <input id="personemailaddressassocid-{{$index}}" name="personemailaddressassocid[{{$index}}]" type="hidden" value="{{contact.view.preferredEmail.contactEmailId}}">
+            <input id="emailaddresid-{{$index}}" name="emailaddressid[{{$index}}]" type="hidden" value="{{contact.view.preferredEmail.emailId}}">
+            <span id="contact-email-{{$index}}" data-ng-if="contact.view.preferredEmail.address" data-ng-bind="'<' + contact.view.preferredEmail.address + '>'" ></span>
+          </td>
+          <!-- "Relationship" : How Contact is related to Student -->
+          <td>
+            <span id="contact-relationshiptype-{{$index}}" data-ng-bind="relationshipTypeCodeSetLookup[contact.contactStudents[0].activeDetail.relationship].value" ></span>
+          </td>
+          <!-- "Phone Type" : Mobile, Home, Work... -->
+          <td>
+            <span id="contact-phonetype-{{$index}}" data-ng-bind="phoneTypeCodeSetLookup[contact.view.firstPhone.phoneType].value" ></span>
+          </td>
+          <!-- "Phone" : Phone number for Contact -->
+          <td class="nowrap">
+            <span id="contact-phone-{{$index}}" data-ng-bind="contact.view.firstPhone.phoneNumber" ></span>
+            <span id="contact-phoneext-{{$index}}" data-ng-bind="contact.view.firstPhone.extension !== '' && contact.view.firstPhone.extension != null ?
+                  ' x' + contact.view.firstPhone.extension : ''" ></span>
+          </td>
+          <!-- "Address" : Home Address of Contact -->
+          <td class="nowrap left" >
+            <div id="contact-physical-address-{{$index}}">
+              <span data-ng-bind="contact.view.firstAddress.street" ></span>
+              <span data-ng-if="contact.view.firstAddress.unit.length" data-ng-bind="' ' + contact.view.firstAddress.unit"></span>
+              <br/>
+              <div data-ng-if="contact.view.firstAddress.linetwo.length">
+                <span data-ng-bind="contact.view.firstAddress.linetwo" ></span>
+                <br/>
+              </div>
+              <div data-ng-if="contact.view.firstAddress.city || stateCodesetDisplayMap[contact.view.firstAddress.state].code || contact.view.firstAddress.postalcode">
+                <!-- only append comma if both city and state are present. -->
+                <span data-ng-if="contact.view.firstAddress.city && stateCodesetDisplayMap[contact.view.firstAddress.state].code">
+                  <span data-ng-bind="contact.view.firstAddress.city"></span>,
+                </span>
+                <span data-ng-if="!contact.view.firstAddress.city || !stateCodesetDisplayMap[contact.view.firstAddress.state].code">
+                  <span data-ng-bind="contact.view.firstAddress.city"></span>
+                </span>
+                <span data-ng-bind="stateCodesetDisplayMap[contact.view.firstAddress.state].code"></span>
+                <span data-ng-bind="contact.view.firstAddress.postalcode"></span>
+              </div>
+            </div>
+            <input id="personaddressassocid-{{$index}}" name="personaddressassocid[{{$index}}]" type="hidden" value="{{contact.view.firstAddress.contactsAddressId}}">
+            <input id="personaddresid-{{$index}}" name="personaddressid[{{$index}}]" type="hidden" value="{{contact.view.firstAddress.addressId}}">
+          </td>
+          <!-- "Custody" : Does Contact have legal Custody? [x] => Y, [ ] => N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.custodial}">
+            <center><em id="contact-custody-{{$index}}"></em></center>
+          </td>
+          <!-- "Lives With" : Does Student currently live with Contact? [ ] => Y, [ ] => N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.livesWith}">
+            <center><em id="contact-livesWith-{{$index}}"></em></center>
+          </td>
+          <!--
+            "School Pickup" : Is Contact allowed(?) to pickup Student from school? [ ] = Y, [x] = N
+             -I assume since no flags are set that it only gets set if there is an issue
+          -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.schoolPickup}">
+            <center><em id="contact-schoolPickup-{{$index}}"></em></center>
+          </td>
+          <!-- "Emerg. Contact" : Is Contact an Emerg. Contact? [x] = Y, [ ] = N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].activeDetail.emergency}">
+            <center><em id="contact-emergency-{{$index}}"></em></center>
+          </td>
+          <!-- "Original Contact Type" column : Idk what this is for but it does what it says -->
+          <td>
+            <span id="contact-originalcontacttype-{{$index}}" data-ng-bind="contact.contactStudents[0].originalContactType.value"
+                  name="relationship-originalcontacttype-display-{{$index}}" ></span>
+          </td>
+          <!-- "Start Date" : Field is empty for most Contacts, presumably for temp Contacts -->
+          <td>
+            <span id="contact-startDate-{{$index}}" data-ng-bind="localizedDate(contact.contactStudents[0].activeDetail.startDate)"></span>
+          </td>
+          <!-- "End Date" : Field is empty for most Contacts, presumably for temp Contacts -->
+          <td>
+            <span id="contact-endDate-{{$index}}" data-ng-bind="localizedDate(contact.contactStudents[0].activeDetail.endDate)"></span>
+          </td>
+          <!-- "Data Access" : Does Contact have access Student data? [x] => Y, [ ] => N -->
+          <td data-ng-class="{'checkmark-icon': contact.contactStudents[0].canAccessData}">
+            <center><em id="contact-data-access-{{$index}}" ></em></center>
+          </td>
+          <!-- ~ "Actions" column has been removed for demographics ~ -->
+        </tr>
+      </table>
+      <!--============================================|STUDENT_CONTACTS_TABLE_END|============================================-->
+    </div>
+    <script>  var _curSchoolNumber = ~(curschoolid); </script>
+    <div class="hidden">
+      <input id="studentDcid" type="hidden" value="~(rn)" />
+      <input id="schoolId" type="hidden" value="~(OverrideSchoolCode)" />
+      <input id="studentNumber" type="hidden" value="~(rn)" />
+    </div>
+  </div>
+
+  <!-- Comment Form -->
+  <div class="box-round" id="demoComments">
+     ~[tlist_child:STUDENTS.U_COMMENT.U_COMMENT;displaycols:COMMENT_DATE,COMMENT_REASON,COMMENT_PERSON,COMMENT_COMMENT;fieldNames:Date of Comment,Reason for Comment,Person Making Change,Comment;type:html]
+    <script type="text/javascript">
+        var InstValues= [];
+        InstValues.push([' ','']);
+        InstValues.push(['REG','Registration']);
+        InstValues.push(['COA','Change of Address']);
+        InstValues.push(['PCU','Program Code Updates']);
+        InstValues.push(['HOME','Homeless']);
+        InstValues.push(['TF','TransferFrom-Original']);
+        InstValues.push(['WD','Withdrawal']);
+        InstValues.push(['GC','Grade Change']);
+        InstValues.push(['RE','Re-Engaged']);
+        InstValues.push(['Other','Other']);
+        tlistText2DropDownValNamePair('COMMENT_REASON',InstValues);
+    </script>
+        <!-- <div class="button-row"><input type="hidden" name="ac" value="prim">~[submitbutton]</div> -->
+    </div>
+
 </div>
-<script type="text/javascript">
-
-    function AddGDfields(){
-    $j("input#fieldHomePhone").parent().parent().after($j("tr#trfieldStudent_Personalemail"))
-    $j("input#fieldHomePhone").parent().parent().after($j("tr#trfieldStudent_Mobile"))
-    
-    $j("div#LPS-GDCustomhiddentable").remove();
-    }
-
-        $j(document).ready(AddGDfields);
-
-</script>

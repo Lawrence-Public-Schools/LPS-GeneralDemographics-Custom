@@ -1,0 +1,6 @@
+<script type="text/javascript">
+$j(document).ready(function() {
+    var originalGD = $j( "ul#std_information > li > a[href^='generaldemographics.html?frn=']" );
+    originalGD.replaceWith( $j('<a class="LPSGDC" href="generaldemographics.html?frn=~(studentfrn)">Demographics - Updated &tilde;</a>') );
+});
+</script>
