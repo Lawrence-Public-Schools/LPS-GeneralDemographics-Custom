@@ -4,7 +4,6 @@ $j(document).ready(function() {
   if ( $j(".collapseHeader").length < 1 ) { makeCollapsible() }
 
   $j( "#LPS-GDCustomhiddentable" ).remove(); /* Remove hidden LPSGDC templates */
-
   
   window.setTimeout(addLegalandDOB, 3000);
 
