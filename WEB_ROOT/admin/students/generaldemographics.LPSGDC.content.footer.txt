@@ -328,7 +328,7 @@
       </tr>
       <tr id="trOffice_ELCode" class="row-office office-el">
         <td class="bold">EL Code </td>
-        <td width="75%"><input type="text" name="[students.U_Students_Extension]EL" id="fieldELCode" value="~(EL)" placeholder="EL CODE ###..."  readonly /></td>
+        <td width="75%"><input type="text" name="[Students.U_Students_Extension]EL" id="fieldELCode" value="~(EL)" placeholder="EL CODE ###..."  readonly /></td>
       </tr>
       <tr id="trOffice_FLEPDate" class="row-office office-el">
         <td class="bold">FLEP Date </td> <!-- BUG: For some reason '~[short.date]' returns 'MM/DD/YYYY' here but gives the actual date in #fieldGradDate (I think because gradDate is a custom value) -->
@@ -602,5 +602,24 @@
     </div>
   </div>
 
+  <!-- Comment Form -->
+  <div class="box-round" id="demoComments">
+     ~[tlist_child:STUDENTS.U_COMMENT.U_COMMENT;displaycols:COMMENT_DATE,COMMENT_REASON,COMMENT_PERSON,COMMENT_COMMENT;fieldNames:Date of Comment,Reason for Comment,Person Making Change,Comment;type:html]
+    <script type="text/javascript">
+        var InstValues= [];
+        InstValues.push([' ','']);
+        InstValues.push(['REG','Registration']);
+        InstValues.push(['COA','Change of Address']);
+        InstValues.push(['PCU','Program Code Updates']);
+        InstValues.push(['HOME','Homeless']);
+        InstValues.push(['TF','TransferFrom-Original']);
+        InstValues.push(['WD','Withdrawal']);
+        InstValues.push(['GC','Grade Change']);
+        InstValues.push(['RE','Re-Engaged']);
+        InstValues.push(['Other','Other']);
+        tlistText2DropDownValNamePair('COMMENT_REASON',InstValues);
+    </script>
+        <!-- <div class="button-row"><input type="hidden" name="ac" value="prim">~[submitbutton]</div> -->
+    </div>
 
 </div>
