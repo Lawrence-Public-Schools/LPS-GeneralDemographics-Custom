@@ -325,7 +325,7 @@
       </tr>
       <tr id="trOffice_ELCode" class="row-office office-el">
         <td class="bold">EL Code </td>
-        <td width="75%"><input type="text" name="[Students.U_Students_Extension]EL" id="fieldELCode" value="~(EL)" placeholder="EL CODE ###..."  readonly /></td>
+        <td width="75%"><input type="text" name="[students.U_Students_Extension]EL" id="fieldELCode" value="~(EL)" placeholder="EL CODE ###..."  readonly /></td>
       </tr>
       <tr id="trOffice_FLEPDate" class="row-office office-el">
         <td class="bold">FLEP Date </td> <!-- BUG: For some reason '~[short.date]' returns 'MM/DD/YYYY' here but gives the actual date in #fieldGradDate (I think because gradDate is a custom value) -->
