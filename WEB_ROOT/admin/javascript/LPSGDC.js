@@ -152,6 +152,9 @@ function LPSGDRestyle() {
   /* Remove Original Table */
   $j("#StudentSection").unwrap().unwrap();
   $j("#StudentSection").prev("colgroup").remove();
+  /* remove old parents */
+  $j("#ContactsSection").remove();
+  $j("#StudentSection").next().remove();
 }
 
 /* Add collapsible headers + activate navBar */
