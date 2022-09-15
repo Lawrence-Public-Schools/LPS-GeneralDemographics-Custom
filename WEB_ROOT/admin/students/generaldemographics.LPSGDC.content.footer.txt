@@ -62,6 +62,247 @@
            readonly />
         </td>
       </tr>
+    <!-- Custom Fields: 'Contacts' -->
+   <!--
+    <tr style="vertical-align: bottom;" id="trContactsLivesWith" class="row-contacts contacts-guardiansOld">
+        <td class="bold">Lives with</td>
+        <td>
+          Guardian 1: <input name="[Students]guardian_lives_with" value="1" type="radio">
+          Guardian 2: <input name="[Students]guardian_lives_with" value="2" type="radio">
+        </td>
+      </tr>
+      <tr style="vertical-align: top;" id="g1Header" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td colspan="2" class="bold" align="center">Guardian 1's Information </td>
+      </tr>
+      
+      <tr id="g1Relation" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Relationship</td>
+        <td><select name="[Students]guardian_relationship" id="guardian_relationship" >
+          <option value=" "></option>
+          <option value="Mother">Mother</option>
+          <option value="Father">Father</option>
+          <option value="Grandmother">Grandmother</option>
+          <option value="Grandfather">Grandfather</option>
+          <option value="Sibling">Sibling</option>
+          <option value="Step-Parent">Step-Parent</option>
+          <option value="Foster-Parent">Foster-Parent</option>
+          <option value="Aunt">Aunt</option>
+          <option value="Uncle">Uncle</option>
+          <option value="Cousin">Cousin</option>
+          <option value="Social Worker">Social Worker</option>
+          <option value="Legal Guardian">Legal Guardian</option>
+          <option value="Self">Self</option>
+          <option value="In-Law">In-Law</option>
+          <option value="Husband">Husband</option>
+          <option value="Wife">Wife</option>
+          <option value="Friend">Friend</option>
+          <option value="GAL">GAL</option>
+          <option value="Other">Other</option>
+        </select></td>
+      </tr>
+      <tr id="g1FullName" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Last Name, First Name</td>
+        <td>
+          <select name="[Students]guardian_title" id="guardian_title">
+            <option value=""></option>
+            <option value="Ms">Ms</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Miss">Miss</option>
+            <option value="Mr">Mr</option>
+            <option value="Dr">Dr</option>
+          </select>
+          <input name="[Students]guardian_LN" id="guardian_LN" value="" type="text" >
+          <input name="[Students]guardian_FN" id="guardian_FN" value="" type="text" >
+        </td>
+      </tr>
+      <tr id="g1Address" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Address</td>
+        <td><input size="30" name="[Students]guardianstreet" id="guardianstreet" value="" type="text" ></td>
+      </tr>
+      <tr id="g1CopyAddr" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td></td>
+        <td>
+          <input name="[Students]guardiancity" id="guardiancity" size="15" value="" type="text" >
+          <input maxlength="2" name="[Students]guardianstate" id="guardianstate" size="2" value="" type="text" >
+          <input name="[Students]guardianzip" value="" id="guardianzip" size="10" type="text" >
+        </td>
+      </tr>
+      <tr id="g1HomePhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Home Phone </td>
+        <td><input name="[Students]guardianhomephone" value="" id="guardianhomephone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardianhomephone)');" ></td>
+      </tr>
+      <tr id="g1CellPhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Cell Phone </td>
+        <td><input name="[Students]guardian_cell_phone" value="" id="guardian_cell_phone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian_cell_phone)');" ></td>
+      </tr>
+      <tr id="g1Email" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Email</td>
+        <td><input name="[Students]guardianemail" value="" size="30" id="guardianemail" type="text" ></td>
+      </tr>
+      <tr id="g1Employe" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Employer</td>
+        <td> <input size="30" name="[Students]guardian_employer" value="" id="guardian_employer" type="text" > </td>
+      </tr>
+      <tr id="g1Occupation" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Occupation</td>
+        <td><input size="30" name="[Students]guardian_occupation" id="guardian_occupation" value="" type="text" ></td>
+      </tr>
+      <tr id="g1DayPhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
+        <td class="bold">Day Phone</td>
+        <td class="bold">
+          <input name="[Students]guardiandayphone" value="" type="text" id="guardiandayphone" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardiandayphone)');" >
+          Ext.
+          <input size="5" name="[Students]guardiandayphoneext" value="" type="text" id="guardiandayphoneext" >
+        </td>
+      </tr>
+      <tr style="vertical-align: top;" id="g2Header" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td colspan="2" class="bold" align="center">Guardian 2's Information </td>
+      </tr>
+      <tr id="g2Relation" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Relationship</td>
+        <td><select name="[Students]guardian2_relationship" id="guardian2_relationship">
+          <option value=" "></option>
+          <option value="Mother">Mother</option>
+          <option value="Father">Father</option>
+          <option value="Grandmother">Grandmother</option>
+          <option value="Grandfather">Grandfather</option>
+          <option value="Sibling">Sibling</option>
+          <option value="Step-Parent">Step-Parent</option>
+          <option value="Foster-Parent">Foster-Parent</option>
+          <option value="Aunt">Aunt</option>
+          <option value="Uncle">Uncle</option>
+          <option value="Cousin">Cousin</option>
+          <option value="Social Worker">Social Worker</option>
+          <option value="Legal Guardian">Legal Guardian</option>
+          <option value="Self">Self</option>
+          <option value="In-Law">In-Law</option>
+          <option value="Husband">Husband</option>
+          <option value="Wife">Wife</option>
+          <option value="Friend">Friend</option>
+          <option value="GAL">GAL</option>
+          <option value="Other">Other</option>
+        </select></td>
+      </tr>
+      <tr id="g2FullName" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Last Name, First Name</td>
+        <td><select name="[Students]guardian2_title" id="guardian2_title">
+          <option value=""></option>
+          <option value="Ms">Ms</option>
+          <option value="Mrs">Mrs</option>
+          <option value="Miss">Miss</option>
+          <option value="Mr">Mr</option>
+          <option value="Dr">Dr</option>
+        </select>
+        <input name="[Students]guardian2_LN" id="guardian2_LN" type="text" value=""> <input name="[Students]guardian2_FN" id="guardian2_FN" type="text" value="" >
+        </td>
+      </tr>
+      <tr id="g2Address" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Address</td>
+        <td><input size="30" name="[Students]guardian2street" id="guardian2street" value="" type="text" ></td>
+      </tr>
+      <tr id="g2CopyAddr" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td></td>
+        <td>
+          <input name="[Students]guardian2city" value="" id="guardian2city" size="15" type="text" >
+          <input maxlength="2" name="[Students]guardian2state" value="" id="guardian2state" size="2" type="text" >
+          <input name="[Students]guardian2zip" value="" id="guardian2zip" size="10" type="text" >
+        </td>
+      </tr>
+      <tr id="g2HomePhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Home Phone </td>
+        <td><input name="[Students]guardian2homephone" value="" id="guardian2homephone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2homephone)');" ></td>
+      </tr>
+      <tr id="g2CellPhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Cell Phone </td>
+        <td><input name="[Students]guardian2_cell_phone" value="" id="guardian2_cell_phone" type="text" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2_cell_phone)');" ></td>
+      </tr>
+      <tr id="g2Email" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Email</td>
+        <td><input name="[Students]guardian2email" value="" id="guardian2email" size="30" type="text" ></td>
+      </tr>
+      <tr id="g2Employer" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Employer</td>
+        <td><input size="30" name="[Students]guardian2_employer" value="" id="guardian2_employer" type="text" ></td>
+      </tr>
+      <tr id="g2Occupation" class="row-contacts contacts-guardiansOld contacts-guardian2">
+          <td class="bold">Occupation</td>
+          <td><input size="30" name="[Students]guardian2_occupation" id="[01]guardian2_occupation" value="" type="text" ></td>
+      </tr>
+      <tr id="g2DayPhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
+        <td class="bold">Day Phone</td>
+        <td class="bold">
+          <input name="[Students]guardian2dayphone" value="" type="text" id="guardian2dayphone" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]guardian2dayphone)');" >
+           Ext.
+          <input size="5" name="[Students]guardian2dayphoneext" value="" type="text" id="guardian2dayphoneext" >
+        </td>
+      </tr>
+      <tr id="tremerg_contact_1" class="row-contacts contacts-ECOld contacts-EC1Old">
+        <td class="bold">Contact's Name</td>
+        <td width="75%"><input name="[Students]emerg_contact_1" type="text" id="emerg_contact_1" value="" size="25" ></td>
+      </tr>
+      <tr id="tremerg_phone_1" class="row-contacts contacts-ECOld contacts-EC1Old">
+        <td class="bold">Contact's Phone</td>
+        <td width="75%"><input name="[Students]emerg_phone_1" type="text" id="emerg_phone_1" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_1)');" ></td>
+      </tr>
+      <tr id="tremerg_1_rel" class="row-contacts contacts-ECOld contacts-EC1Old">
+        <td class="bold">Relation to Student</td>
+        <td width="75%"><select name="[Students]emerg_1_rel" id="emerg_1_rel">
+            <option value=" "></option>
+            <option value="Mother">Mother</option>
+            <option value="Father">Father</option>
+            <option value="Grandmother">Grandmother</option>
+            <option value="Grandfather">Grandfather</option>
+            <option value="Sibling">Sibling</option>
+            <option value="Step-Parent">Step-Parent</option>
+            <option value="Foster-Parent">Foster-Parent</option>
+            <option value="Aunt">Aunt</option>
+            <option value="Uncle">Uncle</option>
+            <option value="Cousin">Cousin</option>
+            <option value="Social Worker">Social Worker</option>
+            <option value="Legal Guardian">Legal Guardian</option>
+            <option value="Self">Self</option>
+            <option value="In-Law">In-Law</option>
+            <option value="Husband">Husband</option>
+            <option value="Wife">Wife</option>
+            <option value="Friend">Friend</option>
+            <option value="Other">Other</option>
+            </select>
+        </td>
+      </tr>
+     <tr id="tremerg_contact_2" class="row-contacts contacts-ECOld contacts-EC2Old">
+         <td class="bold">Contact's Name</td>
+         <td width="75%"><input name="[Students]emerg_contact_2" type="text" id="emerg_contact_2" value="" size="25" ></td>
+     </tr>
+        <tr id="tremerg_phone_2" class="row-contacts contacts-ECOld contacts-EC2Old">
+            <td class="bold">Contact's Phone</td>
+            <td width="75%"><input name="[Students]emerg_phone_2" type="text" id="emerg_phone_2" value="" size="17" onChange="ValidatePhoneNumber('~(JSFieldParam;[01]emerg_phone_2)');" ></td>
+        </tr>
+      <tr id="tremerg_2_rel" class="row-contacts contacts-ECOld contacts-EC2Old">
+        <td class="bold">Relation to Student</td>
+        <td width="75%"><select name="[Students]emerg_2_rel" id="emerg_2_rel">
+            <option value=" "></option>
+            <option value="Mother">Mother</option>
+            <option value="Father">Father</option>
+            <option value="Grandmother">Grandmother</option>
+            <option value="Grandfather">Grandfather</option>
+            <option value="Sibling">Sibling</option>
+            <option value="Step-Parent">Step-Parent</option>
+            <option value="Foster-Parent">Foster-Parent</option>
+            <option value="Aunt">Aunt</option>
+            <option value="Uncle">Uncle</option>
+            <option value="Cousin">Cousin</option>
+            <option value="Social Worker">Social Worker</option>
+            <option value="Legal Guardian">Legal Guardian</option>
+            <option value="Self">Self</option>
+            <option value="In-Law">In-Law</option>
+            <option value="Husband">Husband</option>
+            <option value="Wife">Wife</option>
+            <option value="Friend">Friend</option>
+            <option value="Other">Other</option>
+            </select>
+        </td>
+      </tr>
+      -->
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
       <tr id="trRace_BirthCity" class="row-ethRace ethrace-other"> <!-- DOE008 *Must be converted to town code -->
         <td class="bold">City/Town of Birth </td>
