@@ -66,7 +66,7 @@
     <tr style="vertical-align: bottom;" id="trContactsLivesWith" class="row-contacts contacts-guardiansOld">
         <td class="bold">Lives with</td>
         <td>
-          ~([01]guardian_lives_with)
+          ~([Students]guardian_lives_with)
         </td>
       </tr>
       <tr style="vertical-align: top;" id="g1Header" class="row-contacts contacts-guardiansOld contacts-guardian1">
@@ -74,54 +74,54 @@
       </tr>
       <tr id="g1Relation" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Relationship</td>
-        <td>~([01]guardian_relationship)</td>
+        <td>~([Students]guardian_relationship)</td>
       </tr>
       <tr id="g1FullName" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Last Name, First Name</td>
         <td>
-          ~([01]guardian_title)
-          ~([01]guardian_LN)
-          ~([01]guardian_FN)
+          ~([Students]guardian_title)
+          ~([Students]guardian_LN)
+          ~([Students]guardian_FN)
         </td>
       </tr>
       <tr id="g1Address" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Address</td>
-        <td>~([01]guardianstreet)</td>
+        <td>~([Students]guardianstreet)</td>
       </tr>
       <tr id="g1CopyAddr" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">City, State, Zip</td>
         <td>
-          ~([01]guardiancity)
-          ~([01]guardianstate)
-          ~([01]guardianzip)
+          ~([Students]guardiancity)
+          ~([Students]guardianstate)
+          ~([Students]guardianzip)
         </td>
       </tr>
       <tr id="g1HomePhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Home Phone </td>
-        <td>~([01]guardianhomephone)</td>
+        <td>~([Students]guardianhomephone)</td>
       </tr>
       <tr id="g1CellPhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Cell Phone </td>
-        <td>~([01]guardian_cell_phone)</td>
+        <td>~([Students]guardian_cell_phone)</td>
       </tr>
       <tr id="g1Email" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Email</td>
-        <td>~([01]guardianemail)</td>
+        <td>~([Students]guardianemail)</td>
       </tr>
       <tr id="g1Employe" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Employer</td>
-        <td>~([01]guardian_employer)</td>
+        <td>~([Students]guardian_employer)</td>
       </tr>
       <tr id="g1Occupation" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Occupation</td>
-        <td>~([01]guardian_occupation)</td>
+        <td>~([Students]guardian_occupation)</td>
       </tr>
       <tr id="g1DayPhone" class="row-contacts contacts-guardiansOld contacts-guardian1">
         <td class="bold">Day Phone</td>
         <td>
-          ~([01]guardiandayphone)
+          ~([Students]guardiandayphone)
           Ext.
-          ~([01]guardiandayphoneext)
+          ~([Students]guardiandayphoneext)
         </td>
       </tr>
       <tr style="vertical-align: top;" id="g2Header" class="row-contacts contacts-guardiansOld contacts-guardian2">
@@ -129,124 +129,124 @@
       </tr>
       <tr id="g2Relation" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Relationship</td>
-        <td>~([01]guardian2_relationship)</td>
+        <td>~([Students]guardian2_relationship)</td>
       </tr>
       <tr id="g2FullName" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Last Name, First Name</td>
-        <td>~([01]guardian2_title)
-        ~([01]guardian2_LN)
-        ~([01]guardian2_FN)
+        <td>~([Students]guardian2_title)
+        ~([Students]guardian2_LN)
+        ~([Students]guardian2_FN)
         </td>
       </tr>
       <tr id="g2Address" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Address</td>
-        <td>~([01]guardian2street)</td>
+        <td>~([Students]guardian2street)</td>
       </tr>
       <tr id="g2CopyAddr" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">City, State, Zip</td>
         <td>
-          ~([01]guardian2city)
-          ~([01]guardian2state)
-          ~([01]guardian2zip)
+          ~([Students]guardian2city)
+          ~([Students]guardian2state)
+          ~([Students]guardian2zip)
         </td>
       </tr>
       <tr id="g2HomePhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Home Phone </td>
-        <td>~([01]guardian2homephone)</td>
+        <td>~([Students]guardian2homephone)</td>
       </tr>
       <tr id="g2CellPhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Cell Phone </td>
-        <td>~([01]guardian2_cell_phone)</td>
+        <td>~([Students]guardian2_cell_phone)</td>
       </tr>
       <tr id="g2Email" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Email</td>
-        <td>~([01]guardian2email)</td>
+        <td>~([Students]guardian2email)</td>
       </tr>
       <tr id="g2Employer" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Employer</td>
-        <td>~([01]guardian2_employer)</td>
+        <td>~([Students]guardian2_employer)</td>
       </tr>
       <tr id="g2Occupation" class="row-contacts contacts-guardiansOld contacts-guardian2">
           <td class="bold">Occupation</td>
-          <td>~([01]guardian2_occupation)</td>
+          <td>~([Students]guardian2_occupation)</td>
       </tr>
       <tr id="g2DayPhone" class="row-contacts contacts-guardiansOld contacts-guardian2">
         <td class="bold">Day Phone</td>
         <td>
-          ~([01]guardian2dayphone)
+          ~([Students]guardian2dayphone)
            Ext.
-          ~([01]guardian2dayphoneext)
+          ~([Students]guardian2dayphoneext)
         </td>
       </tr>
       <tr id="tremerg_contact_1" class="row-contacts contacts-ECOld contacts-EC1Old">
         <td class="bold">Contact's Name</td>
-        <td>~([01]emerg_contact_1)</td>
+        <td>~([Students]emerg_contact_1)</td>
       </tr>
       <tr id="tremerg_phone_1" class="row-contacts contacts-ECOld contacts-EC1Old">
         <td class="bold">Contact's Phone</td>
-        <td>~([01]emerg_phone_1)</td>
+        <td>~([Students]emerg_phone_1)</td>
       </tr>
       <tr id="tremerg_1_rel" class="row-contacts contacts-ECOld contacts-EC1Old">
         <td class="bold">Relation to Student</td>
-        <td>~([01]emerg_1_rel)
+        <td>~([Students]emerg_1_rel)
         </td>
       </tr>
      <tr id="tremerg_contact_2" class="row-contacts contacts-ECOld contacts-EC2Old">
          <td class="bold">Contact's Name</td>
-         <td>~([01]emerg_contact_2)</td>
+         <td>~([Students]emerg_contact_2)</td>
      </tr>
         <tr id="tremerg_phone_2" class="row-contacts contacts-ECOld contacts-EC2Old">
             <td class="bold">Contact's Phone</td>
-            <td>~([01]emerg_phone_2)</td>
+            <td>~([Students]emerg_phone_2)</td>
         </tr>
       <tr id="tremerg_2_rel" class="row-contacts contacts-ECOld contacts-EC2Old">
         <td class="bold">Relation to Student</td>
-        <td>~([01]emerg_2_rel)
+        <td>~([Students]emerg_2_rel)
         </td>
       </tr>
       <tr id="trguardianemail" class="row-contacts contacts-guardiansOld">
         <td class="bold">~[text:psx.html.admin_students.generaldemographics.guardian_email]</td>
-        <td>~([01]guardianemail)
+        <td>~([Students]guardianemail)
         </td>
       </tr>
       <tr id="trfather" class="row-contacts contacts-parentsOld contacts-fatherOld">
         <td class="bold">~[text:psx.html.admin_students.generaldemographics.father,param:(last,first)]</td>
-        <td>~([01]father)
+        <td>~([Students]father)
         </td>
       </tr>
       <tr id="trfatherdayphone" class="row-contacts contacts-parentsOld contacts-fatherOld">
         <td class="bold">~[text:psx.html.admin_students.generaldemographics.fathers_day_phone]</td>
-        <td>~([01]fatherdayphone)
+        <td>~([Students]fatherdayphone)
         </td>
       </tr>
       <tr id="trfather_Employer" class="row-contacts contacts-parentsOld contacts-fatherOld">
         <td class="bold">~[text:psx.html.admin_students.generaldemographics.fathers_employer]</td>
-        <td>~([01]father_Employer)
+        <td>~([Students]father_Employer)
         </td>
       </tr>
       <tr id="trfather_home_phone" class="row-contacts contacts-parentsOld contacts-fatherOld">
         <td class="bold">~[text:psx.html.admin_students.generaldemographics.fathers_home_phone]</td>
-        <td>~([01]father_home_phone)
+        <td>~([Students]father_home_phone)
         </td>
       </tr>
       <tr id="trmother" class="row-contacts contacts-parentsOld contacts-motherOld">
         <td class="bold">~[text:psx.html.admin_students.generaldemographics.mother,param:(last,first)]</td>
-        <td>~([01]mother)
+        <td>~([Students]mother)
         </td>
       </tr>
       <tr id="trmotherdayphone" class="row-contacts contacts-parentsOld contacts-motherOld">
         <td class="bold">~[text:psx.html.admin_students.generaldemographics.mothers_day_phone]</td>
-        <td>~([01]motherdayphone)
+        <td>~([Students]motherdayphone)
         </td>
       </tr>
       <tr id="trMother_Employer" class="row-contacts contacts-parentsOld contacts-motherOld">
         <td class="bold">~[text:psx.html.admin_students.generaldemographics.mothers_employer]</td>
-        <td>~([01]Mother_Employer)
+        <td>~([Students]Mother_Employer)
         </td>
       </tr>
       <tr id="trMother_home_phone" class="row-contacts contacts-parentsOld contacts-motherOld">
         <td class="bold">~[text:psx.html.admin_students.generaldemographics.mothers_home_phone]</td>
-        <td>~([01]Mother_home_phone)
+        <td>~([Students]Mother_home_phone)
         </td>
       </tr>
     <!--  Custom Fields: 'Ethnicity & Race Info' -->
