@@ -6,8 +6,6 @@ $j(document).ready(function() {
   $j( "#LPS-GDCustomhiddentable" ).remove(); /* Remove hidden LPSGDC templates */
   
   window.setTimeout(addLegalandDOB, 3000);
-
-  // decodeDemoVals(); /* Translate DOE Codes - 'fieldName_DOE###' (Moved to seperate function for readability) (DEPRECATED: ruined form submissions) */
   
 });
 function addLegalandDOB() {
@@ -160,7 +158,7 @@ function LPSGDRestyle() {
 /* Add collapsible headers + activate navBar */
 function makeCollapsible() {
 
-  const createCollapseHeader = (title) => { return '<h2 pss-expand-collapse-item="Section" class="collapsed" title="Click here to expand or collapse">' + title + ' <small>(Click to Expand/Collapse)</small></h2>' };
+  const createCollapseHeader = (title) => { return '<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">' + title + ' <small>(Click to Expand/Collapse)</small></h2>' };
 
   $j("#StudentSection").before( createCollapseHeader("Student Information") );
   $j("#OtherSection").before( createCollapseHeader("Other") );
@@ -174,12 +172,11 @@ function makeCollapsible() {
   $j("form div.row").parent().css("margin", "0 11px 0 11px");
   $j("form div.row").css("margin", "0");
 
-  /* Sections start collapsed */
-  // $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
-  //   hideCollapseClasses($j(this));
-  //   hideCollapseText($j(this));
-  //   hideCollapseTarget($j(this));
-  // });
+  $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
+    hideCollapseClasses($j(this));
+    hideCollapseText($j(this));
+    hideCollapseTarget($j(this));
+  });
 
   //disable legal section
   $j(".psTextWidget, .legalNameSuffix, #legalGenderSelect").attr('disabled', 'disabled');
