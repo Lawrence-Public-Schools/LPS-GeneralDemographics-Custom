@@ -176,7 +176,7 @@ function makeCollapsible() {
   });
 
   //disable legal section
-  $j(".psTextWidget, .legalNameSuffix, #legalGenderSelect").attr('disabled', 'disabled');
+  //$j(".psTextWidget, .legalNameSuffix, #legalGenderSelect").attr('disabled', 'disabled');
 
   /* Navbar Event Listeners */
 
