@@ -184,7 +184,7 @@ function makeCollapsible() {
   //   hideCollapseTarget($j(this));
   // });
   //disable legal section
-  $j(".psTextWidget, .legalNameSuffix, #legalGenderSelect").attr('disabled', 'disabled');
+  //$j(".psTextWidget, .legalNameSuffix, #legalGenderSelect").attr('disabled', 'disabled');
   /* Navbar Event Listeners */
 
   $j(".sectLink").on('click', function(event) {
