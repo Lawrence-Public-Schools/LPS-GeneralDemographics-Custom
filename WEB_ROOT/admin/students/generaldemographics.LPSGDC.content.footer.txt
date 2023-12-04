@@ -440,6 +440,7 @@
     <div data-ng-controller="contactStudentController">
       <p class="feedback-info" data-ng-if="!context.contacts.length" >This student does not have any associated contacts.</p>
     <p><i>(To add/edit; visit <u>Contacts</u> on the Menu to the left, or click on the name of the contact you wish to edit.)</i></p>
+	<p style="Color:red; font-size:14px; display:inline"><strong>If you are updating a Primary Contacts PHONE NUMBER or ADDRESS, you also NEED to updated the students "Home Phone" and/or "Home"/"Mailing" Address above.</strong></p>
       <!--============================================|STUDENT_CONTACTS_TABLE|============================================-->
       <table id="studentContactsTable" class="grid" data-ng-if="context.contacts.length" >
         <colgroup>
