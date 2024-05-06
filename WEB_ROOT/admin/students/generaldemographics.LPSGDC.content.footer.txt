@@ -386,10 +386,12 @@
     <div data-ng-controller="contactStudentController">
       <p class="feedback-info" data-ng-if="!context.contacts.length" >This student does not have any associated contacts.</p>
     <p><i>(To add/edit; visit <u>Contacts</u> on the Menu to the left, or click on the name of the contact you wish to edit.)</i></p>
+	<p style="Color:red; font-size:14px; display:inline"><strong>If you are updating a Primary Contacts PHONE NUMBER or ADDRESS, you also NEED to updated the students "Home Phone" and/or "Home"/"Mailing" Address above.</strong></p>
       <!--============================================|STUDENT_CONTACTS_TABLE|============================================-->
       <table id="studentContactsTable" class="grid" data-ng-if="context.contacts.length" >
         <colgroup>
      <!-- <col style="width: auto"> - Removed -->
+          <col style="width: auto">
           <col style="width: auto">
           <col style="width: auto">
           <col style="width: auto">
@@ -416,6 +418,7 @@
           <th>~[text:psx.html.admin_students.unlimitedcontacts.school_pickup]</th>
           <th>~[text:psx.html.admin_students.unlimitedcontacts.emergency_contact]</th>
           <th>~[text:psx.html.admin_students.unlimitedcontacts.original_contact_type]</th>
+          <th>~[text:psx.html.contacts.language.language]</th>
           <th>~[text:psx.html.admin_students.unlimitedcontacts.start_date]</th>
           <th>~[text:psx.html.admin_students.unlimitedcontacts.end_date]</th>
           <th>~[text:psx.html.admin_students.unlimitedcontacts.data_access]</th>
@@ -522,6 +525,10 @@
           <td>
             <span id="contact-originalcontacttype-{{$index}}" data-ng-bind="contact.contactStudents[0].originalContactType.value"
                   name="relationship-originalcontacttype-display-{{$index}}" ></span>
+          </td>
+          <!-- "Language : What is the Contact's main language? -->
+          <td>
+            <span id="contact-language-{{$index}}" data-ng-bind="contact.language.languageCode"></span>
           </td>
           <!-- "Start Date" : Field is empty for most Contacts, presumably for temp Contacts -->
           <td>

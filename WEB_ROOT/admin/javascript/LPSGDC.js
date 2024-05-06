@@ -62,6 +62,8 @@ function LPSGDRestyle() {
   $j( "form td:contains('Mailing Address -')" ).parent().addClass( "row-student student-mail" ).removeClass("student-address"); /* Gets class cause it has "Home address" in the field */
   $j( "form td:contains('~[text:psx.html.admin_students.generaldemographics.mailing_address_]')" ).parent().addClass( "row-student student-mail" );
   stdFieldRow("#mstreet, #mapt, #mcity, #mstate, #mzip, #mgeocode, #validateMailingAddress", "row-student student-mail");
+  /*adds red text to mailing address*/
+  $j('tr.headerrow.row-student.student-mail td').append(" <b>If Foster/Homeless/Variance, don’t touch the address and reach out to FRC.</b>").children('b').css('color', 'red')
   /* -----------Phone/Email----------- */
   stdFieldRow("#fieldHomePhone", "row-student student-contactInfo");
 
@@ -143,9 +145,11 @@ function LPSGDRestyle() {
   $j("tr.contacts-ECOld:first").before('<tr class="headerrow row-contacts contacts-ECOld"> <td colspan="2" class="bold" width="100%">Emergency  Contacts - Old (will be phased out)</td> </tr>');
   $j("form tr.contacts-EC1Old:first").before('<tr class="headerrow row-contacts ontacts-ECOld contacts-EC1Old"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Emergency Contact 1 - Old</td> </tr>');
   $j("form tr.contacts-EC2Old:first").before('<tr class="headerrow row-contacts ontacts-ECOld contacts-EC2Old"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Emergency Contact 2 - Old</td> </tr>');
-  $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');
-  $j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Father - Old</td> </tr>');
-  $j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Mother - Old</td> </tr>');
+  /* $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');*/
+  /*$j("form tr.contacts-fatherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-fatherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Father - Old</td> </tr>'); */
+  /*$j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Mother - Old</td> </tr>'); */
+/*moving the ethicity field*/
+$j("#primaryethnicity").parent().parent().insertAfter($j("#EthRaceSection tr:nth-child(4)"))
 
   /* Remove Original Table */
   $j("#StudentSection").unwrap().unwrap();
