@@ -4,11 +4,8 @@ $j(document).ready(function() {
   if ( $j(".collapseHeader").length < 1 ) { makeCollapsible() }
 
   $j( "#LPS-GDCustomhiddentable" ).remove(); /* Remove hidden LPSGDC templates */
-  $j( "input" ).val(function( index, value ) { return value.trim(); }); /* Remove extra whitespace from field values */
   
   window.setTimeout(addLegalandDOB, 3000);
-
-  // decodeDemoVals(); /* Translate DOE Codes - 'fieldName_DOE###' (Moved to seperate function for readability) (DEPRECATED: ruined form submissions) */
   
 });
 function addLegalandDOB() {
@@ -33,7 +30,7 @@ function addLPSGDFields() {
       certain features.
   ============================================================================*/
   $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-student") ); /* Student          */
-  /*$trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-contacts") ); Contacts - Old   */
+  $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-contacts") );/* Contacts - Old   */
   $trHomePhone.after( $j("#demoContactsTable") );                      /* Contacts         */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-ethRace") );  /* Ethnicity & Race */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-office") );   /* Adminstration    */
@@ -71,11 +68,11 @@ function LPSGDRestyle() {
   stdFieldRow("#fieldHomePhone", "row-student student-contactInfo");
 
   /* Contacts */
-  $j( "#father" ).parent().addClass("row-contacts contacts-parentsOld contacts-fatherOld");
-  stdFieldRow("input[id^='fieldFather']", "row-contacts contacts-parentsOld contacts-fatherOld");
-  $j( "#mother" ).parent().addClass("row-contacts contacts-parentsOld contacts-motherOld");
-  stdFieldRow("input[id^='fieldMother']", "row-contacts contacts-parentsOld contacts-motherOld");
-  stdFieldRow("#fieldGuardianEmail", "row-contacts contacts-guardiansOld").insertAfter("#trContactsLivesWith");
+  $j( "#father").parent().remove();
+  $j( "input[id^='fieldFather']").parent().parent().remove();
+  $j( "#mother").parent().remove();
+  $j( "input[id^='fieldMother']").parent().parent().remove();
+  $j( "#fieldGuardianEmail").parent().parent().remove();
   
 
   /* Ethnicity & Race */
@@ -103,8 +100,6 @@ function LPSGDRestyle() {
   /* Subsections */
   $j("form tr.student-contactInfo:first").before('<tr class="headerrow row-student student-contactInfo"><td colspan="2" class="bold" width="100%">Phone & Email</td></tr>');
   $j("form tr.student-general:first").before('<tr class="headerrow row-student student-general" style="width:100%"><td colspan="2" class="bold" width="100%">Personal</td></tr>');
-//me
-  $j("tr.contacts-parentsOld").addClass("hide")
   /* Wrap Other Section */
   $j("form tr.row-other").wrapAll('<div id="OtherSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("#OtherSection").insertAfter( $j("#StudentSection") );
@@ -113,12 +108,9 @@ function LPSGDRestyle() {
 
   /* Wrap Legal Section */
    $j("form tr.row-legal").wrapAll('<div id="LegalSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  
-  
-  
-  /* Subsections */
-  //$j("form tr.student-mail:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="100%">Legal Information</td></tr>');
   $j("#LegalSection").insertAfter( $j("#StudentSection") );
+  /* Subsections */
+  $j("form tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="100%">Information</td></tr>');
 
   /* Wrap Grad Section */
   $j("form tr.row-grad").wrapAll('<div id="GradSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
@@ -147,10 +139,10 @@ function LPSGDRestyle() {
   $j("form tr.row-contacts").wrapAll('<div id="ContactsSection" class=""><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
   $j("#ContactsSection").insertAfter( $j("form div#StudentSection") );
   /* Subsections */
-  /*$j("form tr.contacts-guardiansOld:first").before('<tr class="headerrow row-contacts contacts-guardiansOld"> <td colspan="2" class="bold" width="100%">Guardians - Old (will be phased out)</td> </tr>');*/ 
+  $j("form tr.contacts-guardiansOld:first").before('<tr class="headerrow row-contacts contacts-guardiansOld"> <td colspan="2" class="bold" width="100%">Guardians - Old (will be phased out)</td> </tr>'); 
   $j("form tr.contacts-guardian1:first").before('<tr class="headerrow row-contacts contacts-guardiansOld contacts-guardian1"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Guardian 1 - Old</td> </tr>');
   $j("form tr.contacts-guardian2:first").before('<tr class="headerrow row-contacts contacts-guardiansOld contacts-guardian2"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Guardian 2 - Old</td> </tr>');
-  /*$j("tr.contacts-ECOld:first").before('<tr class="headerrow row-contacts contacts-ECOld"> <td colspan="2" class="bold" width="100%">Emergency  Contacts - Old (will be phased out)</td> </tr>'); */
+  $j("tr.contacts-ECOld:first").before('<tr class="headerrow row-contacts contacts-ECOld"> <td colspan="2" class="bold" width="100%">Emergency  Contacts - Old (will be phased out)</td> </tr>');
   $j("form tr.contacts-EC1Old:first").before('<tr class="headerrow row-contacts ontacts-ECOld contacts-EC1Old"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Emergency Contact 1 - Old</td> </tr>');
   $j("form tr.contacts-EC2Old:first").before('<tr class="headerrow row-contacts ontacts-ECOld contacts-EC2Old"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Emergency Contact 2 - Old</td> </tr>');
   /* $j("form tr.contacts-parentsOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld"> <td colspan="2" class="bold" width="100%">Parents - Old (will be phased out)</td> </tr>');*/
@@ -158,6 +150,7 @@ function LPSGDRestyle() {
   /*$j("form tr.contacts-motherOld:first").before('<tr class="headerrow row-contacts contacts-parentsOld contacts-motherOld"> <td colspan="2" class="bold" style="background-color:rgb(183, 201, 224)">Mother - Old</td> </tr>'); */
 /*moving the ethicity field*/
 $j("#primaryethnicity").parent().parent().insertAfter($j("#EthRaceSection tr:nth-child(4)"))
+
   /* Remove Original Table */
   $j("#StudentSection").unwrap().unwrap();
   $j("#StudentSection").prev("colgroup").remove();
@@ -166,11 +159,11 @@ $j("#primaryethnicity").parent().parent().insertAfter($j("#EthRaceSection tr:nth
 /* Add collapsible headers + activate navBar */
 function makeCollapsible() {
 
-  const createCollapseHeader = (title) => { return '<h2 pss-expand-collapse-item="Section" class="collapsed" title="Click here to expand or collapse">' + title + ' <small>(Click to Expand/Collapse)</small></h2>' };
+  const createCollapseHeader = (title) => { return '<h2 class="toggle expanded collapseHeader" title="Click here to expand or collapse">' + title + ' <small>(Click to Expand/Collapse)</small></h2>' };
 
   $j("#StudentSection").before( createCollapseHeader("Student Information") );
-  $j("#LegalSection").before( createCollapseHeader("Legal Information") );
   $j("#OtherSection").before( createCollapseHeader("Other") );
+  $j("#LegalSection").before( createCollapseHeader("Legal Information") );
   $j("#GradSection").before( createCollapseHeader("Graduation Information") );
   $j("#OfficeSection").before( createCollapseHeader("Administrative Information") );
   $j("#EthRaceSection").before( createCollapseHeader("Ethnicity/Race Information") );
@@ -180,14 +173,15 @@ function makeCollapsible() {
   $j("form div.row").parent().css("margin", "0 11px 0 11px");
   $j("form div.row").css("margin", "0");
 
-  /* Sections start collapsed */
-  // $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
-  //   hideCollapseClasses($j(this));
-  //   hideCollapseText($j(this));
-  //   hideCollapseTarget($j(this));
-  // });
+  $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
+    hideCollapseClasses($j(this));
+    hideCollapseText($j(this));
+    hideCollapseTarget($j(this));
+  });
+
   //disable legal section
   //$j(".psTextWidget, .legalNameSuffix, #legalGenderSelect").attr('disabled', 'disabled');
+
   /* Navbar Event Listeners */
 
   $j(".sectLink").on('click', function(event) {
@@ -241,304 +235,3 @@ function makeCollapsible() {
     }
   })
 }
-
-
-/* Decode DOE fields + fields w/ ambiguous values */
-// function decodeDemoVals() {
-//   var $enrollmentStatus_012 = $j("#fieldEnrollmentStatus");
-//   var $firstYearEL_021 = $j("#fieldFirstYearEL");
-//   var $immigrantStatus_022 = $j("#fieldImmigrantStatus");
-//   var $isEL_025 = $j("#fieldIsEL");
-//   var $ELStatus_026 = $j("#fieldELStatus");
-//   var $militaryStat_029 = $j("#fieldMilitaryStatus");
-//   var $gradPlan_033 = $j("#fieldGradPlan");
-//   var $coreCompletion_037 = $j("#fieldCoreCompletion");
-//   var $504Plan_039 = $j("#field504Plan");
-
-//   switch( $enrollmentStatus_012.val() ) {
-//     case '01':
-//       $enrollmentStatus_012.val("Enrolled");
-//       break;
-//     case '04':
-//       $enrollmentStatus_012.val("Graduate with Competency Determination");
-//       break;
-//     case '05':
-//       $enrollmentStatus_012.val("Expelled");
-//       break;
-//     case '06':
-//       $enrollmentStatus_012.val("Deceased");
-//       break;
-//     case '09':
-//       $enrollmentStatus_012.val("Reached max age, did not graduate or receive a Certificate of attainment");
-//       break;
-//     case '10':
-//       $enrollmentStatus_012.val("Certificate of Attainment");
-//       break;
-//     case '11':
-//       $enrollmentStatus_012.val("11 Completed grade 12 and district-approved program. (District does not offer a Certificate of Attainment)");
-//       break;
-//     case '20':
-//       $enrollmentStatus_012.val("Transferred — In state public");
-//       break;
-//     case '21':
-//       $enrollmentStatus_012.val("Transferred — In state private");
-//       break;
-//     case '22':
-//       $enrollmentStatus_012.val("Transferred — Out-of-State (public or private)");
-//       break;
-//     case '23':
-//       $enrollmentStatus_012.val("Transferred — Home-school");
-//       break;
-//     case '24':
-//       $enrollmentStatus_012.val("Transferred — Adult diploma program, leading to MA diploma");
-//       break;
-//     case '30':
-//       $enrollmentStatus_012.val("Dropout — Enrolled in a non-diploma granting adult education or HiSET program");
-//       break;
-//     case '31':
-//       $enrollmentStatus_012.val("Dropout — Entered Job Corps");
-//       break;
-//     case '32':
-//       $enrollmentStatus_012.val("Dropout — Entered the military");
-//       break;
-//     case '33':
-//       $enrollmentStatus_012.val("Dropout — Incarcerated, district no longer providing educational services");
-//       break;
-//     case '34':
-//       $enrollmentStatus_012.val("Dropout — Left due to employment");
-//       break;
-//     case '35':
-//       $enrollmentStatus_012.val("Dropout — Confirmed Dropout, plans unknown");
-//       break;
-//     case '36':
-//       $enrollmentStatus_012.val("Dropout — and/or student status/location unknown");
-//       break;
-//     case '40':
-//       $enrollmentStatus_012.val("Not enrolled but receiving special education services only");
-//       break;
-//     case '41':
-//       $enrollmentStatus_012.val("Transferred — no longer receiving special education services only");
-//       break;
-//     default:
-//       $enrollmentStatus_012.val("No value found");
-//       $enrollmentStatus_012.addClass("noValue");
-//       break;
-//   }
-//   switch( $firstYearEL_021.val() ) {
-//     case '00':
-//       $firstYearEL_021.val("Does not apply");
-//       break;
-//     case '01':
-//       $firstYearEL_021.val("Student in first year of U.S. Schooling");
-//       break;
-//     case '02':
-//       $firstYearEL_021.val("Student not in first year of U.S. Schooling");
-//       break;
-//     default:
-//       $firstYearEL_021.val("No value found");
-//       $firstYearEL_021.addClass("noValue");
-//       break;
-//   }
-//   switch( $immigrantStatus_022.val() ) {
-//     case '00':
-//       $immigrantStatus_022.val("Student is not an immigrant student");
-//       break;
-//     case '01':
-//       $immigrantStatus_022.val("Student is an immigrant student");
-//       break;
-//     default:
-//       $immigrantStatus_022.val("No value found");
-//       $immigrantStatus_022.addClass("noValue");
-//       break;
-//   }
-//   switch( $isEL_025.val() ) {
-//     case '00':
-//       $isEL_025.val("Student is not an English Learner");
-//       break;
-//     case '01':
-//       $isEL_025.val("Student is an English Learner");
-//       break;
-//     default:
-//       $isEL_025.val("No value found");
-//       $isEL_025.addClass("noValue");
-//       break;
-//   }
-//   switch( $ELStatus_026.val() ) {
-//     case '00':
-//       $ELStatus_026.val("Not Enrolled in EL Program");
-//       break;
-//     case '01':
-//       $ELStatus_026.val("Sheltered English Immersion");
-//       break;
-//     case '02':
-//       $ELStatus_026.val("Dual Language Education");
-//       break;
-//     case '03':
-//       $ELStatus_026.val("Other Bilingual Program");
-//       break;
-//     case '04':
-//       $ELStatus_026.val("Consented to opt out of all ELE programs offered in the district");
-//       break;
-//     case '05':
-//       $ELStatus_026.val("Transitional Bilingual Education");
-//       break;
-//     default:
-
-//       $ELStatus_026.val("No value found");
-//       $ELStatus_026.addClass("noValue");
-//       break;
-//   }
-//   switch( $militaryStat_029.val() ) {
-//     case '00':
-//       $militaryStat_029.val("Not a member of a military family");
-//       break;
-//     case '01':
-//       $militaryStat_029.val("Yes, child of active duty member");
-//       break;
-//     case '02':
-//       $militaryStat_029.val("Yes, child of member who was medically discharged or retired in the last year");
-//       break;
-//     case '03':
-//       $militaryStat_029.val("Yes, child of member who perished in the line of duty in the last year");
-//       break;
-//     default:
-//       $militaryStat_029.val("No value found");
-//       $militaryStat_029.addClass("noValue");
-//       break;
-//   }
-//   switch( $gradPlan_033.val() ) {
-//     case '01':
-//       $gradPlan_033.val("Four-Year Public College");
-//       break;
-//     case '02':
-//       $gradPlan_033.val("Two-Year Public College");
-//       break;
-//     case '03':
-//       $gradPlan_033.val("Four-Year Private College");
-//       break;
-//     case '04':
-//       $gradPlan_033.val("Two-Year Private College");
-//       break;
-//     case '05':
-//       $gradPlan_033.val("Other Post Secondary (Trade School)");
-//       break;
-//     case '06':
-//       $gradPlan_033.val("Work");
-//       break;
-//     case '07':
-//       $gradPlan_033.val("Military");
-//       break;
-//     case '08':
-//       $gradPlan_033.val("Other (e.g., travel, family");
-//       break;
-//     case '09':
-//       $gradPlan_033.val("Plans Unknown");
-//       break;
-//     case '10':
-//       $gradPlan_033.val("Registered Apprenticeship");
-//       break;
-//     case '500':
-//       $gradPlan_033.val("Post-Graduate Plans does not apply to this student at this time");
-//       break;
-//     default:
-//       $gradPlan_033.val("No value found");
-//       $gradPlan_033.addClass("noValue");
-//       break;
-//   }
-//   switch( $coreCompletion_037.val() ) {
-//     case '00':
-//       $coreCompletion_037.val("Student is not a graduate");
-//       break;
-//     case '01':
-//       $coreCompletion_037.val("Student graduated and successfully completed the Massachusetts Core Curriculum");
-//       break;
-//     case '02':
-//       $coreCompletion_037.val("Student graduated and did not successfully complete the Massachusetts Core Curriculum");
-//       break;
-//     default:
-//       $coreCompletion_037.val("No value found");
-//       $coreCompletion_037.addClass("noValue");
-//       break;
-//   }
-//   switch( $504Plan_039.val() ) {
-//     case '00':
-//       $504Plan_039.val("Has not been on a 504 plan at all this school year");
-//       break;
-//     case '01':
-//       $504Plan_039.val("Currently on a 504 plan");
-//       break;
-//     case '02':
-//       $504Plan_039.val("Student is not currently on a 504 plan, but was earlier this school year");
-//       break;
-//     default:
-//       $504Plan_039.val("No value found");
-//       $504Plan_039.addClass("noValue");
-//       break;
-//   }
-
-//   /* Decode ambiguous non-DOE values */
-//   var $excludeState = $j("#fieldExcludeState");
-//   var $includeSIMS = $j("#fieldIncludeSIMS");
-//   var $includeSASID = $j("#fieldIncludeSASID");
-//   var $entryGrade = $j("#fieldEntryGrade");
-//   var $title1NCLB = $j("#fieldNCLB");
-
-//   switch( $excludeState.val() ) {
-//     case 'False':
-//       $excludeState.val("No, do not exclude from state reporting");
-//       break;
-//     case 'True':
-//       $excludeState.val("Yes, exclude from state reporting");
-//       break;
-//     default:
-//       $excludeState.val("No value found");
-//       $excludeState.addClass("noValue");
-//       break;
-//   }
-//   switch( $includeSIMS.val() ) {
-//     case '0':
-//       $includeSIMS.val("No, do not include in SIMS report");
-//       break;
-//     case '1':
-//       $includeSIMS.val("Yes, include in SIMS report");
-//       break;
-//     default:
-//       $includeSIMS.val("No value found");
-//       $includeSIMS.addClass("noValue");
-//       break;
-//   }
-//   switch( $includeSASID.val() ) {
-//     case '0':
-//       $includeSASID.val("No, do not include in SASID report");
-//       break;
-//     case '1':
-//       $includeSASID.val("Yes, include in SASID report");
-//       break;
-//     default:
-//       $includeSASID.val("No value found");
-//       $includeSASID.addClass("noValue");
-//       break;
-//   }
-//   switch( $entryGrade.val() ) {
-//     case '0':
-//       $entryGrade.val("K");
-//       break;
-//     case '-2':
-//       $entryGrade.val("PK");
-//       break;
-//     default:
-//       $entryGrade.val("No value found");
-//       $entryGrade.addClass("noValue");
-//   }
-//   switch( $title1NCLB.val() ) {
-//     case '00':
-//       $title1NCLB.val("Does not apply")
-//       break;
-//     case '01':
-//       $title1NCLB.val("Student transferred from underperforming school")
-//       break;
-//     default:
-//       $title1NCLB.val("No value found")
-//       $entryGrade.addClass("noValue");
-//   }
-// }
