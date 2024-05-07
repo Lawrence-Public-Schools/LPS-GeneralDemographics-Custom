@@ -172,12 +172,12 @@ function makeCollapsible() {
   $j("#demoNavBar").css("display", "inline-flex");
   $j("form div.row").parent().css("margin", "0 11px 0 11px");
   $j("form div.row").css("margin", "0");
-
-  $j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
-    hideCollapseClasses($j(this));
-    hideCollapseText($j(this));
-    hideCollapseTarget($j(this));
-  });
+  /* Sections start collapsed */
+  //$j('form > div.box-round > table.linkDescList > tbody > h2').each(function() {
+  //  hideCollapseClasses($j(this));
+  //  hideCollapseText($j(this));
+  //  hideCollapseTarget($j(this));
+  //});
 
   //disable legal section
   //$j(".psTextWidget, .legalNameSuffix, #legalGenderSelect").attr('disabled', 'disabled');
