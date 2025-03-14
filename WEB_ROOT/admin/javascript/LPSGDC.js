@@ -45,7 +45,6 @@ function addLPSGDFields() {
 
 /* Add LPS classes to default fields & wrap class groups in section containers */
 function LPSGDRestyle() {
-
   const stdFieldRow = (rowSelectors, rowClassNames) => { return $j(rowSelectors).parent().parent().addClass(rowClassNames) };
 
   /* Student
@@ -107,8 +106,9 @@ function LPSGDRestyle() {
   $j("form tr.row-other:first").before('<tr class="headerrow row-other"><td colspan="2" class="bold" width="100%">Information</td></tr>');
 
   /* Wrap Legal Section */
-   $j("form tr.row-legal").wrapAll('<div id="LegalSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
-  $j("#LegalSection").insertAfter( $j("#StudentSection") );
+  /* Move only the <tr> elements of the Legal Section below the Age row */
+  $j("tr.row-legal").insertAfter($j("#studentAge").parent());
+
   /* Subsections */
   $j("form tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="100%">Information</td></tr>');
 
@@ -235,3 +235,4 @@ function makeCollapsible() {
     }
   })
 }
+
