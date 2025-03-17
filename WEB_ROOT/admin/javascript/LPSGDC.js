@@ -106,11 +106,18 @@ function LPSGDRestyle() {
   $j("form tr.row-other:first").before('<tr class="headerrow row-other"><td colspan="2" class="bold" width="100%">Information</td></tr>');
 
   /* Wrap Legal Section */
-  /* Move only the <tr> elements of the Legal Section below the Age row */
+  //! Move only the <tr> elements of the Legal Section below the Age row */
   $j("tr.row-legal").insertAfter($j("#studentAge").parent());
 
   /* Subsections */
-  $j("form tr.row-legal:first").before('<tr class="headerrow row-legal"><td colspan="2" class="bold" width="100%">Information</td></tr>');
+  // * Got this to work, need to make prettier
+  $j("form tr.row-legal:first").before(`
+    <tr class="headerrow row-legal">
+      <td colspan="2" class="bold" width="100%">
+        Information <span style="color: red;">(Sent to DESE for State Reporting if filled in)</span>
+      </td>
+    </tr>
+  `);
 
   /* Wrap Grad Section */
   $j("form tr.row-grad").wrapAll('<div id="GradSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
