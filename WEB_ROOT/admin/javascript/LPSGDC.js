@@ -12,7 +12,7 @@ function addLegalandDOB() {
   $legalFields = $j("#legalLastName, #legalGenderSelect").parent().parent().addClass("row-legal");
   $legalFields.insertAfter("#trLegal_Gender");
   $j("#trLegal_Gender, #trLegal_FullName").remove();
-
+  
 }
 /* Insert custom fields & comment box into Demographics page */
 function addLPSGDFields() {
@@ -21,15 +21,15 @@ function addLPSGDFields() {
   const $trGradYear = $j("#fieldGradYear").parent().parent();
   const $trStuNum = $j("#fieldStuNum").parent().parent();
   //const $trMomHomePhone = $j("#fieldMotherHomePhone").parent().parent();
-
+  
   /*================NOTES:======================================================
-   -Sections of entirely custom fields are inserted after MA Race Code, need
+  -Sections of entirely custom fields are inserted after MA Race Code, need
       them in table & don't think original placement matters. Race code
       defaults to bottom, so this should avoid conflicts.
-   -Contacts Table is wrapped in a <div>, copied from Contacts page minus
+      -Contacts Table is wrapped in a <div>, copied from Contacts page minus
       certain features.
-  ============================================================================*/
-  $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-student") ); /* Student          */
+      ============================================================================*/
+      $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-student") ); /* Student          */
   $trHomePhone.after( $j("#LPS-GDCustomhiddentable tr.row-contacts") );/* Contacts - Old   */
   $trHomePhone.after( $j("#demoContactsTable") );                      /* Contacts         */
   $trRaceCode.after( $j("#LPS-GDCustomhiddentable tr.row-ethRace") );  /* Ethnicity & Race */
@@ -39,14 +39,14 @@ function addLPSGDFields() {
   $trStuNum.after( $j("#LPS-GDCustomhiddentable tr.row-other") );      /* Other            */
   $j("form>div.box-round:first-child").after( $j("#demoComments") );   /* Comment Box      */
   $j("#content-main form").before( $j("#demoNavTabs") )                /* Navigation Tabs  */
-    .appendTo( $j("#demoNavTabs") );                                   /*~~~~~~~~~~~~~~~~~~*/
+  .appendTo( $j("#demoNavTabs") );                                   /*~~~~~~~~~~~~~~~~~~*/
   $j("div.pds-app-header-bar-center").append( $j("#demoNavBar") );     /* Navigation Bar   */
 }
 
 /* Add LPS classes to default fields & wrap class groups in section containers */
 function LPSGDRestyle() {
   const stdFieldRow = (rowSelectors, rowClassNames) => { return $j(rowSelectors).parent().parent().addClass(rowClassNames) };
-
+  
   /* Student
   -----------------Name--------------- */
   $trStuName = stdFieldRow("#lastName", "row-student student-general" );
@@ -54,6 +54,14 @@ function LPSGDRestyle() {
   stdFieldRow("#fieldDOB", "row-student student-general" ).insertAfter($trStuName);
   stdFieldRow("#selectGender", "row-student student-general" ).insertAfter($trStuName);
   stdFieldRow("#fieldname_suffix", "row-student student-general" ).insertAfter($trStuName);
+  
+  // Organizes "information" section and legal section
+  $j("tr.row-legal").insertAfter($j("#studentAge").parent());
+  // Header for the legal section
+  $j("form tr.row-legal:first").before(` <tr class="headerrow row-legal"> <td colspan="2" class="bold" width="100%"> Information <span style="color: red; padding: 2px 4px;">(Sent to DESE for State Reporting if filled in)</span> </td> </td> </tr> `); 
+  // Contains the input fields for the legal section
+  stdFieldRow("#legalLastName, #legalGenderSelect", "row-legal"); 
+
   /* ----------Home_Address----------- */
   $j( "form td:contains('Home Address')" ).not("td:contains('Mailing Address')").parent().addClass( "row-student student-address" );
   stdFieldRow("#pstreet, #papt, #pcity, #pstate, #pzip, #pgeocode, #validatePrimaryAddress", "row-student student-address");
@@ -87,8 +95,6 @@ function LPSGDRestyle() {
   /* Graduation */
   stdFieldRow("#fieldGradYear", "row-grad");
 
-  /* Legal : CREATES TEMPORARY SECTION */
-  stdFieldRow("#legalLastName, #legalGenderSelect", "row-legal");
 
   /* Other */
   stdFieldRow("#fieldArea, #primaryethnicity, #fieldGuardianship, #fieldPrevStuId, #fieldSSN, #fieldStuNum", "row-other other-builtIn");
@@ -105,19 +111,6 @@ function LPSGDRestyle() {
   /* Subsections */
   $j("form tr.row-other:first").before('<tr class="headerrow row-other"><td colspan="2" class="bold" width="100%">Information</td></tr>');
 
-  /* Wrap Legal Section */
-  //! Move only the <tr> elements of the Legal Section below the Age row */
-  $j("tr.row-legal").insertAfter($j("#studentAge").parent());
-
-  /* Subsections */
-  // * Got this to work, need to make prettier
-  $j("form tr.row-legal:first").before(`
-    <tr class="headerrow row-legal">
-      <td colspan="2" class="bold" width="100%">
-        Information <span style="color: red;">(Sent to DESE for State Reporting if filled in)</span>
-      </td>
-    </tr>
-  `);
 
   /* Wrap Grad Section */
   $j("form tr.row-grad").wrapAll('<div id="GradSection"><div class="row"><table class="linkDescList" width="100%"><tbody></tbody></table></div></div>');
