@@ -418,7 +418,7 @@
           <th>~[text:psx.html.admin_students.unlimitedcontacts.school_pickup]</th>
           <th>~[text:psx.html.admin_students.unlimitedcontacts.emergency_contact]</th>
           <th>~[text:psx.html.admin_students.unlimitedcontacts.original_contact_type]</th>
-          <th>~[text:psx.html.contacts.language.language]</th>
+          <th>~[text:psx.html.contacts.preferred_language]</th>
           <th>~[text:psx.html.admin_students.unlimitedcontacts.start_date]</th>
           <th>~[text:psx.html.admin_students.unlimitedcontacts.end_date]</th>
           <th>~[text:psx.html.admin_students.unlimitedcontacts.data_access]</th>
